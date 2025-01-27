@@ -1,20 +1,9 @@
 class Coin extends DrawableObject{
-    IMAGES = [
-        'img/8_coin/coin_1.png',
-        'img/8_coin/coin_2.png'
-    ];
+    y = 350;
+    width = 80;
+    height = 80;
 
-
-constructor(){
-    super();
-    this.loadImages(this.IMAGES);
-    this.x = 140;
-    this.y = 300;
-    this.height = 80;
-    this.width = 80;
-}
-
-
-
-
+    constructor(){
+        super().loadImage('img/8_coin/coin_1.png');
+    }
 }

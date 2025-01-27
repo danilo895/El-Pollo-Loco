@@ -7,7 +7,6 @@ class World{
     camera_x = 0;
     lastHit=0;
     statusBar = new StatusBar();
-    coin = new Coin();
     throwableObjects = [];
 
     constructor(canvas, keyboard){
@@ -63,6 +62,7 @@ checkThrowObjects(){
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
         
         this.ctx.translate(-this.camera_x, 0);
 

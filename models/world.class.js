@@ -7,6 +7,7 @@ class World{
     camera_x = 0;
     lastHit=0;
     statusBar = new StatusBar();
+    coin = new Coin();
     throwableObjects = [];
 
     constructor(canvas, keyboard){

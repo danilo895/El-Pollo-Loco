@@ -37,6 +37,4 @@ loadImages(arr){
 }
 
 
-
-
 }

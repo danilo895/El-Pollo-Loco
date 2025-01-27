@@ -37,7 +37,6 @@ class MovableObject extends DrawableObject{
         console.log('energy is now at ', this.energy);
         if(this.energy < 0){
             this.energy = 0;
-            console.log('Game Over');
         }
         else{
             this.lastHit = new Date().getTime();
@@ -47,7 +46,6 @@ class MovableObject extends DrawableObject{
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
-        console.log(timepassed);
         return timepassed < 1;
     }
 

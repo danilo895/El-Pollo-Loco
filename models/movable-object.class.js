@@ -57,6 +57,14 @@ class MovableObject{
     hit(){
         this.energy -= 5;
         console.log('energy is now at ', this.energy);
+        if(this.energy < 0){
+            this.energy = 0;
+            console.log('Game Over');
+        }
+    }
+
+    isDead(){   
+        return this.energy == 0;
     }
 
     loadImages(arr){

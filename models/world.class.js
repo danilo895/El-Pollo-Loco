@@ -5,6 +5,7 @@ class World{
     ctx;
     keyboard;
     camera_x = 0;
+    lastHit = 0;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -24,7 +25,6 @@ class World{
             this.level.enemies.forEach((enemy) =>{
             if( this.character.isColliding(enemy)){
                 this.character.hit();
-                console.log('collision with character', enemy);
             }
             })
         },200);

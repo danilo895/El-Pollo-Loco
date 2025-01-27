@@ -10,6 +10,7 @@ class MovableObject{
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5; // Beschleunigung
+    energy = 100;
 
     applyGravity(){
         setInterval(()=>{
@@ -53,7 +54,10 @@ class MovableObject{
                 (this.y + this.offsetY < mo.y + mo.height + mo.offsetY);
     }
     
-    
+    hit(){
+        this.energy -= 5;
+        console.log('energy is now at ', this.energy);
+    }
 
     loadImages(arr){
         arr.forEach((path) => {

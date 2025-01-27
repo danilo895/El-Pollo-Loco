@@ -46,13 +46,13 @@ class MovableObject{
     }
 
 
-    //Formel zur Kollisionsberechnung
-    isColliding (mo) {
-        return  this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
+    isColliding(mo) {
+        return  (this.x + this.offsetX + this.width > mo.x + mo.offsetX) &&
+                (this.y + this.offsetY + this.height > mo.y + mo.offsetY) &&
+                (this.x + this.offsetX < mo.x + mo.width + mo.offsetX) &&
+                (this.y + this.offsetY < mo.y + mo.height + mo.offsetY);
     }
+    
     
 
     loadImages(arr){

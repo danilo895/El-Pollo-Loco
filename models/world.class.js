@@ -77,6 +77,7 @@ checkCoinCollision() {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.tabascoBottles);
 
 
         

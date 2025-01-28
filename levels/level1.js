@@ -46,4 +46,13 @@ const level1 = new Level(
         new Coin(),
         new Coin()
     ],
+    [
+        new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
+    ],
 ); 

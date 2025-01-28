@@ -39,14 +39,15 @@ checkThrowObjects(){
     }
     }
 
-
 checkCoinCollision() {
     this.level.coins.forEach((coin, index) => {
         if (this.character.isColliding(coin)) {
             this.level.coins.splice(index, 1);
+            this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20); // StatusBar aktualisieren
         }
     });
 }
+
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) =>{

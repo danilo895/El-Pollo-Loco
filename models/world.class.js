@@ -28,6 +28,7 @@ class World{
         setInterval(() => {
             this.checkCollisions();
             this.checkCoinCollision();
+            this.checkBottleCollision();
             this.checkThrowObjects();
         }, 200);
     }
@@ -49,10 +50,21 @@ checkCoinCollision() {
     });
 }
 
+checkBottleCollision() {
+    this.level.tabascoBottles.forEach((bottle, index) => {
+        if (this.character.isColliding(bottle)) {
+            this.level.tabascoBottles.splice(index, 1);
+            this.statusBarBottle.count(this.statusBarBottle.collectedBottles + 1);
+        }
+    });
+}
 
-    checkCollisions(){
-        this.level.enemies.forEach((enemy) =>{
-            if( this.character.isColliding(enemy)){
+
+
+
+checkCollisions(){
+    this.level.enemies.forEach((enemy) =>{
+        if( this.character.isColliding(enemy)){
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }

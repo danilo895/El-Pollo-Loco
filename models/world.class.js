@@ -8,6 +8,7 @@ class World{
     lastHit=0;
     statusBar = new StatusBar();
     statusBarCoin = new StatusBarCoin();
+    statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
 
     constructor(canvas, keyboard){
@@ -69,6 +70,8 @@ checkCoinCollision() {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarBottle);
+        
         this.ctx.translate(this.camera_x, 0);
 
 

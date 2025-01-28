@@ -13,8 +13,8 @@ class Chick extends MovableObject{
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
 
-        this.x = 200 + Math.random() * 700;
-        this.speed = 0.15 + Math.random() * 0.2;
+        this.x = 400 + Math.random() * 700;
+        this.speed = 0.2 + Math.random() * 0.2;
         this.animate();
     }
 

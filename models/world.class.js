@@ -23,12 +23,14 @@ class World{
         this.character.world = this;
     }
 
-    run(){
-        setInterval(()=>{
+    run() {
+        setInterval(() => {
             this.checkCollisions();
+            this.checkCoinCollision();
             this.checkThrowObjects();
         }, 200);
     }
+    
 
 checkThrowObjects(){
     if(this.keyboard.D){
@@ -38,6 +40,14 @@ checkThrowObjects(){
     }
 
 
+checkCoinCollision() {
+    this.level.coins.forEach((coin, index) => {
+        if (this.character.isColliding(coin)) {
+            this.level.coins.splice(index, 1);
+        }
+    });
+}
+
     checkCollisions(){
         this.level.enemies.forEach((enemy) =>{
             if( this.character.isColliding(enemy)){
@@ -46,6 +56,7 @@ checkThrowObjects(){
             }
     })
 };
+
 
     draw(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -65,6 +76,8 @@ checkThrowObjects(){
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
+
+
         
         this.ctx.translate(-this.camera_x, 0);
 

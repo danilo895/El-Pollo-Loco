@@ -65,14 +65,12 @@ checkBottleCollision() {
 checkCollisions() {
     this.level.enemies.forEach((enemy) => {
         if (!this.character.isAboveGround()) { 
-            // Normale Kollisionserkennung nur, wenn Charakter auf dem Boden ist
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
         } 
         else if (this.character.isJumpingOnEnemy(enemy)) { 
-            // Spezielle Kollisionsprüfung während des Sprungs
             console.log('erfolgreiche Kollsion bei Sprung')
         }
     });

@@ -73,16 +73,16 @@ class MovableObject extends DrawableObject{
     }
 
     isJumpingOnEnemy(mo) {
-        let characterBottom = this.y + this.height; // Untere Kante des Charakters
-        let enemyTop = mo.y; // Obere Kante des Gegners
+        let characterBottom = this.y + this.height;
+        let enemyTop = mo.y; 
     
         let horizontalCollision =
-            (this.x + this.offsetX + this.width > mo.x + mo.offsetX) && // Charakter überlappt Gegner von links
-            (this.x + this.offsetX < mo.x + mo.width + mo.offsetX); // Charakter überlappt Gegner von rechts
-    
+            (this.x + this.offsetX + this.width > mo.x + mo.offsetX) &&
+            (this.x + this.offsetX < mo.x + mo.width + mo.offsetX); 
         let verticalCollision = characterBottom >= enemyTop
-    
-        return horizontalCollision && verticalCollision; // Charakter muss nach unten fallen
+        console.log(horizontalCollision, verticalCollision)
+        return horizontalCollision && verticalCollision;
+        
     }
     
     

@@ -29,6 +29,7 @@ class World{
         });
     }
     
+    
 
     run() {
         setInterval(() => {
@@ -76,7 +77,7 @@ checkCollisions() {
         } 
         else if (this.character.isJumpingOnEnemy(enemy)) { 
             console.log('Erfolgreiche Kollision bei Sprung!');
-            enemy.deleteAliveImg();  // Diese Funktion gibt es jetzt in Chicken!
+            enemy.deleteAliveImg();
         }
     });
 }

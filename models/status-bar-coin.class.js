@@ -22,7 +22,6 @@ constructor(){
 
 setPercentage(percentageCoin) {
     this.percentageCoin = percentageCoin;
-    console.log("Aktuelle Coin-Percentage:", this.percentageCoin); // Debugging
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
 }

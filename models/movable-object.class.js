@@ -34,7 +34,6 @@ class MovableObject extends DrawableObject{
     
     hit(){
         this.energy -= 5;
-        console.log('energy is now at ', this.energy);
         if(this.energy < 0){
             this.energy = 0;
         }
@@ -72,4 +71,20 @@ class MovableObject extends DrawableObject{
     jump(){
         this.speedY = 30;
     }
+
+    isJumpingOnEnemy(mo) {
+        let characterBottom = this.y + this.height; // Untere Kante des Charakters
+        let enemyTop = mo.y; // Obere Kante des Gegners
+    
+        let horizontalCollision =
+            (this.x + this.offsetX + this.width > mo.x + mo.offsetX) && // Charakter überlappt Gegner von links
+            (this.x + this.offsetX < mo.x + mo.width + mo.offsetX); // Charakter überlappt Gegner von rechts
+    
+        let verticalCollision = characterBottom >= enemyTop
+    
+        return horizontalCollision && verticalCollision; // Charakter muss nach unten fallen
+    }
+    
+    
+    
 }

@@ -22,7 +22,6 @@ class StatusBarBottle extends DrawableObject{
     
     count(collectedBottles) {
         this.collectedBottles = collectedBottles;
-        console.log("Eingesammelte Flaschen:", this.collectedBottles);
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
 }

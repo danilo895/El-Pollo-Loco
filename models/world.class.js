@@ -9,6 +9,7 @@ class World{
     statusBar = new StatusBar();
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
+    statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
 
     constructor(canvas, keyboard){
@@ -98,6 +99,7 @@ checkCollisions() {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarEndboss);
         
         this.ctx.translate(this.camera_x, 0);
 

@@ -77,7 +77,7 @@ checkCollisions() {
         } 
         else if (this.character.isJumpingOnEnemy(enemy)) { 
             console.log('Erfolgreiche Kollision bei Sprung!');
-            enemy.deleteAliveImg();
+            enemy.replaceWithDeadEnemy(); // Gegner durch totes Bild ersetzen
         }
     });
 }

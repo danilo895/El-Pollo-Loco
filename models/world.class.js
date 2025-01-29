@@ -76,12 +76,13 @@ checkCollisions() {
                 this.statusBar.setPercentage(this.character.energy);
             }
         } 
-        else if (this.character.isJumpingOnEnemy(enemy)) { 
+        else if (this.character.isJumpingOnEnemy(enemy) && !(enemy instanceof BossChicken)) { 
             console.log('Erfolgreiche Kollision bei Sprung!');
             enemy.replaceWithDeadEnemy();
         }
     });
 }
+
 
 
 

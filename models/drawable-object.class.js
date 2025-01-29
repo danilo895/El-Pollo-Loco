@@ -19,7 +19,7 @@ draw(ctx){
 }
 
 drawFrame(ctx){
-    if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof Endboss){
+    if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof BossChicken){
     ctx.beginPath();
     ctx.lineWidth = '4';
     ctx.strokeStyle = 'red';

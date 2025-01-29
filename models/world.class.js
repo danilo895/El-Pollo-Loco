@@ -20,9 +20,15 @@ class World{
         this.run();
     }
 
-    setWorld(){
+    setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach(enemy => {
+            if (typeof enemy.setWorld === 'function') {
+                enemy.setWorld(this);
+            }
+        });
     }
+    
 
     run() {
         setInterval(() => {
@@ -60,8 +66,6 @@ checkBottleCollision() {
 }
 
 
-
-
 checkCollisions() {
     this.level.enemies.forEach((enemy) => {
         if (!this.character.isAboveGround()) { 
@@ -71,11 +75,14 @@ checkCollisions() {
             }
         } 
         else if (this.character.isJumpingOnEnemy(enemy)) { 
-            console.log('erfolgreiche Kollsion bei Sprung');
-            enemy.deleteAliveImg()
+            console.log('Erfolgreiche Kollision bei Sprung!');
+            enemy.deleteAliveImg();  // Diese Funktion gibt es jetzt in Chicken!
         }
     });
 }
+
+
+
 
 
 

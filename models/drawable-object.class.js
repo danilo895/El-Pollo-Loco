@@ -21,7 +21,7 @@ draw(ctx){
 drawFrame(ctx){
     if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof BossChicken || this instanceof ThrowableObject || this instanceof Coin || this instanceof TabascoBottle ){
     ctx.beginPath();
-    ctx.lineWidth = '4';
+    ctx.lineWidth = '1';
     ctx.strokeStyle = 'cyan';
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.stroke();

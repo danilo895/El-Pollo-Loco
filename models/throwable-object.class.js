@@ -45,7 +45,6 @@ class ThrowableObject extends MovableObject {
         clearInterval(this.rotationInterval);
     }
 
-    /** 📍 **Flaschenbewegung & Kollision mit Gegner tracken** */
     trackPosition() {
         let trackInterval = setInterval(() => {
             if (!this.world || !this.world.level || this.world.level.enemies.length === 0) {
@@ -53,27 +52,34 @@ class ThrowableObject extends MovableObject {
                 clearInterval(trackInterval);
                 return;
             }
+    
+            this.world.level.enemies.forEach((enemy, index) => { 
+                console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
 
-            let enemy = this.world.level.enemies[0]; // 🐔 Erster Gegner (Chicken)
-            console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner: x=${enemy.x}, y=${enemy.y}`);
+                if (this.isCollidingWithEnemy(enemy)) {
+                    if (enemy instanceof BossChicken) {
+                        console.log("🔥 Treffer auf BossChicken!");
+                    } else {
+                        console.log(`💥 Treffer! Flasche kollidiert mit ${enemy.constructor.name} an x=${this.x}, y=${this.y}`);
+                        this.stopRotation();
+                        enemy.replaceWithDeadEnemy(); 
+                    }
 
-            if (this.isCollidingWithEnemy(enemy)) {
-                console.log(`💥 Treffer! Flasche kollidiert mit ${enemy.constructor.name} an x=${this.x}, y=${this.y}`);
-                
-                this.stopRotation(); // 🛑 Drehung stoppen
-                enemy.replaceWithDeadEnemy(); // 💀 Gegner entfernen
-                this.removeBottle(); // ❌ Flasche entfernen
-                
-                clearInterval(trackInterval); // ❌ Tracking beenden
-            }
-
-            // ❌ Tracking stoppen, wenn die Flasche außerhalb des Screens ist
+                    this.removeBottle();
+                    clearInterval(trackInterval);
+                }
+                });
+    
             if (this.y > 500 || this.x < 0 || this.x > this.world.canvas.width) {
                 console.log("🛑 Tracking gestoppt: Flasche ist aus dem Bildschirm!");
                 clearInterval(trackInterval);
             }
         }, 20);
     }
+    
+    
+    
+    
 
     /** 🔄 **Rotation im Canvas umsetzen** */
     draw(ctx) {

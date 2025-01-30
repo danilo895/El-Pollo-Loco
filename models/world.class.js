@@ -43,11 +43,15 @@ class World{
     
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this); // ✅ Übergabe von `this` als `world`
+        if (this.keyboard.D && this.statusBarBottle.collectedBottles > 0) { // ✅ Prüft, ob Flaschen vorhanden sind
+            let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this);
             this.throwableObjects.push(bottle);
+            this.statusBarBottle.count(this.statusBarBottle.collectedBottles - 1); // 🔻 Flaschenanzahl reduzieren
+        } else if (this.keyboard.D) {
+            console.log("🚫 Keine Flaschen mehr im Vorrat!"); // ❌ Ausgabe, wenn keine Flaschen vorhanden sind
         }
     }
+    
     
 
 checkCoinCollision() {
@@ -59,11 +63,13 @@ checkCoinCollision() {
     });
 }
 
+
+
 checkBottleCollision() {
     this.level.tabascoBottles.forEach((bottle, index) => {
         if (this.character.isColliding(bottle)) {
             this.level.tabascoBottles.splice(index, 1);
-            this.statusBarBottle.count(this.statusBarBottle.collectedBottles + 1);
+            this.statusBarBottle.count(this.statusBarBottle.collectedBottles + 1); // ✅ Flaschenanzahl erhöhen
         }
     });
 }

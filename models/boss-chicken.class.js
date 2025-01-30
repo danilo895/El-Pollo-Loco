@@ -36,17 +36,32 @@ class BossChicken extends MovableObject {
         'img/4_enemie_boss_chicken/3_attack/G20.png'
     ];
 
+    IMAGES_HURT = [
+        'img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'img/4_enemie_boss_chicken/4_hurt/G23.png'
+    ];
+
+
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACKING);
+        this.loadImages(this.IMAGES_HURT);
         this.x = 2500;
         this.speed = 0.15 + Math.random() * 0.5;
 
         this.animationWaitingBoss(); // Startet die Warteanimation
         this.checkForAttackTrigger(); // Überprüft regelmäßig, ob Angriff starten soll
+
     }
+    animationHurt() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_HURT);
+        }, 150);
+    }
+
 
     setWorld(world) {
         this.world = world;

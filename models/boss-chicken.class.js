@@ -4,6 +4,8 @@ class BossChicken extends MovableObject {
     width = 250;
     offsetX = 0;
     offsetY = 0;
+    waitingAnimationInterval = null; // Speichert das Interval für die Warteanimation
+    attackStarted = false; // Verhindert, dass der Angriff mehrmals gestartet wird
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -39,31 +41,82 @@ class BossChicken extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACKING);
-        this.x = 2000;
+        this.x = 2500;
         this.speed = 0.15 + Math.random() * 0.5;
 
-        this.startAttackCycle(); // Neuer Zyklus für Angriff und Rücklauf starten
+        this.animationWaitingBoss(); // Startet die Warteanimation
+        this.checkForAttackTrigger(); // Überprüft regelmäßig, ob Angriff starten soll
     }
 
     setWorld(world) {
         this.world = world;
     }
 
-    startAttackCycle() {
-        let startX = this.x; // Ursprungsposition merken
-
-        const attackLoop = () => {
-            this.animateAttack(() => {
-                this.moveBackToStart(startX, attackLoop); // Starte den Rückweg, dann wiederhole Angriff
-            });
-        };
-
-        attackLoop(); // Erster Angriff starten
+    /**  Startet die Warteanimation */
+    animationWaitingBoss() {
+        this.waitingAnimationInterval = setInterval(() => {
+            this.playAnimation(this.IMAGES_ALERT);
+        }, 200);
     }
 
+    /**  Prüft regelmäßig, ob der Charakter bei x = 2000 ist */
+    checkForAttackTrigger() {
+        let triggerCheckInterval = setInterval(() => {
+            if (this.world && this.world.character.x >= 2000 && !this.attackStarted) {
+                this.attackStarted = true; // Verhindert mehrfachen Start
+
+                clearInterval(this.waitingAnimationInterval); // Stoppe Warteanimation
+                clearInterval(triggerCheckInterval); // Stoppe weitere Prüfungen
+
+                console.log("🔴 Endboss startet Angriff!");
+                this.startAttackCycle(); // Angriff beginnt
+            }
+        }, 100); // Prüft alle 100ms
+    }
+
+    startAttackCycle() {
+        let startX = 2500; // 🔥 Ursprüngliche Startposition des Bosses
+        let minX = 500; // 🔴 Linke Grenze, nicht weiter nach links laufen
+        
+        const attackLoop = () => {
+            if (this.x > minX) { 
+                this.animateAttack(() => {
+                    this.moveBackToStart(attackLoop); 
+                });
+            } else {
+                console.log("🚨 Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
+                this.returnToStartPosition(startX); // 🔥 Jetzt zurück nach rechts bewegen!
+            }
+        };
+    
+        attackLoop();
+    }
+
+    returnToStartPosition(startX) {
+        console.log("🔁 Boss kehrt zur Startposition zurück!");
+    
+        let returnInterval = setInterval(() => {
+            if (this.x < startX) {
+                this.moveRight();
+            } else {
+                clearInterval(returnInterval);
+                console.log("✅ Boss ist zurück an seiner Position. Angriff beginnt erneut!");
+                this.startAttackCycle(); // 🔥 Startet den Angriff erneut
+            }
+        }, 1000 / 60);
+    
+        let walkingAnimation = setInterval(() => {
+            this.playAnimation(this.IMAGES_WALKING);
+        }, 300);
+    
+        setTimeout(() => clearInterval(walkingAnimation), Math.abs(this.x - startX) / this.speed * 60);
+    }
+    
+    
+
     animateAttack(callback) {
-        let originalSpeed = this.speed; 
-        this.speed = 12; 
+        let originalSpeed = this.speed;
+        this.speed = 12;
         let attackInterval = setInterval(() => this.moveLeft(), 1000 / 60);
         let animationInterval = setInterval(() => this.playAnimation(this.IMAGES_ATTACKING), 200);
 
@@ -71,29 +124,43 @@ class BossChicken extends MovableObject {
             clearInterval(attackInterval);
             clearInterval(animationInterval);
             this.speed = originalSpeed;
-            if (callback) callback(); // Starte den Rückweg, falls Callback vorhanden
+            if (callback) callback(); // Starte den Rückweg
         }, 800);
     }
 
-    moveBackToStart(startX, callback) {
+    moveBackToStart(callback) {
+        let targetX = this.x + 60; // 🔥 Bewege den Boss 30 Pixel zurück nach rechts
+    
         let returnInterval = setInterval(() => {
-            if (this.x < startX) {
+            if (this.x < targetX) {
                 this.moveRight();
             } else {
                 clearInterval(returnInterval);
-                if (callback) callback(); // Starte neuen Angriff
+    
+                // 🔥 Falls die linke Grenze `minX` nicht erreicht wurde → neuen Angriff starten
+                if (this.x > 500) {
+                    callback(); // Greife erneut an
+                } else {
+                    console.log("🚨 Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
+                    this.returnToStartPosition(2500); // 🔥 Boss läuft zurück
+                }
             }
         }, 1000 / 60);
     
-        // Rückwärtslauf-Animation langsamer abspielen (300ms statt 200ms)
         let reversedImages = [...this.IMAGES_WALKING].reverse();
         let frameIndex = 0;
     
         let walkingAnimation = setInterval(() => {
             this.img = this.imageCache[reversedImages[frameIndex]];
-            frameIndex = (frameIndex + 1) % reversedImages.length; // Nächstes Bild
-        }, 300); // Langsamer als normales Laufen
+            frameIndex = (frameIndex + 1) % reversedImages.length;
+        }, 300);
     
-        setTimeout(() => clearInterval(walkingAnimation), Math.abs(this.x - startX) / this.speed * 60);
+        setTimeout(() => clearInterval(walkingAnimation), Math.abs(this.x - targetX) / this.speed * 60);
     }
+    
+    
+
+
+    
+    
 }

@@ -24,7 +24,7 @@ class ThrowableObject extends MovableObject {
             this.x += 10 * direction;
 
             // ❌ Flasche entfernen, wenn sie den Bildschirm verlässt
-            if (this.y > 500 || this.x < 0 || this.x > this.world.canvas.width) {
+            if (this.y > 500 || this.x < 0) {
                 this.removeBottle();
             }
         }, 25);

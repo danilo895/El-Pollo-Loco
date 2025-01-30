@@ -22,7 +22,7 @@ drawFrame(ctx){
     if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof BossChicken){
     ctx.beginPath();
     ctx.lineWidth = '4';
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'green';
     ctx.rect(this.x, this.y, this.width, this.height);
     ctx.stroke();
 }

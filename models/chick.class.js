@@ -23,7 +23,6 @@ class Chick extends MovableObject {
         this.world = world;
     }
 
-    
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -35,17 +34,31 @@ class Chick extends MovableObject {
     }
 
     replaceWithDeadEnemy() {
-        let deadImagePath = this instanceof Chick
-            ? 'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
-            : 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
-    
+        let deadImagePath = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
+
         let deadEnemy = new DeadEnemy(this.x, this.y, this.width, this.height, deadImagePath, this.world);
         this.world.level.enemies.push(deadEnemy); // Füge das tote Objekt in die Gegnerliste ein
-    
+
         let index = this.world.level.enemies.indexOf(this);
         if (index !== -1) {
-            this.world.level.enemies.splice(index, 1); // Entferne das lebende Chicken
+            this.world.level.enemies.splice(index, 1); // Entferne das lebende Küken
         }
     }
-    
+
+    /** 🆕 **NEU: Funktion für Flaschen-Treffer** */
+    handleBottleHit() {
+        console.log("💀 Küken wurde von einer Flasche getroffen!");
+
+        let deadImagePath = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
+        this.loadImage(deadImagePath); // Lade das tote Küken-Bild
+        this.speed = 0; // Stoppe die Bewegung
+
+        setTimeout(() => {
+            let index = this.world.level.enemies.indexOf(this);
+            if (index !== -1) {
+                this.world.level.enemies.splice(index, 1); // ❌ Entferne das Küken aus der Gegnerliste
+                console.log("❌ Küken endgültig entfernt!");
+            }
+        }, 500); // Entferne nach 500ms
+    }
 }

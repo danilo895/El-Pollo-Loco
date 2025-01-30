@@ -52,12 +52,17 @@ class ThrowableObject extends MovableObject {
             console.log(`🎯 Treffer! Flasche kollidiert mit Gegner!`);
             console.log(`📍 Flasche: x=${this.x}, y=${this.y}, Breite=${this.width}, Höhe=${this.height}`);
             console.log(`🐔 Gegner: x=${enemy.x}, y=${enemy.y}, Breite=${enemy.width}, Höhe=${enemy.height}`);
+    
+            if (enemy instanceof Chicken || enemy instanceof Chick) {
+                enemy.handleBottleHit(); // 💀 Rufe die neue Methode auf!
+            }
         } else {
             console.log("❌ Kein Treffer, keine Kollision.");
         }
     
         return collides;
     }
+    
     
     
     

@@ -42,12 +42,13 @@ class World{
     }
     
 
-checkThrowObjects(){
-    if(this.keyboard.D){
-        let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
-        this.throwableObjects.push(bottle);
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this); // ✅ Übergabe von `this` als `world`
+            this.throwableObjects.push(bottle);
+        }
     }
-    }
+    
 
 checkCoinCollision() {
     this.level.coins.forEach((coin, index) => {

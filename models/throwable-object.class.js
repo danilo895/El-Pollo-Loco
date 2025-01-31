@@ -46,10 +46,9 @@ class ThrowableObject extends MovableObject {
     }
 
     trackPosition() {
-        let trackInterval = setInterval(() => {
+        const checkCollision = () => {
             if (!this.world || !this.world.level || this.world.level.enemies.length === 0) {
                 console.log("⚠️ Keine Gegner vorhanden oder Welt nicht definiert.");
-                clearInterval(trackInterval);
                 return;
             }
     
@@ -59,28 +58,34 @@ class ThrowableObject extends MovableObject {
                 if (this.isCollidingWithEnemy(enemy)) {
                     if (enemy instanceof BossChicken) {
                         console.log("🔥 Treffer auf BossChicken!");
-                        // 🔻 Reduziert die Lebensanzeige des Endbosses
                         this.world.statusBarEndboss.reduceHealth(20);
-    
-                        // 💥 Endboss erhält Treffer-Animation (ohne ihn zu stoppen)
                         enemy.playHurtAnimation();
                     } else {
                         console.log(`💥 Treffer! Flasche kollidiert mit ${enemy.constructor.name} an x=${this.x}, y=${this.y}`);
                         this.stopRotation();
-                        enemy.replaceWithDeadEnemy(); // ❌ Entfernt normalen Gegner
+                        enemy.replaceWithDeadEnemy();
                     }
     
-                    this.removeBottle(); // ❌ Entfernt die Flasche nach einem Treffer
-                    clearInterval(trackInterval);
+                    this.removeBottle();
+                    return; // 💡 Beende die Funktion, wenn ein Treffer erkannt wurde
                 }
             });
     
-            if (this.y > 500 || this.x < 0 || this.x > this.world.canvas.width) {
+            // ❌ Falls die Flasche aus dem Bildschirm fliegt → Entfernen
+            if (this.y > 500 || this.x < 0) {
                 console.log("🛑 Tracking gestoppt: Flasche ist aus dem Bildschirm!");
-                clearInterval(trackInterval);
+                this.removeBottle();
+                return;
             }
-        }, 20);
+    
+            // 🔄 Wiederhole Kollisionsprüfung im nächsten Frame
+            requestAnimationFrame(checkCollision);
+        };
+    
+        requestAnimationFrame(checkCollision);
     }
+    
+    
     
     
     
@@ -109,15 +114,25 @@ class ThrowableObject extends MovableObject {
         console.log("🗑 Flasche entfernt.");
     }
 
-    /** 🔍 **Prüft die Kollision zwischen Flasche & Gegner (genauere Berechnung)** */
-    isCollidingWithEnemy(enemy) {
-        let collision = (
-            this.x + this.width > enemy.x &&  // Rechte Kante der Flasche > Linke Kante des Gegners
-            this.x < enemy.x + enemy.width && // Linke Kante der Flasche < Rechte Kante des Gegners
-            this.y + this.height > enemy.y && // Untere Kante der Flasche > Obere Kante des Gegners
-            this.y < enemy.y + enemy.height   // Obere Kante der Flasche < Untere Kante des Gegners
-        );
-        console.log(`🔍 Kollisionsprüfung: ${collision ? "✔️ Treffer!" : "❌ Kein Treffer"}`);
-        return collision;
-    }
+/** 🔍 **Verbesserte Kollision zwischen Flasche & Gegner (präzisere Berechnung)** */
+isCollidingWithEnemy(enemy) {
+    // 🎯 Mittelpunkt der Flasche berechnen
+    let bottleCenterX = this.x + this.width / 2;
+    let bottleCenterY = this.y + this.height / 2;
+
+    // 🎯 Mittelpunkt des Gegners berechnen
+    let enemyCenterX = enemy.x + enemy.width / 2;
+    let enemyCenterY = enemy.y + enemy.height / 2;
+
+    // 📏 Berechne die Differenz der Mittelpunkte
+    let dx = Math.abs(bottleCenterX - enemyCenterX);
+    let dy = Math.abs(bottleCenterY - enemyCenterY);
+
+    // 🛑 Wenn die Differenz kleiner als die Hälfte der Breiten & Höhen ist → Treffer!
+    let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
+                    (dy < (this.height / 2 + enemy.height / 2));
+
+    console.log(`🔍 Kollisionsprüfung: ${collision ? "✔️ Treffer!" : "❌ Kein Treffer"}`);
+    return collision;
+}
 }

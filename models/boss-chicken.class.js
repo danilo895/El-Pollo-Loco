@@ -61,16 +61,20 @@ class BossChicken extends MovableObject {
         if (this.isHurt) return; // 🛑 Falls die Animation bereits läuft, abbrechen
     
         this.isHurt = true; // 🔥 Setzt den Zustand "ist verletzt"
-        let originalImages = this.IMAGES_WALKING; // 🔄 Speichert die ursprünglichen Bilder
-    
-        this.playAnimation(this.IMAGES_HURT); // 🎬 Zeigt die Hurt-Animation
+        
+        let frameIndex = 0;
+        let hurtInterval = setInterval(() => {
+            this.img = this.imageCache[this.IMAGES_HURT[frameIndex]];
+            frameIndex = (frameIndex + 1) % this.IMAGES_HURT.length;
+        }, 200); // 🔄 Bilder wechseln alle 500ms (statt sofort)
     
         setTimeout(() => {
-            this.isHurt = false; // ❌ Verletzungszustand zurücksetzen
+            clearInterval(hurtInterval); // ❌ Stoppt die Hurt-Animation
+            this.isHurt = false;
             this.playAnimation(this.IMAGES_WALKING); // 🔄 Kehre zur normalen Bewegung zurück
-        }, 500);
-        
+        }, 1000); // ⏳ Zeigt die Hurt-Animation für 5 Sekunden
     }
+    
     
 
         

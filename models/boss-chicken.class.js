@@ -7,6 +7,7 @@ class BossChicken extends MovableObject {
     waitingAnimationInterval = null; // Speichert das Interval für die Warteanimation
     attackStarted = false; // Verhindert, dass der Angriff mehrmals gestartet wird
     isHurt = false;
+    hasBeenHit = false;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -49,7 +50,7 @@ class BossChicken extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png'   
     ];
 
-    isDead = false; // 🚫 Standardmäßig ist der Boss nicht tot
+
 
 
 
@@ -62,7 +63,7 @@ class BossChicken extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2500;
         this.speed = 0.15 + Math.random() * 0.5;
-        
+        this.isDead = false; 
         this.isFrozen = false; // ❄️ Standardmäßig kann sich der Boss bewegen
     
         this.animationWaitingBoss(); // Startet die Warteanimation

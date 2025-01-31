@@ -53,70 +53,32 @@ class ThrowableObject extends MovableObject {
             }
     
             this.world.level.enemies.forEach((enemy, index) => { 
-                console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
+                //console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
     
-                if (this.isCollidingWithEnemy(enemy)) {
+                if (this.isCollidingWithEnemy(enemy) && !enemy.hasBeenHit) { // 👈 NEU: Verhindert Mehrfach-Treffer
+                    enemy.hasBeenHit = true; // ❗ Boss wurde getroffen, keine weiteren Hits registrieren
+    
                     if (enemy instanceof BossChicken) {
                         console.log("🔥 Treffer auf BossChicken!");
     
-                        // 🩸 Verringere Boss-HP
+                        // 🩸 **Verringere Boss-HP um 20**
                         this.world.statusBarEndboss.reduceHealth(20);
     
-                        // 🛑 Ist der Boss jetzt tot?
-                        if (this.world.statusBarEndboss.percentageEndboss === 0) {
-                            enemy.playDeathAnimation(); // 💀 Todesanimation
-                        } else {
-                            enemy.playHurtAnimation(); // 💢 Hurt-Animation
-                        }
-                    } else {
-                        console.log(`💥 Treffer! Flasche kollidiert mit ${enemy.constructor.name} an x=${this.x}, y=${this.y}`);
-                        this.stopRotation();
-                        enemy.replaceWithDeadEnemy();
-                    }
+                        console.log(`🔴 Boss HP nach Treffer: ${this.world.statusBarEndboss.percentageEndboss}%`);
     
-                    this.removeBottle();
-                    return; // 💡 Beende die Funktion, wenn ein Treffer erkannt wurde
-                }
-            });
-    
-            // ❌ Falls die Flasche aus dem Bildschirm fliegt → Entfernen
-            if (this.y > 500 || this.x < 0) {
-                console.log("🛑 Tracking gestoppt: Flasche ist aus dem Bildschirm!");
-                this.removeBottle();
-                return;
-            }
-    
-            // 🔄 Wiederhole Kollisionsprüfung im nächsten Frame
-            requestAnimationFrame(checkCollision);
-        };
-    
-        requestAnimationFrame(checkCollision);
-    }
-    trackPosition() {
-        const checkCollision = () => {
-            if (!this.world || !this.world.level || this.world.level.enemies.length === 0) {
-                console.log("⚠️ Keine Gegner vorhanden oder Welt nicht definiert.");
-                return;
-            }
-    
-            this.world.level.enemies.forEach((enemy, index) => { 
-                console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
-    
-                if (this.isCollidingWithEnemy(enemy)) {
-                    if (enemy instanceof BossChicken) {
-                        console.log("🔥 Treffer auf BossChicken!");
-    
-                        // 🩸 Verringere Boss-HP
-                        this.world.statusBarEndboss.reduceHealth(20);
-    
-                        // 🛑 Ist der Boss jetzt tot?
-                        if (this.world.statusBarEndboss.percentageEndboss === 0) {
+                        // 🛑 **Ist der Boss jetzt tot?**
+                        if (this.world.statusBarEndboss.percentageEndboss <= 0) {
                             console.log("💀 BossChicken ist besiegt!");
                             enemy.playDeathAnimation(); // 💀 Todesanimation
                         } else {
                             console.log("💢 BossChicken verletzt!");
                             enemy.playHurtAnimation(); // 💢 Hurt-Animation
                         }
+    
+                        // 🕒 **Nach 1 Sekunde kann Boss erneut getroffen werden**
+                        setTimeout(() => {
+                            enemy.hasBeenHit = false;
+                        }, 1000); // 🔄 Boss kann erst nach 1 Sekunde wieder getroffen werden
                     } else {
                         console.log(`💥 Treffer! Flasche kollidiert mit ${enemy.constructor.name} an x=${this.x}, y=${this.y}`);
                         this.stopRotation();
@@ -141,6 +103,10 @@ class ThrowableObject extends MovableObject {
     
         requestAnimationFrame(checkCollision);
     }
+    
+    
+    
+
     
     
     
@@ -190,7 +156,7 @@ isCollidingWithEnemy(enemy) {
     let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
                     (dy < (this.height / 2 + enemy.height / 2));
 
-    console.log(`🔍 Kollisionsprüfung: ${collision ? "✔️ Treffer!" : "❌ Kein Treffer"}`);
+                    //console.log(`🔍 Kollisionsprüfung: ${collision ? "✔️ Treffer!" : "❌ Kein Treffer"}`);
     return collision;
 }
 }

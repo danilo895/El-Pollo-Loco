@@ -43,6 +43,15 @@ class BossChicken extends MovableObject {
         'img/4_enemie_boss_chicken/4_hurt/G23.png'
     ];
 
+    IMAGES_DEAD = [
+        'img/4_enemie_boss_chicken/5_dead/G24.png',
+        'img/4_enemie_boss_chicken/5_dead/G25.png',
+        'img/4_enemie_boss_chicken/5_dead/G26.png'   
+    ];
+
+    isDead = false; // 🚫 Standardmäßig ist der Boss nicht tot
+
+
 
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/2_alert/G5.png');
@@ -50,36 +59,66 @@ class BossChicken extends MovableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACKING);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.x = 2500;
         this.speed = 0.15 + Math.random() * 0.5;
-
+        
+        this.isFrozen = false; // ❄️ Standardmäßig kann sich der Boss bewegen
+    
         this.animationWaitingBoss(); // Startet die Warteanimation
         this.checkForAttackTrigger(); // Überprüft regelmäßig, ob Angriff starten soll
-
     }
+
+    playDeathAnimation() {
+        this.isDead = true; // ❌ Boss ist tot
+        this.isFrozen = true; // ⏸ Bewegung stoppen
+
+        let frameIndex = 0;
+        let deathInterval = setInterval(() => {
+            this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
+            frameIndex = (frameIndex + 1) % this.IMAGES_DEAD.length;
+        }, 300); // 🔄 Langsame Sterbe-Animation
+
+        setTimeout(() => {
+            clearInterval(deathInterval);
+            console.log("💀 BossChicken ist endgültig tot!");
+            // ❌ Nach der Animation bleibt er tot (kein Reset nötig)
+        }, 2000); // 🕒 Animation für 2 Sekunden laufen lassen
+    }
+    
+
+    moveLeft() {
+        if (this.isFrozen) return; // ❄️ Keine Bewegung während der Hurt-Animation
+        this.x -= this.speed;
+    }
+    
+    moveRight() {
+        if (this.isFrozen) return; // ❄️ Keine Bewegung während der Hurt-Animation
+        this.x += this.speed;
+    }
+
+    
     playHurtAnimation() {
         if (this.isHurt) return; // 🛑 Falls die Animation bereits läuft, abbrechen
-    
+        
         this.isHurt = true; // 🔥 Setzt den Zustand "ist verletzt"
+        this.isFrozen = true; // ⏸ Stoppt alle Bewegungen
         
         let frameIndex = 0;
         let hurtInterval = setInterval(() => {
             this.img = this.imageCache[this.IMAGES_HURT[frameIndex]];
             frameIndex = (frameIndex + 1) % this.IMAGES_HURT.length;
-        }, 200); // 🔄 Bilder wechseln alle 500ms (statt sofort)
+        }, 300); // 🔄 Bilder wechseln langsamer (alle 300ms)
     
         setTimeout(() => {
             clearInterval(hurtInterval); // ❌ Stoppt die Hurt-Animation
             this.isHurt = false;
+            this.isFrozen = false; // 🔥 Boss kann sich wieder bewegen
             this.playAnimation(this.IMAGES_WALKING); // 🔄 Kehre zur normalen Bewegung zurück
-        }, 1000); // ⏳ Zeigt die Hurt-Animation für 5 Sekunden
+        }, 2500); // ⏳ Hurt-Animation dauert 2,5 Sekunden
     }
     
     
-
-        
-
-
     setWorld(world) {
         this.world = world;
     }

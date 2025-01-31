@@ -21,8 +21,10 @@ class StatusBarEndboss extends DrawableObject {
 
     /** 🔻 Verringert die Lebensanzeige des Endbosses und wechselt das Bild */
     reduceHealth(amount) {
-        this.percentageEndboss -= amount; // ⬇️ Reduziert Lebenspunkte
-        if (this.percentageEndboss < 0) this.percentageEndboss = 0; // 💀 Mindestwert: 0%
+        this.percentageEndboss -= amount; // ⬇️ Reduziert Lebenspunkte SCHRITTWEISE
+        if (this.percentageEndboss < 0) {
+            this.percentageEndboss = 0; // 💀 Mindestwert: 0%
+        }
         
         let imageIndex = this.getHealthImageIndex();
         this.img = this.imageCache[this.IMAGES[imageIndex]]; // 🖼 Aktualisiert Bild

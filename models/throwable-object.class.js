@@ -55,20 +55,25 @@ class ThrowableObject extends MovableObject {
     
             this.world.level.enemies.forEach((enemy, index) => { 
                 console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
-
+    
                 if (this.isCollidingWithEnemy(enemy)) {
                     if (enemy instanceof BossChicken) {
                         console.log("🔥 Treffer auf BossChicken!");
+                        // 🔻 Reduziert die Lebensanzeige des Endbosses
+                        this.world.statusBarEndboss.reduceHealth(20);
+    
+                        // 💥 Endboss erhält Treffer-Animation (ohne ihn zu stoppen)
+                        enemy.playHurtAnimation();
                     } else {
                         console.log(`💥 Treffer! Flasche kollidiert mit ${enemy.constructor.name} an x=${this.x}, y=${this.y}`);
                         this.stopRotation();
-                        enemy.replaceWithDeadEnemy(); 
+                        enemy.replaceWithDeadEnemy(); // ❌ Entfernt normalen Gegner
                     }
-
-                    this.removeBottle();
+    
+                    this.removeBottle(); // ❌ Entfernt die Flasche nach einem Treffer
                     clearInterval(trackInterval);
                 }
-                });
+            });
     
             if (this.y > 500 || this.x < 0 || this.x > this.world.canvas.width) {
                 console.log("🛑 Tracking gestoppt: Flasche ist aus dem Bildschirm!");
@@ -76,6 +81,7 @@ class ThrowableObject extends MovableObject {
             }
         }, 20);
     }
+    
     
     
     

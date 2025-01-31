@@ -6,6 +6,7 @@ class BossChicken extends MovableObject {
     offsetY = 0;
     waitingAnimationInterval = null; // Speichert das Interval für die Warteanimation
     attackStarted = false; // Verhindert, dass der Angriff mehrmals gestartet wird
+    isHurt = false;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -56,11 +57,23 @@ class BossChicken extends MovableObject {
         this.checkForAttackTrigger(); // Überprüft regelmäßig, ob Angriff starten soll
 
     }
-    animationHurt() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_HURT);
-        }, 150);
+    playHurtAnimation() {
+        if (this.isHurt) return; // 🛑 Falls die Animation bereits läuft, abbrechen
+    
+        this.isHurt = true; // 🔥 Setzt den Zustand "ist verletzt"
+        let originalImages = this.IMAGES_WALKING; // 🔄 Speichert die ursprünglichen Bilder
+    
+        this.playAnimation(this.IMAGES_HURT); // 🎬 Zeigt die Hurt-Animation
+    
+        setTimeout(() => {
+            this.isHurt = false; // ❌ Verletzungszustand zurücksetzen
+            this.playAnimation(this.IMAGES_WALKING); // 🔄 Kehre zur normalen Bewegung zurück
+        }, 500);
+        
     }
+    
+
+        
 
 
     setWorld(world) {

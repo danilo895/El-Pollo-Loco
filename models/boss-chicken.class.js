@@ -74,25 +74,19 @@ class BossChicken extends MovableObject {
         if (this.isDead) return; // Falls Boss bereits tot ist, nicht erneut ausführen
         
         console.log("💀 BossChicken ist tot! Starte Todesanimation...");
-        this.isDead = true; //  Boss ist jetzt wirklich tot
-        this.isFrozen = true; // ⏸ Bewegung stoppen
+        this.isDead = true; // Boss ist jetzt wirklich tot
+        this.isFrozen = true; // Bewegung stoppen
     
-        let frameIndex = 0;
-        let deathInterval = setInterval(() => {
-            if (frameIndex < this.IMAGES_DEAD.length) {
-                this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
-                frameIndex++;
-            } else {
-                clearInterval(deathInterval); // Stoppt nach letzter Animation
-                this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]]; // Letztes Bild bleibt stehen
-            }
-        }, 500); // 🔄 Langsamere Animation (500ms pro Frame)
+        // Starte die Animation mit playAnimation()
+        this.playAnimation(this.IMAGES_DEAD);
     
+        // Warte, bis alle Frames durch sind, dann setze das letzte Bild dauerhaft
         setTimeout(() => {
-            console.log("💀 BossChicken bleibt tot!");
-            clearInterval(deathInterval);
-        }, this.IMAGES_DEAD.length * 2000); // Animation läuft entsprechend der Anzahl an Frames
+            console.log("🔒 Setze endgültiges Bild der Death-Animation...");
+            this.img = this.imageCache[this.IMAGES_DEAD[2]];
+        },250); 
     }
+    
     
     
     

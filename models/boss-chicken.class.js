@@ -64,17 +64,17 @@ class BossChicken extends MovableObject {
         this.x = 2500;
         this.speed = 0.15 + Math.random() * 0.5;
         this.isDead = false; 
-        this.isFrozen = false; // ❄️ Standardmäßig kann sich der Boss bewegen
+        this.isFrozen = false; //Standardmäßig kann sich der Boss bewegen
     
         this.animationWaitingBoss(); // Startet die Warteanimation
         this.checkForAttackTrigger(); // Überprüft regelmäßig, ob Angriff starten soll
     }
 
     playDeathAnimation() {
-        if (this.isDead) return; // ❌ Falls Boss bereits tot ist, nicht erneut ausführen
+        if (this.isDead) return; // Falls Boss bereits tot ist, nicht erneut ausführen
         
         console.log("💀 BossChicken ist tot! Starte Todesanimation...");
-        this.isDead = true; // ❌ Boss ist jetzt wirklich tot
+        this.isDead = true; //  Boss ist jetzt wirklich tot
         this.isFrozen = true; // ⏸ Bewegung stoppen
     
         let frameIndex = 0;
@@ -83,50 +83,50 @@ class BossChicken extends MovableObject {
                 this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
                 frameIndex++;
             } else {
-                clearInterval(deathInterval); // 🚫 Stoppt nach letzter Animation
-                this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]]; // 🔴 Letztes Bild bleibt stehen
+                clearInterval(deathInterval); // Stoppt nach letzter Animation
+                this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]]; // Letztes Bild bleibt stehen
             }
         }, 500); // 🔄 Langsamere Animation (500ms pro Frame)
     
         setTimeout(() => {
             console.log("💀 BossChicken bleibt tot!");
             clearInterval(deathInterval);
-        }, this.IMAGES_DEAD.length * 500); // ⏳ Animation läuft entsprechend der Anzahl an Frames
+        }, this.IMAGES_DEAD.length * 2000); // Animation läuft entsprechend der Anzahl an Frames
     }
     
     
     
 
     moveLeft() {
-        if (this.isFrozen || this.isDead) return; // ❄️ Keine Bewegung nach Tod
+        if (this.isFrozen || this.isDead) return; // Keine Bewegung nach Tod
         this.x -= this.speed;
     }
     
     moveRight() {
-        if (this.isFrozen || this.isDead) return; // ❄️ Keine Bewegung nach Tod
+        if (this.isFrozen || this.isDead) return; // Keine Bewegung nach Tod
         this.x += this.speed;
     }
     
 
     
     playHurtAnimation() {
-        if (this.isHurt) return; // 🛑 Falls die Animation bereits läuft, abbrechen
+        if (this.isHurt) return; // Falls die Animation bereits läuft, abbrechen
         
-        this.isHurt = true; // 🔥 Setzt den Zustand "ist verletzt"
-        this.isFrozen = true; // ⏸ Stoppt alle Bewegungen
+        this.isHurt = true; // Setzt den Zustand "ist verletzt"
+        this.isFrozen = true; // Stoppt alle Bewegungen
         
         let frameIndex = 0;
         let hurtInterval = setInterval(() => {
             this.img = this.imageCache[this.IMAGES_HURT[frameIndex]];
             frameIndex = (frameIndex + 1) % this.IMAGES_HURT.length;
-        }, 300); // 🔄 Bilder wechseln langsamer (alle 300ms)
+        }, 100);
     
         setTimeout(() => {
-            clearInterval(hurtInterval); // ❌ Stoppt die Hurt-Animation
+            clearInterval(hurtInterval); // Stoppt die Hurt-Animation
             this.isHurt = false;
-            this.isFrozen = false; // 🔥 Boss kann sich wieder bewegen
-            this.playAnimation(this.IMAGES_WALKING); // 🔄 Kehre zur normalen Bewegung zurück
-        }, 2500); // ⏳ Hurt-Animation dauert 2,5 Sekunden
+            this.isFrozen = false; // Boss kann sich wieder bewegen
+            this.playAnimation(this.IMAGES_WALKING); // Kehre zur normalen Bewegung zurück
+        }, 1000); // ⏳ Hurt-Animation dauert 2,5 Sekunden
     }
     
     
@@ -150,15 +150,15 @@ class BossChicken extends MovableObject {
                 clearInterval(this.waitingAnimationInterval); // Stoppe Warteanimation
                 clearInterval(triggerCheckInterval); // Stoppe weitere Prüfungen
 
-                console.log("🔴 Endboss startet Angriff!");
+                console.log("Endboss startet Angriff!");
                 this.startAttackCycle(); // Angriff beginnt
             }
         }, 100); // Prüft alle 100ms
     }
 
     startAttackCycle() {
-        let startX = 2500; // 🔥 Ursprüngliche Startposition des Bosses
-        let minX = 500; // 🔴 Linke Grenze, nicht weiter nach links laufen
+        let startX = 2500; // Ursprüngliche Startposition des Bosses
+        let minX = 500; //  Linke Grenze, nicht weiter nach links laufen
         
         const attackLoop = () => {
             if (this.x > minX) { 
@@ -166,8 +166,8 @@ class BossChicken extends MovableObject {
                     this.moveBackToStart(attackLoop); 
                 });
             } else {
-                console.log("🚨 Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
-                this.returnToStartPosition(startX); // 🔥 Jetzt zurück nach rechts bewegen!
+                console.log("Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
+                this.returnToStartPosition(startX); //  Jetzt zurück nach rechts bewegen!
             }
         };
     
@@ -175,14 +175,14 @@ class BossChicken extends MovableObject {
     }
 
     returnToStartPosition(startX) {
-        console.log("🔁 Boss kehrt zur Startposition zurück!");
+        console.log("boss kehrt zur Startposition zurück!");
     
         let returnInterval = setInterval(() => {
             if (this.x < startX) {
                 this.moveRight();
             } else {
                 clearInterval(returnInterval);
-                console.log("✅ Boss ist zurück an seiner Position. Angriff beginnt erneut!");
+                console.log("Boss ist zurück an seiner Position. Angriff beginnt erneut!");
                 this.startAttackCycle(); // 🔥 Startet den Angriff erneut
             }
         }, 1000 / 60);
@@ -211,7 +211,7 @@ class BossChicken extends MovableObject {
     }
 
     moveBackToStart(callback) {
-        let targetX = this.x + 60; // 🔥 Bewege den Boss 30 Pixel zurück nach rechts
+        let targetX = this.x + 60; //Bewege den Boss 30 Pixel zurück nach rechts
     
         let returnInterval = setInterval(() => {
             if (this.x < targetX) {
@@ -219,12 +219,12 @@ class BossChicken extends MovableObject {
             } else {
                 clearInterval(returnInterval);
     
-                // 🔥 Falls die linke Grenze `minX` nicht erreicht wurde → neuen Angriff starten
+                // Falls die linke Grenze `minX` nicht erreicht wurde → neuen Angriff starten
                 if (this.x > 500) {
                     callback(); // Greife erneut an
                 } else {
-                    console.log("🚨 Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
-                    this.returnToStartPosition(2500); // 🔥 Boss läuft zurück
+                    console.log("Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
+                    this.returnToStartPosition(2500); //Boss läuft zurück
                 }
             }
         }, 1000 / 60);

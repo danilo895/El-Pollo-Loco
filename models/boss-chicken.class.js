@@ -71,7 +71,7 @@ class BossChicken extends MovableObject {
     }
 
     playDeathAnimation() {
-        if (this.isDead) return; // Falls Boss bereits tot ist, nicht erneut ausführen
+        
         
         console.log("💀 BossChicken ist tot! Starte Todesanimation...");
         this.isDead = true; // Boss ist jetzt wirklich tot

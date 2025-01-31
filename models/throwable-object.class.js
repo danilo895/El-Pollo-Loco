@@ -53,7 +53,7 @@ class ThrowableObject extends MovableObject {
             }
     
             this.world.level.enemies.forEach((enemy, index) => { 
-                //console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
+                // console.log(`🚀 Flasche: x=${this.x}, y=${this.y} || 🐔 Gegner ${index + 1}: x=${enemy.x}, y=${enemy.y}`);
     
                 if (this.isCollidingWithEnemy(enemy) && !enemy.hasBeenHit) { // 👈 NEU: Verhindert Mehrfach-Treffer
                     enemy.hasBeenHit = true; // ❗ Boss wurde getroffen, keine weiteren Hits registrieren
@@ -67,7 +67,7 @@ class ThrowableObject extends MovableObject {
                         console.log(`🔴 Boss HP nach Treffer: ${this.world.statusBarEndboss.percentageEndboss}%`);
     
                         // 🛑 **Ist der Boss jetzt tot?**
-                        if (this.world.statusBarEndboss.percentageEndboss <= 0) {
+                        if (this.world.statusBarEndboss.percentageEndboss <= 0 && !enemy.isDead) { 
                             console.log("💀 BossChicken ist besiegt!");
                             enemy.playDeathAnimation(); // 💀 Todesanimation
                         } else {
@@ -103,6 +103,7 @@ class ThrowableObject extends MovableObject {
     
         requestAnimationFrame(checkCollision);
     }
+    
     
     
     

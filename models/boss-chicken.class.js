@@ -71,32 +71,42 @@ class BossChicken extends MovableObject {
     }
 
     playDeathAnimation() {
-        this.isDead = true; // ❌ Boss ist tot
+        if (this.isDead) return; // ❌ Falls Boss bereits tot ist, nicht erneut ausführen
+        
+        console.log("💀 BossChicken ist tot! Starte Todesanimation...");
+        this.isDead = true; // ❌ Boss ist jetzt wirklich tot
         this.isFrozen = true; // ⏸ Bewegung stoppen
-
+    
         let frameIndex = 0;
         let deathInterval = setInterval(() => {
-            this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
-            frameIndex = (frameIndex + 1) % this.IMAGES_DEAD.length;
-        }, 300); // 🔄 Langsame Sterbe-Animation
-
+            if (frameIndex < this.IMAGES_DEAD.length) {
+                this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
+                frameIndex++;
+            } else {
+                clearInterval(deathInterval); // 🚫 Stoppt nach letzter Animation
+                this.img = this.imageCache[this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1]]; // 🔴 Letztes Bild bleibt stehen
+            }
+        }, 500); // 🔄 Langsamere Animation (500ms pro Frame)
+    
         setTimeout(() => {
+            console.log("💀 BossChicken bleibt tot!");
             clearInterval(deathInterval);
-            console.log("💀 BossChicken ist endgültig tot!");
-            // ❌ Nach der Animation bleibt er tot (kein Reset nötig)
-        }, 2000); // 🕒 Animation für 2 Sekunden laufen lassen
+        }, this.IMAGES_DEAD.length * 500); // ⏳ Animation läuft entsprechend der Anzahl an Frames
     }
+    
+    
     
 
     moveLeft() {
-        if (this.isFrozen) return; // ❄️ Keine Bewegung während der Hurt-Animation
+        if (this.isFrozen || this.isDead) return; // ❄️ Keine Bewegung nach Tod
         this.x -= this.speed;
     }
     
     moveRight() {
-        if (this.isFrozen) return; // ❄️ Keine Bewegung während der Hurt-Animation
+        if (this.isFrozen || this.isDead) return; // ❄️ Keine Bewegung nach Tod
         this.x += this.speed;
     }
+    
 
     
     playHurtAnimation() {

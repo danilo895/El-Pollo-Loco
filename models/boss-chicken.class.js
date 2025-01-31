@@ -169,7 +169,12 @@ class BossChicken extends MovableObject {
     }
 
     returnToStartPosition(startX) {
-        console.log("boss kehrt zur Startposition zurück!");
+        console.log("🔄 DEBUG: returnToStartPosition() aufgerufen! isDead:", this.isDead);
+    
+        if (this.isDead) {
+            console.log("❌ Boss ist tot! Rückkehr zur Startposition wird abgebrochen.");
+            return; // Falls der Boss tot ist, sollte er NICHT zurücklaufen!
+        }
     
         let returnInterval = setInterval(() => {
             if (this.x < startX) {
@@ -177,16 +182,11 @@ class BossChicken extends MovableObject {
             } else {
                 clearInterval(returnInterval);
                 console.log("Boss ist zurück an seiner Position. Angriff beginnt erneut!");
-                this.startAttackCycle(); // 🔥 Startet den Angriff erneut
+                this.startAttackCycle(); // Startet den Angriff erneut
             }
         }, 1000 / 60);
-    
-        let walkingAnimation = setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 300);
-    
-        setTimeout(() => clearInterval(walkingAnimation), Math.abs(this.x - startX) / this.speed * 60);
     }
+    
     
     
 

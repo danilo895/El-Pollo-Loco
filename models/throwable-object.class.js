@@ -9,8 +9,8 @@ class ThrowableObject extends MovableObject {
         this.width = 70;
         this.world = world;
         this.throw();
-        this.startRotation(); // 🌀 Startet die Drehung
-        this.trackPosition(); // 📍 Startet das Tracking der Position & Kollisionen
+        this.startRotation(); // Startet die Drehung
+        this.trackPosition(); //  Startet das Tracking der Position & Kollisionen
     }
 
     /** 🚀 **Flasche werfen (nach rechts oder links) mit Schwerkraft** */
@@ -18,12 +18,12 @@ class ThrowableObject extends MovableObject {
         this.speedY = 30; 
         this.applyGravity();
         
-        let direction = this.world.character.otherDirection ? -1 : 1; // ➡️ Richtung der Flasche
+        let direction = this.world.character.otherDirection ? -1 : 1; //  Richtung der Flasche
 
         this.throwInterval = setInterval(() => {
             this.x += 10 * direction;
 
-            // ❌ Flasche entfernen, wenn sie den Bildschirm verlässt
+            //  Flasche entfernen, wenn sie den Bildschirm verlässt
             if (this.y > 500 || this.x < 0) {
                 this.removeBottle();
             }
@@ -40,7 +40,7 @@ class ThrowableObject extends MovableObject {
         }, 50);
     }
 
-    /** 🛑 **Stoppt die Rotation (wenn Flasche getroffen hat)** */
+    /**  **Stoppt die Rotation (wenn Flasche getroffen hat)** */
     stopRotation() {
         clearInterval(this.rotationInterval);
     }
@@ -139,7 +139,7 @@ class ThrowableObject extends MovableObject {
     
     
 
-    /** 🔄 **Rotation im Canvas umsetzen** */
+    /** **Rotation im Canvas umsetzen** */
     draw(ctx) {
         ctx.save();
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2); // Zentrum setzen
@@ -162,7 +162,7 @@ class ThrowableObject extends MovableObject {
     }
     
 
-/** 🔍 **Verbesserte Kollision zwischen Flasche & Gegner (präzisere Berechnung)** */
+/** 🔍 **Kollision flasche** */
 isCollidingWithEnemy(enemy) {
     // 🎯 Mittelpunkt der Flasche berechnen
     let bottleCenterX = this.x + this.width / 2;
@@ -176,11 +176,11 @@ isCollidingWithEnemy(enemy) {
     let dx = Math.abs(bottleCenterX - enemyCenterX);
     let dy = Math.abs(bottleCenterY - enemyCenterY);
 
-    // 🛑 Wenn die Differenz kleiner als die Hälfte der Breiten & Höhen ist → Treffer!
+    //  Wenn die Differenz kleiner als die Hälfte der Breiten & Höhen ist → Treffer!
     let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
                     (dy < (this.height / 2 + enemy.height / 2));
 
-                    //console.log(`🔍 Kollisionsprüfung: ${collision ? "✔️ Treffer!" : "❌ Kein Treffer"}`);
+                    //console.log(`🔍 Kollisionsprüfung: ${collision ? "Treffer!" : "Kein Treffer"}`);
     return collision;
 }
 }

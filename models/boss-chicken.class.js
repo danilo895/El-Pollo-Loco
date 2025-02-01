@@ -69,17 +69,13 @@ class BossChicken extends MovableObject {
 
 
     removeEnemy() {
-        this.deathX = this.x;
+        this.deathXCoordinate = this.x;
         this.isDead = true; 
         this.isFrozen = true; 
-    
         this.playDyingAnimation(() => {
-            console.log("💀 DEBUG: Boss endgültig entfernt!");
-            
-            // Boss aus der Gegnerliste entfernen
             let index = this.world.level.enemies.indexOf(this);
             if (index !== -1) {
-                this.world.level.enemies.splice(index, 1); // Entfernt den Boss aus der Welt
+                this.world.level.enemies.splice(index, 1);
             }
         });
     }
@@ -87,19 +83,15 @@ class BossChicken extends MovableObject {
     
 
     playDyingAnimation(callback) {
-        if (!this.deathX) return;
-        this.x = this.deathX; // 📌 Setzt die x-Koordinate
-    
-        let frameIndex = 0;
+        this.x = this.deathXCoordinate;
+        let deadChickenImgIndex = 0;
         let dyingInterval = setInterval(() => {
-            if (frameIndex < this.IMAGES_DEAD.length) {
-                this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
-                console.log(`🎞️ Zeige Bild: ${this.IMAGES_DEAD[frameIndex]} an x=${this.x}`);
-                frameIndex++;
+            if (deadChickenImgIndex < this.IMAGES_DEAD.length) {
+                this.img = this.imageCache[this.IMAGES_DEAD[deadChickenImgIndex]];
+                deadChickenImgIndex++;
             } else {
                 clearInterval(dyingInterval);
-                console.log("✅ Sterbeanimation abgeschlossen!");
-                if (callback) callback(); // Führt den Callback aus (z. B. `this.img = null;`)
+                if (callback) callback();
             }
         }, 150);
         this.img = 0;

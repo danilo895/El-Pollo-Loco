@@ -53,12 +53,15 @@ class MovableObject extends DrawableObject{
     }
 
 
-    playAnimation(images){
+    playAnimation(images) {
+        if (this instanceof BossChicken && this.isDead) return; // Nur für BossChicken
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+    
+    
 
     moveRight(){
         this.x += this.speed;

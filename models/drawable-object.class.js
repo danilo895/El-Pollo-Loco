@@ -14,8 +14,7 @@ loadImage(path){
 }
 
 draw(ctx) {
-    if (!this.img) {
-        console.warn("⚠️ draw() aufgerufen, aber img ist null oder undefined!", this);
+    if (!this.img || !this.imageCache) {
         return; // Verhindert den Fehler, falls img nicht existiert
     }
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);

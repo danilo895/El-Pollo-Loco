@@ -70,39 +70,49 @@ class BossChicken extends MovableObject {
 
     removeEnemy() {
         this.deathXCoordinate = this.x;
+        console.log(this.deathXCoordinate);
         this.isDead = true; 
         this.isFrozen = true; 
-        this.img = this.imageCache[this.IMAGES_DEAD[0]];
-        this.playDyingAnimation(() => {
-            let index = this.world.level.enemies.indexOf(this);
-            if (index !== -1) {
-                this.world.level.enemies.splice(index, 1);
-            }
-        });
-    }
-    
-    
-
-    playDyingAnimation(callback) {
-        this.x = this.deathXCoordinate;
-        let deadChickenImgIndex = 0;
-        let dyingInterval = setInterval(() => {
-            if (deadChickenImgIndex < this.IMAGES_DEAD.length) {
-                this.img = this.imageCache[this.IMAGES_DEAD[deadChickenImgIndex]];
-                deadChickenImgIndex++;
-            } else {
-                clearInterval(dyingInterval);
-                if (callback) callback();
-            }
-        }, 8000);
         this.img = null;
+        this.imageCache = null;
+    
+        // Alle laufenden Animationen & Bewegungen stoppen
+        clearInterval(this.returnInterval);
+        clearInterval(this.walkingAnimation);
+    
+        this.renderDeadChickenAnimation();
     }
-
     
     
     
-
-
+    renderDeadChickenAnimation() {
+        let deadChicken = new DrawableObject();
+        deadChicken.x = this.deathXCoordinate; // Setzt die gespeicherte X-Koordinate
+        deadChicken.y = this.y; // Beibehaltung der Y-Koordinate
+        deadChicken.width = this.width; // Beibehaltung der Größe
+        deadChicken.height = this.height;
+    
+        let frameIndex = 0;
+    
+        const animateDeadChicken = () => {
+            if (frameIndex < this.IMAGES_DEAD.length) {
+                deadChicken.img = new Image();
+                deadChicken.img.src = this.IMAGES_DEAD[frameIndex]; // Setze Bild
+                frameIndex++;
+    
+                setTimeout(animateDeadChicken, 300); // Nächstes Bild nach 300ms
+            } else {
+                console.log("💀 Sterbeanimation abgeschlossen!");
+            }
+        };
+    
+        this.world.level.enemies.push(deadChicken); // Füge zur Welt hinzu
+        animateDeadChicken(); // Starte die Animation
+    
+        console.log(`💀 BossChicken stirbt mit Animation an x=${this.deathXCoordinate}`);
+    }
+    
+    
     
 
     moveLeft() {
@@ -195,10 +205,7 @@ class BossChicken extends MovableObject {
     
 
     returnToStartPosition(startX) {
-        if (this.isDead) {
-            console.log("❌ Boss ist tot! Rückkehr zur Startposition wird abgebrochen.");
-            return; // Falls der Boss tot ist, sollte er NICHT zurücklaufen!
-        }
+        if (this.isDead) return;
     
         let returnInterval = setInterval(() => {
             if (this.x < startX) {
@@ -216,17 +223,11 @@ class BossChicken extends MovableObject {
 
     animateAttack(callback) {
         console.log("⚔️ DEBUG: animateAttack() gestartet! isDead:", this.isDead);
-    
-        if (this.isDead) {
-            console.log("❌ Boss ist tot! Angriff wird abgebrochen.");
-            return;
-        }
-    
+        if (this.isDead) return;
         let originalSpeed = this.speed;
         this.speed = 12;
         let attackInterval = setInterval(() => {
             if (this.isDead) {
-                console.log("❌ Boss ist tot! Attack-Animation wird gestoppt.");
                 clearInterval(attackInterval);
                 return;
             }
@@ -235,7 +236,6 @@ class BossChicken extends MovableObject {
     
         let animationInterval = setInterval(() => {
             if (this.isDead) {
-                console.log("❌ Boss ist tot! Attack-Animation wird gestoppt.");
                 clearInterval(animationInterval);
                 return;
             }
@@ -256,38 +256,41 @@ class BossChicken extends MovableObject {
     
 
     moveBackToStart(callback) {
-        let targetX = this.x + 60; //Bewege den Boss 30 Pixel zurück nach rechts
-    
-        let returnInterval = setInterval(() => {
+        if (this.isDead) return;
+        let targetX = this.x + 60;
+        this.returnInterval = setInterval(() => {
+            if (this.isDead) {
+                clearInterval(this.returnInterval);
+                return;
+            }
             if (this.x < targetX) {
                 this.moveRight();
             } else {
-                clearInterval(returnInterval);
-    
-                // Falls die linke Grenze `minX` nicht erreicht wurde → neuen Angriff starten
+                clearInterval(this.returnInterval);
+        
                 if (this.x > 500) {
-                    callback(); // Greife erneut an
+                    callback(); 
                 } else {
-                    console.log("Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
-                    this.returnToStartPosition(2500); //Boss läuft zurück
+                    this.returnToStartPosition(2500);
                 }
             }
         }, 1000 / 60);
-    
         let reversedImages = [...this.IMAGES_WALKING].reverse();
         let frameIndex = 0;
-    
-        let walkingAnimation = setInterval(() => {
+        this.walkingAnimation = setInterval(() => {
+            if (this.isDead) {
+                clearInterval(this.walkingAnimation); // Stoppt Animation
+                return;
+            }
             this.img = this.imageCache[reversedImages[frameIndex]];
             frameIndex = (frameIndex + 1) % reversedImages.length;
         }, 300);
-    
-        setTimeout(() => clearInterval(walkingAnimation), Math.abs(this.x - targetX) / this.speed * 60);
+        
+        setTimeout(() => clearInterval(this.walkingAnimation), Math.abs(this.x - targetX) / this.speed * 60);
     }
     
     
+    
 
 
-    
-    
 }

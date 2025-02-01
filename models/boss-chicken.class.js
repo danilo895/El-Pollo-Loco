@@ -72,6 +72,7 @@ class BossChicken extends MovableObject {
         this.deathXCoordinate = this.x;
         this.isDead = true; 
         this.isFrozen = true; 
+        this.img = this.imageCache[this.IMAGES_DEAD[0]];
         this.playDyingAnimation(() => {
             let index = this.world.level.enemies.indexOf(this);
             if (index !== -1) {
@@ -93,9 +94,10 @@ class BossChicken extends MovableObject {
                 clearInterval(dyingInterval);
                 if (callback) callback();
             }
-        }, 150);
-        this.img = 0;
+        }, 8000);
+        this.img = null;
     }
+
     
     
     

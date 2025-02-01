@@ -50,10 +50,6 @@ class BossChicken extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png'   
     ];
 
-
-
-
-
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -64,27 +60,14 @@ class BossChicken extends MovableObject {
         this.x = 2500;
         this.speed = 0.15 + Math.random() * 0.5;
         this.isDead = false; 
-        this.isFrozen = false; //Standardmäßig kann sich der Boss bewegen
+        this.isFrozen = false; 
     
-        this.animationWaitingBoss(); // Startet die Warteanimation
-        this.checkForAttackTrigger(); // Überprüft regelmäßig, ob Angriff starten soll
+        this.animationWaitingBoss();
+        this.checkForAttackTrigger(); 
     }
 
     playDeathAnimation() {
-        
-        
-        console.log("💀 BossChicken ist tot! Starte Todesanimation...");
-        this.isDead = true; // Boss ist jetzt wirklich tot
-        this.isFrozen = true; // Bewegung stoppen
-    
-        // Starte die Animation mit playAnimation()
-        this.playAnimation(this.IMAGES_DEAD);
-    
-        // Warte, bis alle Frames durch sind, dann setze das letzte Bild dauerhaft
-        setTimeout(() => {
-            console.log("🔒 Setze endgültiges Bild der Death-Animation...");
-            this.img = this.imageCache[this.IMAGES_DEAD[2]];
-        },250); 
+        this.playAnimation(this.IMAGES_DEAD); 
     }
     
     
@@ -151,22 +134,35 @@ class BossChicken extends MovableObject {
     }
 
     startAttackCycle() {
-        let startX = 2500; // Ursprüngliche Startposition des Bosses
-        let minX = 500; //  Linke Grenze, nicht weiter nach links laufen
-        
+        console.log("🔥 DEBUG: startAttackCycle() aufgerufen! isDead:", this.isDead);
+    
+        if (this.isDead) {
+            return; // Falls der Boss tot ist, sollte der Angriff NICHT gestartet werden!
+        }
+    
+        let startX = 2500; 
+        let minX = 500; 
+    
         const attackLoop = () => {
+            if (this.isDead) {
+                
+                return; // Falls der Boss stirbt, wird der Angriff abgebrochen
+            }
+    
             if (this.x > minX) { 
                 this.animateAttack(() => {
-                    this.moveBackToStart(attackLoop); 
+                    this.moveBackToStart(attackLoop);
                 });
             } else {
                 console.log("Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
-                this.returnToStartPosition(startX); //  Jetzt zurück nach rechts bewegen!
+                this.returnToStartPosition(startX);
             }
         };
     
         attackLoop();
     }
+    
+    
 
     returnToStartPosition(startX) {
         console.log("🔄 DEBUG: returnToStartPosition() aufgerufen! isDead:", this.isDead);
@@ -191,18 +187,45 @@ class BossChicken extends MovableObject {
     
 
     animateAttack(callback) {
+        console.log("⚔️ DEBUG: animateAttack() gestartet! isDead:", this.isDead);
+    
+        if (this.isDead) {
+            console.log("❌ Boss ist tot! Angriff wird abgebrochen.");
+            return;
+        }
+    
         let originalSpeed = this.speed;
         this.speed = 12;
-        let attackInterval = setInterval(() => this.moveLeft(), 1000 / 60);
-        let animationInterval = setInterval(() => this.playAnimation(this.IMAGES_ATTACKING), 200);
-
+        let attackInterval = setInterval(() => {
+            if (this.isDead) {
+                console.log("❌ Boss ist tot! Attack-Animation wird gestoppt.");
+                clearInterval(attackInterval);
+                return;
+            }
+            this.moveLeft();
+        }, 1000 / 60);
+    
+        let animationInterval = setInterval(() => {
+            if (this.isDead) {
+                console.log("❌ Boss ist tot! Attack-Animation wird gestoppt.");
+                clearInterval(animationInterval);
+                return;
+            }
+            this.playAnimation(this.IMAGES_ATTACKING);
+        }, 200);
+    
         setTimeout(() => {
             clearInterval(attackInterval);
             clearInterval(animationInterval);
             this.speed = originalSpeed;
-            if (callback) callback(); // Starte den Rückweg
+            if (this.isDead) {
+                console.log("❌ Boss ist tot! Rückweg wird abgebrochen.");
+                return;
+            }
+            if (callback) callback(); // Starte den Rückweg nur, wenn Boss noch lebt
         }, 800);
     }
+    
 
     moveBackToStart(callback) {
         let targetX = this.x + 60; //Bewege den Boss 30 Pixel zurück nach rechts

@@ -50,7 +50,7 @@ class ThrowableObject extends MovableObject {
     }
     
     checkCollisions() {
-        if (this.isRemoved) return; // Falls Flasche entfernt wurde, stoppe das Tracking
+        if (this.isRemoved) return;
         if (!this.isGameValid()) return;
     
         this.world.level.enemies.forEach((enemy) => {

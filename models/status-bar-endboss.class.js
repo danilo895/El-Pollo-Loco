@@ -7,7 +7,7 @@ class StatusBarEndboss extends DrawableObject {
         'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',  // 20%
         'img/7_statusbars/2_statusbar_endboss/orange/orange0.png'    // 0%
     ];
-    percentageEndboss = 100; // 💯 Start mit voller Lebensanzeige
+    percentageEndboss = 100; 
 
     constructor() {
         super();

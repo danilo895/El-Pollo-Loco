@@ -107,7 +107,7 @@ class ThrowableObject extends MovableObject {
     
         if (this.world.statusBarEndboss.percentageEndboss <= 0 && !enemy.isDead) {
             console.log("BossChicken ist besiegt!");
-            enemy.playDeathAnimation();
+            enemy.removeEnemy();
         } else {
             console.log("BossChicken verletzt!");
             enemy.playHurtAnimation();

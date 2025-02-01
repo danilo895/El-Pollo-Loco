@@ -13,10 +13,14 @@ loadImage(path){
     this.img.src = path;
 }
 
-draw(ctx){
+draw(ctx) {
+    if (!this.img) {
+        console.warn("⚠️ draw() aufgerufen, aber img ist null oder undefined!", this);
+        return; // Verhindert den Fehler, falls img nicht existiert
+    }
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-
 }
+
 
 drawFrame(ctx){
     if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof BossChicken || this instanceof ThrowableObject || this instanceof Coin || this instanceof TabascoBottle ){

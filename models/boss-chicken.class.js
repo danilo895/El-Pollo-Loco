@@ -66,12 +66,49 @@ class BossChicken extends MovableObject {
         this.checkForAttackTrigger(); 
     }
 
-    playDeathAnimation() {
-        this.playAnimation(this.IMAGES_DEAD); 
+
+
+    removeEnemy() {
+        this.deathX = this.x;
+        this.isDead = true; 
+        this.isFrozen = true; 
+    
+        this.playDyingAnimation(() => {
+            console.log("💀 DEBUG: Boss endgültig entfernt!");
+            
+            // Boss aus der Gegnerliste entfernen
+            let index = this.world.level.enemies.indexOf(this);
+            if (index !== -1) {
+                this.world.level.enemies.splice(index, 1); // Entfernt den Boss aus der Welt
+            }
+        });
+    }
+    
+    
+
+    playDyingAnimation(callback) {
+        if (!this.deathX) return;
+        this.x = this.deathX; // 📌 Setzt die x-Koordinate
+    
+        let frameIndex = 0;
+        let dyingInterval = setInterval(() => {
+            if (frameIndex < this.IMAGES_DEAD.length) {
+                this.img = this.imageCache[this.IMAGES_DEAD[frameIndex]];
+                console.log(`🎞️ Zeige Bild: ${this.IMAGES_DEAD[frameIndex]} an x=${this.x}`);
+                frameIndex++;
+            } else {
+                clearInterval(dyingInterval);
+                console.log("✅ Sterbeanimation abgeschlossen!");
+                if (callback) callback(); // Führt den Callback aus (z. B. `this.img = null;`)
+            }
+        }, 150);
+        this.img = 0;
     }
     
     
     
+
+
     
 
     moveLeft() {
@@ -154,7 +191,6 @@ class BossChicken extends MovableObject {
                     this.moveBackToStart(attackLoop);
                 });
             } else {
-                console.log("Boss hat die linke Grenze erreicht! Kehrt zurück zur Startposition.");
                 this.returnToStartPosition(startX);
             }
         };
@@ -165,8 +201,6 @@ class BossChicken extends MovableObject {
     
 
     returnToStartPosition(startX) {
-        console.log("🔄 DEBUG: returnToStartPosition() aufgerufen! isDead:", this.isDead);
-    
         if (this.isDead) {
             console.log("❌ Boss ist tot! Rückkehr zur Startposition wird abgebrochen.");
             return; // Falls der Boss tot ist, sollte er NICHT zurücklaufen!

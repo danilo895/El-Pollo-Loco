@@ -272,6 +272,7 @@ class BossChicken extends MovableObject {
     }
     
     startWalkingBack() {
+
         let reversedImages = [...this.IMAGES_WALKING].reverse();
         let frameIndex = 0;
     
@@ -283,9 +284,10 @@ class BossChicken extends MovableObject {
             this.img = this.imageCache[reversedImages[frameIndex]];
             frameIndex = (frameIndex + 1) % reversedImages.length;
         }, 300);
-    
-        //setTimeout(() => this.stopWalking(), Math.abs(this.x - this.deathXCoordinate) / this.speed * 60);
+
     }
+        //setTimeout(() => this.stopWalking(), Math.abs(this.x - this.deathXCoordinate) / this.speed * 60);
+
     
 
     stopWalking() {

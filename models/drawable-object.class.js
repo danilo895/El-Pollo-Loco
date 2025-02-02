@@ -15,7 +15,7 @@ loadImage(path){
 
 draw(ctx) {
     if (!this.img || !this.imageCache) {
-        return; // Verhindert den Fehler, falls img nicht existiert
+        return;
     }
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 }

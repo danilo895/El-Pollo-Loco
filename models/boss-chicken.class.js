@@ -284,7 +284,7 @@ class BossChicken extends MovableObject {
             frameIndex = (frameIndex + 1) % reversedImages.length;
         }, 300);
     
-        setTimeout(() => this.stopWalking(), Math.abs(this.x - this.deathXCoordinate) / this.speed * 60);
+        //setTimeout(() => this.stopWalking(), Math.abs(this.x - this.deathXCoordinate) / this.speed * 60);
     }
     
 

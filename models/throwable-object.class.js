@@ -70,7 +70,6 @@ class ThrowableObject extends MovableObject {
 
     shouldIgnoreCollision(enemy) {
         if (enemy instanceof BossChicken && enemy.isDead) {
-            console.log("BossChicken ist tot – keine weiteren Kollisionen möglich.");
             return true;
         }
         return false;
@@ -154,7 +153,6 @@ isCollidingWithEnemy(enemy) {
     let dx = Math.abs(bottleCenterX - enemyCenterX);
     let dy = Math.abs(bottleCenterY - enemyCenterY);
 
-    //  Wenn die Differenz kleiner als die Hälfte der Breiten & Höhen ist → Treffer!
     let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
                     (dy < (this.height / 2 + enemy.height / 2));
     return collision;

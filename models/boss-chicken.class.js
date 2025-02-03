@@ -105,12 +105,15 @@ class BossChicken extends MovableObject {
     showWinningScreen() {
         setTimeout(() => {
             document.getElementById('canvas').classList.add('d-none');
-            document.getElementById('overlay-start-game').classList.remove('d-none');
-        }, 1400); 
+            document.getElementById('overlay-winning-screen').classList.remove('d-none');
+            document.getElementById('overlay-winning-screen').classList.add('d-flex');
+        }, 1400);
+        resetGame();
     }
     
-
-
+    
+    
+    
     moveLeft() {
         if (this.isFrozen || this.isDead) return;
         this.x -= this.speed;

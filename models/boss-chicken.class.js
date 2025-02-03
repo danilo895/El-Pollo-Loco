@@ -99,9 +99,17 @@ class BossChicken extends MovableObject {
     
         this.world.level.enemies.push(deadChicken);
         animateDeadChicken();
-        console.log(`💀 BossChicken stirbt mit Animation an x=${this.deathXCoordinate}`);
+        this.showWinningScreen();
+    }
+
+    showWinningScreen() {
+        setTimeout(() => {
+            document.getElementById('canvas').classList.add('d-none');
+            document.getElementById('overlay-start-game').classList.remove('d-none');
+        }, 1400); 
     }
     
+
 
     moveLeft() {
         if (this.isFrozen || this.isDead) return;

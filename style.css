@@ -21,6 +21,8 @@ canvas{
 }
 
 h1 {
+    position: fixed;
+    top: 2vh;
     font-family: "Kodchasan", serif;
     font-weight: 500;
     font-style: italic;
@@ -67,7 +69,7 @@ h1 {
     height: 100%;
     object-fit: cover;
     object-position: calc(50% - 8px) center;
-    border-radius: 6px;
+    border-radius: 2px;
 }
 
 

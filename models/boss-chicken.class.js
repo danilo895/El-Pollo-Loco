@@ -70,7 +70,6 @@ class BossChicken extends MovableObject {
 
     removeEnemy() {
         this.deathXCoordinate = this.x;
-        console.log(this.deathXCoordinate);
         this.isDead = true; 
         this.isFrozen = true; 
         this.img = null;
@@ -96,22 +95,10 @@ class BossChicken extends MovableObject {
                 setTimeout(animateDeadChicken, 300);
             }
         };
-    
         this.world.level.enemies.push(deadChicken);
         animateDeadChicken();
-        this.showWinningScreen();
+        showWinningScreen();
     }
-
-    showWinningScreen() {
-        setTimeout(() => {
-            document.getElementById('canvas').classList.add('d-none');
-            document.getElementById('overlay-winning-screen').classList.remove('d-none');
-            document.getElementById('overlay-winning-screen').classList.add('d-flex');
-        }, 1400);
-        resetGame();
-    }
-    
-    
     
     
     moveLeft() {
@@ -157,18 +144,14 @@ class BossChicken extends MovableObject {
         let triggerCheckInterval = setInterval(() => {
             if (this.world && this.world.character.x >= 2000 && !this.attackStarted) {
                 this.attackStarted = true;
-
                 clearInterval(this.waitingAnimationInterval);
                 clearInterval(triggerCheckInterval);
-
-                console.log("Endboss startet Angriff!");
                 this.startAttackCycle();
             }
         }, 100);
     }
 
     startAttackCycle() {
-        console.log("🔥 DEBUG: startAttackCycle() aufgerufen! isDead:", this.isDead);
         if (this.isDead) {
             return;
         }   
@@ -198,8 +181,7 @@ class BossChicken extends MovableObject {
                 this.moveRight();
             } else {
                 clearInterval(returnInterval);
-                console.log("Boss ist zurück an seiner Position. Angriff beginnt erneut!");
-                this.startAttackCycle(); // Startet den Angriff erneut
+                this.startAttackCycle();
             }
         }, 1000 / 60);
     }
@@ -217,7 +199,6 @@ class BossChicken extends MovableObject {
             }
             this.moveLeft();
         }, 1000 / 60);
-    
         let animationInterval = setInterval(() => {
             if (this.isDead) {
                 clearInterval(animationInterval);
@@ -225,7 +206,6 @@ class BossChicken extends MovableObject {
             }
             this.playAnimation(this.IMAGES_ATTACKING);
         }, 200);
-    
         setTimeout(() => {
             clearInterval(attackInterval);
             clearInterval(animationInterval);
@@ -233,7 +213,7 @@ class BossChicken extends MovableObject {
             if (this.isDead) {
                 return;
             }
-            if (callback) callback(); // Starte den Rückweg nur, wenn Boss noch lebt
+            if (callback) callback();
         }, 800);
     }
     
@@ -245,9 +225,7 @@ class BossChicken extends MovableObject {
         this.startWalkingBack();
     }
     
-    /**
-     * Startet die Bewegung zurück zur Ziel-X-Koordinate.
-     */
+
     startReturning(targetX, callback) {
         this.returnInterval = setInterval(() => {
             if (this.stopMovement()) return;
@@ -258,6 +236,14 @@ class BossChicken extends MovableObject {
                 this.decideReturn(callback);
             }
         }, 1000 / 60);
+    }
+
+    decideReturn(callback) {
+        if (this.x > 500) {
+            callback();
+        } else {
+            this.returnToStartPosition(2500);
+        }
     }
     
 
@@ -273,17 +259,9 @@ class BossChicken extends MovableObject {
     stopReturningMovement() {
         clearInterval(this.returnInterval);
     }
-    
-    decideReturn(callback) {
-        if (this.x > 500) {
-            callback();
-        } else {
-            this.returnToStartPosition(2500);
-        }
-    }
+
     
     startWalkingBack() {
-
         let reversedImages = [...this.IMAGES_WALKING].reverse();
         let frameIndex = 0;
     
@@ -297,17 +275,11 @@ class BossChicken extends MovableObject {
         }, 300);
 
     }
-        //setTimeout(() => this.stopWalking(), Math.abs(this.x - this.deathXCoordinate) / this.speed * 60);
 
-    
 
     stopWalking() {
         clearInterval(this.walkingAnimation);
     }
     
     
-    
-    
-
-
 }

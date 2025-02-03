@@ -86,8 +86,6 @@ function startGameAgain(){
 }
 
 
-
-
 function initLevel() {
     return new Level(
         [
@@ -140,4 +138,14 @@ function initLevel() {
             new TabascoBottle(),
         ],
     ); 
+}
+
+
+function showWinningScreen() {
+    setTimeout(() => {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('overlay-winning-screen').classList.remove('d-none');
+        document.getElementById('overlay-winning-screen').classList.add('d-flex');
+    }, 1400);
+    resetGame();
 }

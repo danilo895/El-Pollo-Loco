@@ -35,13 +35,17 @@
 <body onload="init()">
 
 
-    <canvas id="canvas" width="720" height="480">
+    <canvas id="canvas" width="720" height="480" class="d-none">
 
     </canvas>
     <div id="overlay-start-game" class="overlay-start-game">
         <div class = "start-game-content">
-            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="Startscreen" class="background-image-start">
-            <button onclick="setEnemies()">START GAME</button>
+            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="background-image-start">
+            <section class="navbar-buttons-start">
+            <button class="button-start" role="button">INSTRUCTIONS</button>
+            <button class="button-start" role="button" onclick="setEnemies()">START GAME</button>
+            <button class="button-start" role="button">IMPRINT</button>
+            </section>
         </div>
     </div>
 

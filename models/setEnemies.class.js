@@ -1,6 +1,7 @@
 let enemiesSetted = false;
 
 function setEnemies() {
+    document.getElementById('overlay-start-game').classList.add('d-none');
     if (enemiesSetted) {
         return;
     }

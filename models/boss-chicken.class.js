@@ -4,8 +4,8 @@ class BossChicken extends MovableObject {
     width = 250;
     offsetX = 0;
     offsetY = 0;
-    waitingAnimationInterval = null; // Speichert das Interval für die Warteanimation
-    attackStarted = false; // Verhindert, dass der Angriff mehrmals gestartet wird
+    waitingAnimationInterval = null;
+    attackStarted = false; 
     isHurt = false;
     hasBeenHit = false;
 

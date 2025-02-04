@@ -47,9 +47,7 @@ class World{
             let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this);
             this.throwableObjects.push(bottle);
             this.statusBarBottle.count(this.statusBarBottle.collectedBottles - 1); // 🔻 Flaschenanzahl reduzieren
-        } else if (this.keyboard.D) {
-            console.log("🚫 Keine Flaschen mehr im Vorrat!"); // ❌ Ausgabe, wenn keine Flaschen vorhanden sind
-        }
+        } 
     }
     
     
@@ -84,7 +82,6 @@ checkCollisions() {
             }
         } 
         else if (this.character.isJumpingOnEnemy(enemy) && !(enemy instanceof BossChicken)) { 
-            console.log('Erfolgreiche Kollision bei Sprung!');
             enemy.replaceWithDeadEnemy();
         }
     });

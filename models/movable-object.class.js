@@ -17,7 +17,7 @@ class MovableObject extends DrawableObject{
     }
 
     isAboveGround(){
-        if(this instanceof ThrowableObject){ // Throwable Object should always fall
+        if(this instanceof ThrowableObject){ 
             return true;
         }else{
         return this.y < 180;
@@ -54,7 +54,7 @@ class MovableObject extends DrawableObject{
 
 
     playAnimation(images) {
-        if (this instanceof BossChicken && this.isDead) return; // Nur für BossChicken
+        if (this instanceof BossChicken && this.isDead) return; 
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
@@ -83,7 +83,6 @@ class MovableObject extends DrawableObject{
             (this.x + this.offsetX + this.width > mo.x + mo.offsetX) &&
             (this.x + this.offsetX < mo.x + mo.width + mo.offsetX); 
         let verticalCollision = characterBottom >= enemyTop
-        console.log(horizontalCollision, verticalCollision)
         return horizontalCollision && verticalCollision;
         
     }

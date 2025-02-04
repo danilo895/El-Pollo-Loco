@@ -28,7 +28,7 @@ drawFrame(ctx) {
 
         ctx.beginPath();
         ctx.lineWidth = '1';
-        ctx.strokeStyle = 'green';
+        ctx.strokeStyle = 'blue';
         let adjustedX = this.x + this.offsetX;
         let adjustedY = this.y + this.offsetY;
         let adjustedWidth = this.width - 2 * Math.abs(this.offsetX);

@@ -83,10 +83,12 @@ class MovableObject extends DrawableObject{
         let horizontalCollision =
             (this.x + this.offsetX + this.width > mo.x + mo.offsetX) &&
             (this.x + this.offsetX < mo.x + mo.width + mo.offsetX); 
-        let verticalCollision = characterBottom >= enemyTop
-        return horizontalCollision && verticalCollision;
-        
+    
+        let verticalCollision = characterBottom >= enemyTop;
+        let isFalling = this.speedY < 0;
+        return horizontalCollision && verticalCollision && isFalling;
     }
+    
     
     
     

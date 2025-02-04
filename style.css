@@ -108,10 +108,12 @@ white-space: nowrap;
 
 .button-start:not([disabled]):focus {
 box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+cursor: pointer;
 }
 
 .button-start:not([disabled]):hover {
 box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+cursor: pointer;
 }
 
 .d-flex{
@@ -188,11 +190,13 @@ box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 
     
     .button-win:not([disabled]):focus {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
-    }
+    cursor: pointer;    
+}
     
     .button-win:not([disabled]):hover {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
-    }
+    cursor: pointer;
+}
 
 
     .overlay-losing-screen{
@@ -260,11 +264,13 @@ box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 
         
         .button-lose:not([disabled]):focus {
         box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+        cursor: pointer;
         }
         
         .button-lose:not([disabled]):hover {
         box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
-        }
+        cursor: pointer;
+    }
 
         .background-image-lose {
             width: 100%;

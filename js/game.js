@@ -146,6 +146,15 @@ function showWinningScreen() {
     resetGame();
 }
 
+function showLosingScreen() {
+    if (world && world.character && !world.character.isDead()) {
+        return;
+    }
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('overlay-losing-screen').classList.remove('d-none');
+        document.getElementById('overlay-losing-screen').classList.add('d-flex');
+}
+
 
 function resetGame() {
     setTimeout(() => {
@@ -156,32 +165,21 @@ function resetGame() {
     }, 1400);
 }
 
-function showLosingScreen() {
-    if (world && world.character && world.character.energy > 0) {
-        console.warn("⚠️ Fehler: Losing-Screen wurde fälschlicherweise aufgerufen!");
-        return; // ❌ Verhindert den Losing-Screen, wenn der Charakter noch lebt!
-    }
-
-    setTimeout(() => {
-        document.getElementById('canvas').classList.add('d-none');
-        document.getElementById('overlay-losing-screen').classList.remove('d-none');
-        document.getElementById('overlay-losing-screen').classList.add('d-flex');
-    }, 1400);
-}
-
-
-
 function resetGameAfterLose() {
+    if (world && world.character && !world.character.isDead()) {
+        return;
+    }
     world = null;
-    level1 = null;
-    enemiesSetted = false; 
-
+    level1 = initLevel();
+    enemiesSetted = false;
     let canvas = document.getElementById("canvas");
-    canvas.classList.add("d-none");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    restartGameAfterLose(); 
+    restartGameAfterLose();
 }
+
+
+
 
 
 function restartGameAfterLose() {

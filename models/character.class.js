@@ -114,25 +114,20 @@ class Character extends MovableObject{
             if (this.isDead()) {
                 if (this.alreadyReset) return;
                 this.alreadyReset = true;
-            
+    
                 let deathAnimation = setInterval(() => {
                     this.playAnimation(this.IMAGES_DEAD);
                 }, 100);
-            
+    
                 setTimeout(() => {
                     clearInterval(deathAnimation); // 🛑 Todesanimation nach 2 Sek. stoppen
                     showLosingScreen(); // 🎮 Losing-Screen sofort anzeigen
                     resetGameAfterLose(); // 🔄 Spiel sofort im Hintergrund neustarten
                 }, 2000);
-            
+    
                 return;
             }
-            
-            
-            
-            
-            
-            
+    
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } 

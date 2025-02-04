@@ -215,7 +215,7 @@ box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 
     .lose-game-content {
         position: relative;
         flex-direction: column;
-        background: linear-gradient(to bottom right, #7400ff7d, #b4bd21);
+        background: linear-gradient(to bottom right, hsla(11, 100%, 42.2%, 1), #000000);
         display: flex;
         width: 720px;
         height: 480px;

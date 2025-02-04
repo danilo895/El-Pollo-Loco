@@ -120,14 +120,13 @@ class Character extends MovableObject{
                 }, 100);
     
                 setTimeout(() => {
-                    clearInterval(deathAnimation); // 🛑 Todesanimation nach 2 Sek. stoppen
-                    showLosingScreen(); // 🎮 Losing-Screen sofort anzeigen
-                    resetGameAfterLose(); // 🔄 Spiel sofort im Hintergrund neustarten
+                    clearInterval(deathAnimation);
+                    showLosingScreen();
+                    resetGameAfterLose();
                 }, 2000);
     
                 return;
-            }
-    
+            }  
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } 

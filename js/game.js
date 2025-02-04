@@ -179,9 +179,6 @@ function resetGameAfterLose() {
 }
 
 
-
-
-
 function restartGameAfterLose() {
     level1 = initLevel();
     enemiesSetted = false; 

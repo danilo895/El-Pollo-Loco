@@ -156,7 +156,7 @@ class BossChicken extends MovableObject {
             return;
         }   
         let startX = 2500; 
-        let minX = 500; 
+        let minX = 1000; 
         const attackLoop = () => {
             if (this.isDead) {
                 return;

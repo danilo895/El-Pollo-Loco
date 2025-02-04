@@ -39,31 +39,26 @@ class Chicken extends MovableObject {
             : 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
     
         let deadEnemy = new DeadEnemy(this.x, this.y, this.width, this.height, deadImagePath, this.world);
-        this.world.level.enemies.push(deadEnemy); // Füge das tote Objekt in die Gegnerliste ein
+        this.world.level.enemies.push(deadEnemy);
     
         let index = this.world.level.enemies.indexOf(this);
         if (index !== -1) {
-            this.world.level.enemies.splice(index, 1); // Entferne das lebende Chicken
+            this.world.level.enemies.splice(index, 1);
         }
     }
 
     handleBottleHit() {
-        console.log("💀 Gegner wurde von einer Flasche getroffen!");
-    
         let deadImagePath = this instanceof Chick
             ? 'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
             : 'img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
-    
-        this.loadImage(deadImagePath); // Ändere das Bild auf das tote Chicken
-        this.speed = 0; // Stoppe Bewegung
-    
+        this.loadImage(deadImagePath);
+        this.speed = 0;
         setTimeout(() => {
             let index = this.world.level.enemies.indexOf(this);
             if (index !== -1) {
-                this.world.level.enemies.splice(index, 1); // ❌ Entferne das Chicken
-                console.log("❌ Gegner endgültig entfernt!");
+                this.world.level.enemies.splice(index, 1);
             }
-        }, 500); // Entferne nach 500ms
+        }, 500);
     }
     
     

@@ -114,9 +114,7 @@ class ThrowableObject extends MovableObject {
     handleRegularEnemyCollision(enemy) {
         this.stopRotation();
         if (enemy instanceof Chick || enemy instanceof Chicken) { 
-            enemy.replaceWithDeadEnemy(); // ✅ Normale Gegner sterben
-        } else {
-            console.warn("⚠️ Fehler: replaceWithDeadEnemy wurde für einen falschen Gegner aufgerufen!", enemy);
+            enemy.replaceWithDeadEnemy(); 
         }
     }
     
@@ -142,7 +140,6 @@ class ThrowableObject extends MovableObject {
         clearInterval(this.throwInterval);
         clearInterval(this.rotationInterval);
         this.isRemoved = true;
-        
         let index = this.world.throwableObjects.indexOf(this);
         if (index !== -1) {
             this.world.throwableObjects.splice(index, 1);
@@ -155,13 +152,11 @@ isCollidingWithEnemy(enemy) {
     let bottleCenterX = this.x + this.width / 2;
     let bottleCenterY = this.y + this.height / 2;
 
-
     let enemyCenterX = enemy.x + enemy.width / 2;
     let enemyCenterY = enemy.y + enemy.height / 2;
 
     let dx = Math.abs(bottleCenterX - enemyCenterX);
     let dy = Math.abs(bottleCenterY - enemyCenterY);
-
     let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
                     (dy < (this.height / 2 + enemy.height / 2));
     return collision;

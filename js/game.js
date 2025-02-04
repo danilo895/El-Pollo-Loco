@@ -157,6 +157,11 @@ function resetGame() {
 }
 
 function showLosingScreen() {
+    if (world && world.character && world.character.energy > 0) {
+        console.warn("⚠️ Fehler: Losing-Screen wurde fälschlicherweise aufgerufen!");
+        return; // ❌ Verhindert den Losing-Screen, wenn der Charakter noch lebt!
+    }
+
     setTimeout(() => {
         document.getElementById('canvas').classList.add('d-none');
         document.getElementById('overlay-losing-screen').classList.remove('d-none');
@@ -165,19 +170,19 @@ function showLosingScreen() {
 }
 
 
+
 function resetGameAfterLose() {
-    setTimeout(() => {
-        world = null;
-        level1 = null;
-        enemiesSetted = false; 
-        let canvas = document.getElementById("canvas");
-        let ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        setTimeout(() => {
-            restartGameAfterLose();
-        }, 1000);
-    }, 150);
+    world = null;
+    level1 = null;
+    enemiesSetted = false; 
+
+    let canvas = document.getElementById("canvas");
+    canvas.classList.add("d-none");
+    let ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    restartGameAfterLose(); 
 }
+
 
 function restartGameAfterLose() {
     level1 = initLevel();

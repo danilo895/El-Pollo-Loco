@@ -75,8 +75,11 @@ class ThrowableObject extends MovableObject {
         return false;
     }
     
-
     handleCollision(enemy) {
+        if (!(enemy instanceof Chick || enemy instanceof Chicken || enemy instanceof BossChicken)) {
+            return;
+        }
+    
         if (!enemy.hasBeenHit) {
             enemy.hasBeenHit = true;
     
@@ -89,6 +92,8 @@ class ThrowableObject extends MovableObject {
             this.removeBottle();
         }
     }
+    
+    
     
 
     handleBossCollision(enemy) { 
@@ -106,11 +111,15 @@ class ThrowableObject extends MovableObject {
         }
     }
     
-
     handleRegularEnemyCollision(enemy) {
         this.stopRotation();
-        enemy.replaceWithDeadEnemy();
+        if (enemy instanceof Chick || enemy instanceof Chicken) { 
+            enemy.replaceWithDeadEnemy(); // ✅ Normale Gegner sterben
+        } else {
+            console.warn("⚠️ Fehler: replaceWithDeadEnemy wurde für einen falschen Gegner aufgerufen!", enemy);
+        }
     }
+    
     
 
     checkOutOfBounds() {

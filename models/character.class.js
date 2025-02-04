@@ -82,6 +82,11 @@ class Character extends MovableObject{
     this.animate()
     }
 
+    isDead() {
+        return this.energy <= 0;
+    }
+    
+
 
     animate() {
         setInterval(() => {
@@ -110,7 +115,18 @@ class Character extends MovableObject{
     
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } 
+            
+                console.log("⚠️ Charakter ist gestorben. resetGameAfterLose wird in 3 Sekunden aufgerufen!"); // Debugging
+            
+                setTimeout(() => {
+                    console.log("🔄 Spiel wird zurückgesetzt...");
+                    resetGameAfterLose();
+                }, 3000);
+                
+                return; 
+            }
+            
+            
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } 
@@ -121,19 +137,17 @@ class Character extends MovableObject{
                 this.playAnimation(this.IMAGES_WALKING);
             }
             else if (timeSinceLastKeyPress >= 10000) { 
-                this.playAnimationWithSpeed(this.IMAGES_SLEEPING, 250);
+                this.setSpeedInAnimation(this.IMAGES_SLEEPING, 250);
             } 
             else {  
-                this.playAnimationWithSpeed(this.IMAGES_STANDING, 200);
+                this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
             }
     
         }, 50);
     }
     
 
-
-
-    playAnimationWithSpeed(images, interval) {
+    setSpeedInAnimation(images, interval) {
         if (!this.lastAnimationTime || Date.now() - this.lastAnimationTime >= interval) {
             this.lastAnimationTime = Date.now();
             this.playAnimation(images);

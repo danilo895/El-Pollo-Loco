@@ -58,13 +58,10 @@ function backToMainMenu(){
     document.getElementById('overlay-start-game').classList.remove('d-none');  
 }
 
-function resetGame() {
-    setTimeout(() => {
-        world = null;
-        level1 = initLevel();
-        enemiesSetted = false;
-        init();
-    }, 1400);
+function backToMainMenuAfterLose(){
+    document.getElementById('overlay-losing-screen').classList.remove('d-flex');
+    document.getElementById('overlay-losing-screen').classList.add('d-none');
+    document.getElementById('overlay-start-game').classList.remove('d-none');
 }
 
 
@@ -84,7 +81,6 @@ function startGameAgain(){
     world.setWorld(); 
     world.draw();
 }
-
 
 function initLevel() {
     return new Level(
@@ -149,3 +145,32 @@ function showWinningScreen() {
     }, 1400);
     resetGame();
 }
+
+function showLosingScreen() {
+    setTimeout(() => {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('overlay-losing-screen').classList.remove('d-none');
+        document.getElementById('overlay-losing-screen').classList.add('d-flex');
+    }, 1400);
+}
+
+function resetGame() {
+    setTimeout(() => {
+        world = null;
+        level1 = initLevel();
+        enemiesSetted = false;
+        init();
+    }, 1400);
+}
+
+
+function resetGameAfterLose() {
+    setTimeout(() => {
+        world = null;
+        level1 = initLevel();
+        enemiesSetted = false;
+    }, 1400);
+}
+
+
+

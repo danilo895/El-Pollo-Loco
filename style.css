@@ -194,3 +194,80 @@ box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
     }
 
+
+    .overlay-losing-screen{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0);
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .lose-game-content {
+        position: relative;
+        flex-direction: column;
+        background: linear-gradient(to bottom right, #7400ff7d, #b4bd21);
+        display: flex;
+        width: 720px;
+        height: 480px;
+        border: 4px solid white;
+        border-radius: 6px;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .navbar-options-lose{
+        height: 8%;
+        display: flex;
+        justify-content: space-around;
+        position: absolute;
+        bottom: 2px;
+        width: 100%;
+        padding-bottom: 8px;
+    }
+
+    .button-lose {
+        background: linear-gradient(to bottom right, #ffc305, #2e300c);
+        border: 0;
+        border-radius: 12px;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Kodchasan", serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 2.5;
+        outline: transparent;
+        padding: 0 1rem;
+        text-align: center;
+        text-decoration: none;
+        transition: box-shadow .2s ease-in-out;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        }
+        
+        .button-lose:not([disabled]):focus {
+        box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+        
+        .button-lose:not([disabled]):hover {
+        box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+        }
+
+        .background-image-lose {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }

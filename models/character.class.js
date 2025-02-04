@@ -114,17 +114,18 @@ class Character extends MovableObject{
             let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
     
             if (this.isDead()) {
+                if (this.alreadyReset) return; // Verhindert mehrfachen Aufruf!
+                this.alreadyReset = true; // Nur einmal resetten
+            
                 this.playAnimation(this.IMAGES_DEAD);
             
-                console.log("⚠️ Charakter ist gestorben. resetGameAfterLose wird in 3 Sekunden aufgerufen!"); // Debugging
-            
                 setTimeout(() => {
-                    console.log("🔄 Spiel wird zurückgesetzt...");
                     resetGameAfterLose();
                 }, 3000);
                 
-                return; 
+                return; // Stellt sicher, dass keine weiteren Animationen laufen
             }
+            
             
             
             else if (this.isHurt()) {

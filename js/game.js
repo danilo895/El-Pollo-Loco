@@ -167,10 +167,27 @@ function resetGame() {
 function resetGameAfterLose() {
     setTimeout(() => {
         world = null;
-        level1 = initLevel();
-        enemiesSetted = false;
+        level1 = null;
+        enemiesSetted = false; 
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        setTimeout(() => {
+            restartGameAfterLose();
+        }, 1000);
     }, 1400);
 }
+
+function restartGameAfterLose() {
+    level1 = initLevel();
+    enemiesSetted = false; 
+    world = new World(document.getElementById("canvas"), keyboard);
+    requestAnimationFrame(() => world.draw());
+}
+
+
+
+
 
 
 

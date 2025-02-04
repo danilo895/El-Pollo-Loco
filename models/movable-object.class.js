@@ -78,16 +78,30 @@ class MovableObject extends DrawableObject{
 
     isJumpingOnEnemy(mo) {
         let characterBottom = this.y + this.height;
-        let enemyTop = mo.y; 
+        
+        // **Erweiterung des vertikalen Treffbereichs**  
+        let enemyTop = mo.y + mo.offsetY;
+        let enemyBottom = enemyTop + mo.height - mo.offsetY;
+        
+        // **Toleranz für den "Landebereich"**  
+        let verticalTolerance = 20; // Erhöht auf 25 für eine größere Trefferzone
+    
+        // **Toleranz für den horizontalen Bereich** (damit auch Randtreffer zählen)  
+        let horizontalTolerance = 40;
     
         let horizontalCollision =
-            (this.x + this.offsetX + this.width > mo.x + mo.offsetX) &&
-            (this.x + this.offsetX < mo.x + mo.width + mo.offsetX); 
+            (this.x + this.offsetX + this.width > mo.x + mo.offsetX - horizontalTolerance) &&
+            (this.x + this.offsetX < mo.x + mo.width + mo.offsetX + horizontalTolerance); 
+        let verticalCollision = 
+            characterBottom >= enemyTop - verticalTolerance && 
+            characterBottom < enemyBottom; 
     
-        let verticalCollision = characterBottom >= enemyTop;
-        let isFalling = this.speedY < 0;
+        let isFalling = this.speedY < 0; // Muss nach unten fallen
+    
         return horizontalCollision && verticalCollision && isFalling;
     }
+    
+    
     
     
     

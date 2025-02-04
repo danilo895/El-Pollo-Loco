@@ -55,5 +55,8 @@ let level1 = new Level(
         new TabascoBottle(),
         new TabascoBottle(),
         new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle(),
     ],
 ); 

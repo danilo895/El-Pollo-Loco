@@ -1,7 +1,7 @@
 class Chick extends MovableObject {
     y = 380;
-    height = 40;
-    width = 50;
+    height = 60;
+    width = 70;
     offsetX = 5;
     offsetY = 10;
 

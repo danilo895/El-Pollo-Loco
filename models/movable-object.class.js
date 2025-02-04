@@ -26,11 +26,12 @@ class MovableObject extends DrawableObject{
 
 
     isColliding(mo) {
-        return  (this.x + this.offsetX + this.width > mo.x + mo.offsetX) &&
-                (this.y + this.offsetY + this.height > mo.y + mo.offsetY) &&
-                (this.x + this.offsetX < mo.x + mo.width + mo.offsetX) &&
-                (this.y + this.offsetY < mo.y + mo.height + mo.offsetY);
+        return  (this.x + this.offsetX + (this.width - 2 * Math.abs(this.offsetX)) > mo.x + mo.offsetX) &&
+                (this.y + this.offsetY + (this.height - 2 * Math.abs(this.offsetY)) > mo.y + mo.offsetY) &&
+                (this.x + this.offsetX < mo.x + mo.offsetX + (mo.width - 2 * Math.abs(mo.offsetX))) &&
+                (this.y + this.offsetY < mo.y + mo.offsetY + (mo.height - 2 * Math.abs(mo.offsetY)));
     }
+    
     
     hit(){
         this.energy -= 5;

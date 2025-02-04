@@ -3,8 +3,8 @@ class Coin extends DrawableObject {
     x;
     width;
     height;
-    offsetX = 0;
-    offsetY = 0;
+    offsetX = 30;
+    offsetY = 30;
     IMAGES_COIN = [
         'img/8_coin/coin_1.png',
         'img/8_coin/coin_2.png'

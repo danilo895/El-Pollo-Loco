@@ -21,15 +21,24 @@ draw(ctx) {
 }
 
 
-drawFrame(ctx){
-    if(this instanceof Character || this instanceof Chicken || this instanceof Chick || this instanceof BossChicken || this instanceof ThrowableObject || this instanceof Coin || this instanceof TabascoBottle ){
-    ctx.beginPath();
-    ctx.lineWidth = '1';
-    ctx.strokeStyle = 'purple';
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.stroke();
+drawFrame(ctx) {
+    if (this instanceof Character || this instanceof Chicken || this instanceof Chick || 
+        this instanceof BossChicken || this instanceof ThrowableObject || 
+        this instanceof Coin || this instanceof TabascoBottle) {
+
+        ctx.beginPath();
+        ctx.lineWidth = '1';
+        ctx.strokeStyle = 'green';
+        let adjustedX = this.x + this.offsetX;
+        let adjustedY = this.y + this.offsetY;
+        let adjustedWidth = this.width - 2 * Math.abs(this.offsetX);
+        let adjustedHeight = this.height - 2 * Math.abs(this.offsetY);
+
+        ctx.rect(adjustedX, adjustedY, adjustedWidth, adjustedHeight);
+        ctx.stroke();
+    }
 }
-}
+
 
 loadImages(arr){
     arr.forEach((path) => {

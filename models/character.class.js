@@ -86,8 +86,6 @@ class Character extends MovableObject{
         return this.energy <= 0;
     }
     
-
-
     animate() {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -114,17 +112,20 @@ class Character extends MovableObject{
             let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
     
             if (this.isDead()) {
-                if (this.alreadyReset) return; // Verhindert mehrfachen Aufruf!
-                this.alreadyReset = true; // Nur einmal resetten
-            
-                this.playAnimation(this.IMAGES_DEAD);
-            
+                if (this.alreadyReset) return;
+                this.alreadyReset = true; 
+                let deathAnimation = setInterval(() => {
+                    this.playAnimation(this.IMAGES_DEAD);
+                }, 100);
                 setTimeout(() => {
+                    clearInterval(deathAnimation);
+                    showLosingScreen();
                     resetGameAfterLose();
-                }, 3000);
-                
-                return; // Stellt sicher, dass keine weiteren Animationen laufen
+                }, 2000);
+                return;
             }
+            
+            
             
             
             

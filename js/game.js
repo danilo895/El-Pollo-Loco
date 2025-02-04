@@ -146,13 +146,6 @@ function showWinningScreen() {
     resetGame();
 }
 
-function showLosingScreen() {
-    setTimeout(() => {
-        document.getElementById('canvas').classList.add('d-none');
-        document.getElementById('overlay-losing-screen').classList.remove('d-none');
-        document.getElementById('overlay-losing-screen').classList.add('d-flex');
-    }, 1400);
-}
 
 function resetGame() {
     setTimeout(() => {
@@ -160,6 +153,14 @@ function resetGame() {
         level1 = initLevel();
         enemiesSetted = false;
         init();
+    }, 1400);
+}
+
+function showLosingScreen() {
+    setTimeout(() => {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('overlay-losing-screen').classList.remove('d-none');
+        document.getElementById('overlay-losing-screen').classList.add('d-flex');
     }, 1400);
 }
 
@@ -175,7 +176,7 @@ function resetGameAfterLose() {
         setTimeout(() => {
             restartGameAfterLose();
         }, 1000);
-    }, 1400);
+    }, 150);
 }
 
 function restartGameAfterLose() {

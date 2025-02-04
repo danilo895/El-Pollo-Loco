@@ -1,5 +1,5 @@
 class TabascoBottle extends DrawableObject{
-y = 330;
+y = 350;
 x = 250;
 width = 75;
 height = 105;

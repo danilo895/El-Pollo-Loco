@@ -295,8 +295,8 @@ cursor: pointer;
         }
 
         .jump{
-            height: 60px;
-            width: 60px;
+            height: 36px;
+            width: 36px;
         }
 
         
@@ -306,8 +306,8 @@ cursor: pointer;
         }
 
         .throw{
-            height: 60px;
-            width: 60px;
+            height: 40px;
+            width: 40px;
         }
 
         .throw:hover{
@@ -374,10 +374,37 @@ cursor: pointer;
     
         .jump-throw-cont{
             display: flex;
-            gap: 24px;
+            gap: 35px;
             position: absolute;
             right: 24px;
-            bottom: 0;
+            bottom: 8px;
+        }
+
+        .jump-button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.53);
+        }
+
+        .jump-button:hover{
+            cursor: pointer;
+        }
+
+        .throw-button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.53);
+        }
+        .throw-button:hover{
+            cursor: pointer;
         }
     }
         

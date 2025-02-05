@@ -284,22 +284,6 @@ cursor: pointer;
             object-fit: cover;
         }
 
-        .arrow-container-mobile{
-                display: flex;
-                position: absolute;
-                bottom: 0;
-                left: 16px;
-                z-index: 999;
-                gap: 24px;
-        }
-
-        .jump-throw-container-mobile{
-                display: flex;
-                position: absolute;
-                bottom: 4px;
-                gap: 23px;
-                right: 32px;
-        }
 
         .arrow{
             height: 60px;
@@ -358,24 +342,56 @@ cursor: pointer;
 
         .arrow-cont{
             display: none;
-            position: absolute;
-            bottom: 0;
-            left: 16px;
-            gap: 24px;
         }
 
         .jump-throw-cont{
             display: none;
-            position: absolute;
-            bottom: 4px;
-            gap: 23px;
-            right: 32px;
         }
+
+        .overlay-turn-device{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right:  0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 9999;
+        }
+
+        .nav-control-buttons{
+            display: flex;
+            justify-content: space-between;
+            width: fit-content;
+            position: absolute;
+            bottom: 0;
+            gap: 24px;
+        }
+
+        @media(max-width: 1400px){
+        .arrow-cont{
+            display: flex;
+            gap: 24px;
+        }
+    
+        .jump-throw-cont{
+            display: flex;
+            gap: 24px;
+        }
+    }
         
 
 @media(max-width: 900px){
     h1{
-        z-index: -1;
+        display: none;
+    }
+}
+
+@media (max-height: 900px) {
+    h1 {
+        display: none;
     }
 }
 
@@ -384,14 +400,6 @@ cursor: pointer;
     .game-cont {
         width: 100%;
         height: auto;
-    }
-
-    .arrow-cont{
-        display: flex;
-    }
-
-    .jump-throw-cont{
-        display: flex;
     }
 
     canvas {
@@ -484,6 +492,20 @@ cursor: pointer;
 
 }
 
+
+
+@media only screen and (max-width: 500px){
+.overlay-turn-device{
+display: block;
+}
+}
+
+@media (max-width: 500px) and (min-height: 500px) {
+    .overlay-turn-device {
+        display: none;
+    }
+}
+
 @media only screen and (max-height: 480px){
     canvas{
         height: 100vh;
@@ -502,15 +524,5 @@ cursor: pointer;
         height: 100vh;
     }
 
-    .overlay-turn-device{
-        position: fixed;
-        top: 0;
-        left: 0;
-        right:  0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: black;
-        z-index: 9999;
-    }
+
 }

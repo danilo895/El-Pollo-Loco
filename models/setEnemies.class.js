@@ -7,13 +7,13 @@ function setEnemies() {
         return;
     }
     level1.enemies = [
-        //new Chicken(),
+        new Chicken(),
         //new Chick(),
         //new Chicken(),
         //new Chicken(),
         //new Chicken(),
         //new Chick(),
-        //new BossChicken()
+        new BossChicken()
     ];
     enemiesSetted = true;
     world.setWorld(); 
@@ -29,13 +29,13 @@ function setEnemiesAfterLose() {
         return;
     }
     level1.enemies = [
-        //new Chicken(),
+        new Chicken(),
         //new Chick(),
         //new Chicken(),
         //new Chicken(),
         //new Chicken(),
         //new Chick(),
-        //new BossChicken()
+        new BossChicken()
     ];
     enemiesSetted = true;
     world.setWorld(); 

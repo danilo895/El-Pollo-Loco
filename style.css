@@ -480,6 +480,8 @@ cursor: pointer;
         font-size: 11px;
     }
 
+
+
 }
 
 @media only screen and (max-height: 480px){
@@ -498,5 +500,17 @@ cursor: pointer;
 
     .background-image-win{
         height: 100vh;
+    }
+
+    .overlay-turn-device{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right:  0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        z-index: 9999;
     }
 }

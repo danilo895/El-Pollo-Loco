@@ -284,33 +284,6 @@ cursor: pointer;
             object-fit: cover;
         }
 
-        .overlay-btn-control{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            height: 100vh;
-            width: 100vw;
-            background-color: rgba(0, 0, 0, 0);
-            margin: 0;
-            padding: 0;
-        }
-
-        .btn-control-content{
-            position: relative;
-            flex-direction: column;
-            display: flex;
-            width: 720px;
-            height: 480px;
-            border: 4px solid white;
-            border-radius: 6px;
-        }
-
         .arrow-container-mobile{
                 display: flex;
                 position: absolute;
@@ -355,6 +328,25 @@ cursor: pointer;
             cursor: pointer;
         }
 
+        .btn-control-content{
+            position: relative;
+            flex-direction: column;
+            display: flex;
+            width: 720px;
+            height: 480px;
+            z-index: 999;
+        }
+
+        .navbar-btn{
+            height: 8%;
+            display: flex;
+            justify-content: space-around;
+            position: absolute;
+            bottom: 2px;
+            width: 100%;
+            padding-bottom: 8px;
+        }
+
 
         
 
@@ -366,6 +358,12 @@ cursor: pointer;
 
 
 @media only screen and (max-width: 720px){
+    .btn-control-content{
+        width: 100%;
+        background-color: rgba(0, 128, 0, 0.337);
+        height: auto;
+    }
+
     canvas {
         width: 100%;
         border: none;
@@ -386,6 +384,7 @@ cursor: pointer;
         height: auto;
         border: none;
     }
+
 
     .background-image-start {
         width: 100%;

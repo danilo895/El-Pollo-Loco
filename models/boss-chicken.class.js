@@ -279,6 +279,8 @@ class BossChicken extends MovableObject {
     stopWalking() {
         clearInterval(this.walkingAnimation);
     }
+
+    
     
     
 }

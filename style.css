@@ -15,6 +15,7 @@ body {
 
 
 canvas{
+    display: block;
     background-color: black;
     border: 4px solid white;
     border-radius: 6px;
@@ -277,3 +278,113 @@ cursor: pointer;
             height: 100%;
             object-fit: cover;
         }
+
+@media(max-width: 900px){
+    h1{
+        z-index: -1;
+    }
+}
+
+
+@media only screen and (max-width: 720px){
+    canvas {
+        width: 100%;
+        border: none;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .overlay-start-game {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .start-game-content {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: none;
+    }
+
+    .background-image-start {
+        width: 100%;
+        height: auto;
+        object-position: unset;
+    }
+
+    .button-start {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        width: 120px;
+        font-size: 11px;
+    }
+
+    .overlay-lose-game {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .background-image-lose {
+        width: 100%;
+        height: auto;
+    }
+
+    .lose-game-content {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: none;
+    }
+
+    .button-lose {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        width: 120px;
+        font-size: 11px;
+    }
+
+    .overlay-winning-screen{
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .background-image-win{
+        width: 100%;
+        height: auto;
+    }
+
+    .win-game-content{
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: none;
+    }
+
+    .button-win{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        width: 120px;
+        font-size: 11px;
+    }
+
+}
+
+@media only screen and (max-height: 480px){
+    canvas{
+        height: 100vh;
+        border: none;
+    }
+
+    .background-image-start {
+        height: 100vh;
+    }
+
+    .background-image-lose {
+        height: 100vh;
+    }
+}

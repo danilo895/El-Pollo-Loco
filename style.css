@@ -357,7 +357,7 @@ cursor: pointer;
         }
 
         .arrow-cont{
-            display: flex;
+            display: none;
             position: absolute;
             bottom: 0;
             left: 16px;
@@ -365,7 +365,7 @@ cursor: pointer;
         }
 
         .jump-throw-cont{
-            display: flex;
+            display: none;
             position: absolute;
             bottom: 4px;
             gap: 23px;
@@ -384,6 +384,14 @@ cursor: pointer;
     .game-cont {
         width: 100%;
         height: auto;
+    }
+
+    .arrow-cont{
+        display: flex;
+    }
+
+    .jump-throw-cont{
+        display: flex;
     }
 
     canvas {

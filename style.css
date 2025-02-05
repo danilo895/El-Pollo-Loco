@@ -315,6 +315,8 @@ cursor: pointer;
             width: 60px;
         }
 
+        
+
         .jump:hover{
             cursor: pointer;
         }
@@ -347,7 +349,28 @@ cursor: pointer;
             padding-bottom: 8px;
         }
 
+        .game-cont{
+            display: inline-block;
+            width: 720px;
+            height: 480px; 
+            position: relative;
+        }
 
+        .arrow-cont{
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            gap: 24px;
+        }
+
+        .jump-throw-cont{
+            display: flex;
+            position: absolute;
+            bottom: 4px;
+            gap: 23px;
+            right: 32px;
+        }
         
 
 @media(max-width: 900px){
@@ -358,9 +381,8 @@ cursor: pointer;
 
 
 @media only screen and (max-width: 720px){
-    .btn-control-content{
+    .game-cont {
         width: 100%;
-        background-color: rgba(0, 128, 0, 0.337);
         height: auto;
     }
 

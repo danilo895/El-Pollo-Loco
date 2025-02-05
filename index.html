@@ -41,14 +41,18 @@
         <canvas id="canvas"  width="720" height="480" class="d-none"></canvas>
         <section class="nav-control-buttons">
             <div class="arrow-cont">
-                <img class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
-                <img class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">
+                <img onmousedown="mobileMoveLeftStart()" onmouseup="mobileMoveLeftEnd()" 
+                onmouseleave="mobileMoveLeftEnd()" ontouchstart="mobileMoveLeftStart()" 
+                ontouchend="mobileMoveLeftEnd()" class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
+                <img onmousedown="mobileMoveRightStart()" onmouseup="mobileMoveRightEnd()" 
+                onmouseleave="mobileMoveRightEnd()" ontouchstart="mobileMoveRightStart()" 
+                ontouchend="mobileMoveRightEnd()" class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">           
             </div>
             <div class="jump-throw-cont">
-                <div class="jump-button">
+                <div onclick="mobileJump()" class="jump-button">
                 <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">
                 </div>
-                <div class="throw-button">
+                <div onclick="mobileThrow()" class="throw-button">
                 <img class="throw" src="/img/11-icons-responsive/throw.png" alt="">
                 </div>
             </div>

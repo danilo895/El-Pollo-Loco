@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let moveLeftInterval, moveRightInterval;
 let keyboard = new Keyboard();
 
 function init() {
@@ -185,6 +186,47 @@ function restartGameAfterLose() {
     world = new World(document.getElementById("canvas"), keyboard);
     requestAnimationFrame(() => world.draw());
 }
+
+
+
+function mobileMoveLeftStart() {
+    keyboard.LEFT = true;
+    moveLeftInterval = setInterval(() => {
+        keyboard.LEFT = true;
+    }, 100);
+}
+
+function mobileMoveLeftEnd() {
+    keyboard.LEFT = false;
+    clearInterval(moveLeftInterval);
+}
+
+function mobileMoveRightStart() {
+    keyboard.RIGHT = true;
+    moveRightInterval = setInterval(() => {
+        keyboard.RIGHT = true;
+    }, 100);
+}
+
+function mobileMoveRightEnd() {
+    keyboard.RIGHT = false;
+    clearInterval(moveRightInterval);
+}
+
+function mobileJump() {
+    keyboard.SPACE = true;
+    setTimeout(() => {
+        keyboard.SPACE = false;
+    }, 200);
+}
+
+function mobileThrow() {
+    keyboard.D = true;
+    setTimeout(() => {
+        keyboard.D = false;
+    }, 200);
+}
+
 
 
 

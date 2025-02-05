@@ -263,8 +263,7 @@ class BossChicken extends MovableObject {
     
     startWalkingBack() {
         let reversedImages = [...this.IMAGES_WALKING].reverse();
-        let frameIndex = 0;
-    
+        let frameIndex = 0;   
         this.walkingAnimation = setInterval(() => {
             if (this.stopMovement()) {
                 this.stopWalking();

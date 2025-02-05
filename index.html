@@ -35,8 +35,23 @@
 </head>
 <body onload="init()">
     <h1>EL POLLO LOCO</h1>
+    <canvas id="canvas"  width="720" height="480" class="d-none"></canvas>
 
-    <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
+
+    <div id="overlay-btn-control" class="overlay-btn-control">
+        <div class = "btn-control-content">
+            <section>
+                <div class="arrow-container-mobile">
+                    <img class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
+                    <img class="arrow" src="img/11-icons-responsive/arrow-right.png" alt="">
+                </div>
+                <div class="jump-throw-container-mobile">
+                    <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">
+                    <img class="throw" src="/img/11-icons-responsive/throw.png" alt="">
+                </div>
+            </section>    
+        </div>
+    </div>
 
 
     <div id="overlay-start-game" class="overlay-start-game">
@@ -69,6 +84,8 @@
         </section>
         </div>
 </div>
+
+
 
 </body>
 </html>

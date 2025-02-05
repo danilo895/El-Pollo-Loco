@@ -29,7 +29,7 @@ h1 {
     font-weight: 500;
     font-style: italic;
     font-size: 86px;
-    color: #7511117a;
+    color: #ffffff73;
     -webkit-text-stroke: 0.2px hsla(242, 88.4%, 66.3%, 0.5);
     margin: 0;
 }
@@ -141,6 +141,45 @@ cursor: pointer;
 .d-flex{
     display: flex;
 }
+
+.button-start-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom right, hsl(11deg 100% 50%), #7beb00);
+    border: 0;
+    border-radius: 12px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Pirata One", serif;
+    -webkit-text-stroke: 0.2px hsl(330.08deg 100% 74.18% / 85.9%);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: -0.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2sease -in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    margin: 0;
+    width: 120px;
+    height: 40px;
+}
+    
+    .button-start-game:not([disabled]):focus {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    cursor: pointer;
+    }
+    
+    .button-start-game:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    cursor: pointer;
+    }
 
 .overlay-winning-screen{
     flex-direction: column;
@@ -448,6 +487,10 @@ cursor: pointer;
     .game-cont {
         width: 100%;
         height: auto;
+    }
+
+    .button-start-game {
+        height: 28px;
     }
 
     canvas {

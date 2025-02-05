@@ -78,28 +78,42 @@ class MovableObject extends DrawableObject{
 
     isJumpingOnEnemy(mo) {
         let characterBottom = this.y + this.height;
-        
-        // **Erweiterung des vertikalen Treffbereichs**  
-        let enemyTop = mo.y + mo.offsetY;
-        let enemyBottom = enemyTop + mo.height - mo.offsetY;
-        
-        // **Toleranz für den "Landebereich"**  
-        let verticalTolerance = 20; // Erhöht auf 25 für eine größere Trefferzone
+        let enemyTop = mo.y;
+        let enemyBottom = enemyTop + mo.height;
     
-        // **Toleranz für den horizontalen Bereich** (damit auch Randtreffer zählen)  
-        let horizontalTolerance = 40;
+        let verticalTolerance = 30;
+        let horizontalTolerance = 0;
     
         let horizontalCollision =
             (this.x + this.offsetX + this.width > mo.x + mo.offsetX - horizontalTolerance) &&
             (this.x + this.offsetX < mo.x + mo.width + mo.offsetX + horizontalTolerance); 
+    
         let verticalCollision = 
             characterBottom >= enemyTop - verticalTolerance && 
             characterBottom < enemyBottom; 
     
-        let isFalling = this.speedY < 0; // Muss nach unten fallen
-    
-        return horizontalCollision && verticalCollision && isFalling;
+        let isFalling = this.speedY < 0; 
+        if (isFalling) {
+            console.log("=== Collision Debugging (Character is Falling) ===");
+            console.log(`Character Bottom: ${characterBottom}`);
+            console.log(`Enemy Top: ${enemyTop}`);
+            console.log(`Enemy Bottom: ${enemyBottom}`);
+            console.log(`Character X: ${this.x}, Character Width: ${this.width}`);
+            console.log(`Enemy X: ${mo.x}, Enemy Width: ${mo.width}`);
+            console.log(`Horizontal Collision: ${horizontalCollision}`);
+            console.log(`Vertical Collision: ${verticalCollision}`);
+            console.log(`Is Falling: ${isFalling}`);
+        }
+        if (horizontalCollision && verticalCollision && isFalling) {
+            console.warn("JUMP ON ENEMY DETECTED! Pausing execution...");
+            //debugger;
+            return true;
+        }
+        
+        return false;
     }
+    
+    
     
     
     

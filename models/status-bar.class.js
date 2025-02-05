@@ -49,7 +49,4 @@ setPercentage(percentage){
 
 
 
-
-
-
 }

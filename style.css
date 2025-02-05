@@ -38,6 +38,22 @@ h1 {
     position: relative;
 }
 
+.headline-device{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.turn-device-font {
+    font-family: "Pirata One", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 54px;
+    color: #000000;
+    margin: 0;
+}
+
 .overlay-start-game{
     display: flex;
     flex-direction: column;
@@ -356,8 +372,15 @@ cursor: pointer;
             bottom: 0;
             width: 100vw;
             height: 100vh;
-            background-color: black;
+            background: linear-gradient(to bottom, #E4C590, #D88C50, #A6472C);
             z-index: 9999;
+            gap: 32px;
+        }
+
+        .overlay-turn-device img{
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
         }
 
 
@@ -521,15 +544,16 @@ cursor: pointer;
 
 @media only screen and (max-width: 500px){
 .overlay-turn-device{
-display: block;
-}
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
 }
 
-@media (max-width: 500px) and (min-height: 500px) {
-    .overlay-turn-device {
-        display: none;
-    }
+
 }
+
+
 
 @media only screen and (max-height: 480px){
     canvas{
@@ -550,4 +574,10 @@ display: block;
     }
 
 
+}
+
+@media (max-width: 425px){
+    .turn-device-font {
+        font-size: 32px;
+    }
 }

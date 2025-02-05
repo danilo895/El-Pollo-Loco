@@ -145,7 +145,7 @@ cursor: pointer;
 .win-game-content {
     position: relative;
     flex-direction: column;
-    background: linear-gradient(to bottom right, #7400ff7d, #b4bd21);
+    background: linear-gradient(to bottom right, #7300ff, #b5bd21);
     display: flex;
     width: 720px;
     height: 480px;
@@ -157,7 +157,7 @@ cursor: pointer;
 
 
 .background-image-win {
-    width: 60%;
+    width: 70%;
     height: 60%;
     object-fit: cover;
 }

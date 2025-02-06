@@ -112,14 +112,17 @@ class Character extends MovableObject{
             let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
     
             if (this.isDead()) {
+
                 if (this.alreadyReset) return;
                 this.alreadyReset = true;
-    
+
                 let deathAnimation = setInterval(() => {
                     this.playAnimation(this.IMAGES_DEAD);
                 }, 100);
     
                 setTimeout(() => {
+                    characterDies.currentTime = 0;
+                    characterDies.play();
                     clearInterval(deathAnimation);
                     showLosingScreen();
                     resetGameAfterLose();

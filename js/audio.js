@@ -16,7 +16,6 @@ const destroyChickenSound = new Audio('audio/destroyChicken.mp3');
 destroyChickenSound.volume = 0.5;
 
 
-
 const hurtSound = new Audio('audio/hitCharacter.wav'); 
 hurtSound.volume = 0.5;
 function playHurtSound() {
@@ -24,8 +23,10 @@ function playHurtSound() {
         hurtSound.currentTime = 0;
         hurtSound.play();
     }
-}
+}  
 
+const characterDies = new Audio('audio/udie.ogg');
+characterDies.volume = 0.5;
 
 
 

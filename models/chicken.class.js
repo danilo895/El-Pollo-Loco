@@ -40,6 +40,8 @@ class Chicken extends MovableObject {
     
         let deadEnemy = new DeadEnemy(this.x, this.y, this.width, this.height, deadImagePath, this.world);
         this.world.level.enemies.push(deadEnemy);
+        destroyChickenSound.currentTime = 0;
+        destroyChickenSound.play();
     
         let index = this.world.level.enemies.indexOf(this);
         if (index !== -1) {

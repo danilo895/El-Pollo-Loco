@@ -117,10 +117,13 @@ class ThrowableObject extends MovableObject {
     
     handleRegularEnemyCollision(enemy) {
         this.stopRotation();
+        
         if (enemy instanceof Chick || enemy instanceof Chicken) { 
             enemy.replaceWithDeadEnemy(); 
+    
         }
     }
+    
     
     
 

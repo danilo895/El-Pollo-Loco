@@ -34,6 +34,8 @@ class Chick extends MovableObject {
     }
 
     replaceWithDeadEnemy() {
+        destroyChickenSound.currentTime = 0;
+        destroyChickenSound.play();
         let deadImagePath = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
         let deadEnemy = new DeadEnemy(this.x, this.y, this.width, this.height, deadImagePath, this.world);
         this.world.level.enemies.push(deadEnemy); 

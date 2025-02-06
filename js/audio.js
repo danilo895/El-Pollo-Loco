@@ -28,5 +28,8 @@ function playHurtSound() {
 const characterDies = new Audio('audio/udie.ogg');
 characterDies.volume = 0.5;
 
+const winSound = new Audio('audio/wingame.wav');
+winSound.volume = 0.5;
+
 
 

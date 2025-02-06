@@ -97,6 +97,8 @@ class BossChicken extends MovableObject {
         };
         this.world.level.enemies.push(deadChicken);
         animateDeadChicken();
+        winSound.currentTime = 0;
+        winSound.play();
         showWinningScreen();
     }
     

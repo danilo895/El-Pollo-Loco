@@ -83,6 +83,7 @@ function setEnemies() {
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
+    enableGameSounds();
 }
 
 
@@ -105,4 +106,5 @@ function setEnemiesAfterLose() {
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
+    enableGameSounds();
 }

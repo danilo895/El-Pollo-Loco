@@ -18,7 +18,10 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
         
         let direction = this.world.character.otherDirection ? -1 : 1;
-
+    
+        throwSound.currentTime = 0;
+        throwSound.play()
+    
         this.throwInterval = setInterval(() => {
             this.x += 10 * direction;
             if (this.y > 500 || this.x < 0) {
@@ -26,6 +29,7 @@ class ThrowableObject extends MovableObject {
             }
         }, 25);
     }
+    
 
 
     startRotation() {

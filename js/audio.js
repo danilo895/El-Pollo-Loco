@@ -8,3 +8,8 @@ coinSound.volume = 0.5;
 
 const bottleCollectSound = new Audio('audio/collectBottle.wav'); 
 bottleCollectSound.volume = 0.5;
+
+
+
+const throwSound = new Audio('audio/throw.mp3'); 
+throwSound.volume = 0.5;

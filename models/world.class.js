@@ -72,8 +72,6 @@ class World{
             if (this.character.isColliding(bottle)) {
                 this.level.tabascoBottles.splice(index, 1);
                 this.statusBarBottle.count(this.statusBarBottle.collectedBottles + 1); 
-    
-
                 bottleCollectSound.currentTime = 0;
                 bottleCollectSound.play()
                 

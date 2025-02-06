@@ -52,25 +52,35 @@ class World{
     
     
 
-checkCoinCollision() {
-    this.level.coins.forEach((coin, index) => {
-        if (this.character.isColliding(coin)) {
-            this.level.coins.splice(index, 1);
-            this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20); // StatusBar aktualisieren
-        }
-    });
-}
+    checkCoinCollision() {
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(index, 1);
+                this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20); // StatusBar aktualisieren
+                
+                coinSound.currentTime = 0; // Setzt den Sound zurück, falls er schon läuft
+                coinSound.play().catch(error => console.log("⚠ Sound konnte nicht abgespielt werden:", error));
+            }
+        });
+    }
+    
 
 
 
-checkBottleCollision() {
-    this.level.tabascoBottles.forEach((bottle, index) => {
-        if (this.character.isColliding(bottle)) {
-            this.level.tabascoBottles.splice(index, 1);
-            this.statusBarBottle.count(this.statusBarBottle.collectedBottles + 1); // ✅ Flaschenanzahl erhöhen
-        }
-    });
-}
+    checkBottleCollision() {
+        this.level.tabascoBottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.tabascoBottles.splice(index, 1);
+                this.statusBarBottle.count(this.statusBarBottle.collectedBottles + 1); 
+    
+
+                bottleCollectSound.currentTime = 0;
+                bottleCollectSound.play()
+                
+            }
+        });
+    }
+    
 
 
 checkCollisions() {

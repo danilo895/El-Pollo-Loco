@@ -72,9 +72,14 @@ class MovableObject extends DrawableObject{
             this.x -= this.speed;
     }
 
-    jump(){
-        this.speedY = 30;
+    jump() {
+        if (!this.isAboveGround()) {
+            this.speedY = 30; 
+            jumpSound.currentTime = 0;
+            jumpSound.play();
+        }
     }
+    
 
     isJumpingOnEnemy(mo) {
         let characterBottom = this.y + this.height;

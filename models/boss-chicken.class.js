@@ -112,14 +112,18 @@ class BossChicken extends MovableObject {
     }
     
     playHurtAnimation() {
+
         if (this.isHurt) return;       
         this.isHurt = true;
-        this.isFrozen = true;       
+        this.isFrozen = true;
+
+    
         let frameIndex = 0;
         let hurtInterval = setInterval(() => {
             this.img = this.imageCache[this.IMAGES_HURT[frameIndex]];
             frameIndex = (frameIndex + 1) % this.IMAGES_HURT.length;
         }, 100);  
+    
         setTimeout(() => {
             clearInterval(hurtInterval);
             this.isHurt = false;
@@ -127,6 +131,8 @@ class BossChicken extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }, 1000); 
     }
+    
+    
     
     
     setWorld(world) {

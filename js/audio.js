@@ -14,3 +14,18 @@ throwSound.volume = 0.5;
 
 const destroyChickenSound = new Audio('audio/destroyChicken.mp3'); 
 destroyChickenSound.volume = 0.5;
+
+
+
+const hurtSound = new Audio('audio/hitCharacter.wav'); 
+hurtSound.volume = 0.5;
+function playHurtSound() {
+    if (hurtSound.paused) {
+        hurtSound.currentTime = 0;
+        hurtSound.play();
+    }
+}
+
+
+
+

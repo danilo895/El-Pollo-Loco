@@ -33,15 +33,16 @@ class MovableObject extends DrawableObject{
     }
     
     
-    hit(){
+    hit() {
         this.energy -= 5;
-        if(this.energy < 0){
+        if (this.energy < 0) {
             this.energy = 0;
-        }
-        else{
+        } else {
             this.lastHit = new Date().getTime();
+            playHurtSound(); // Statt direkt `hurtSound.play();`
         }
     }
+    
 
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;

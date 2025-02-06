@@ -56,8 +56,25 @@ window.addEventListener("keyup",(e) =>{
 function backToMainMenu(){
     document.getElementById('overlay-winning-screen').classList.remove('d-flex');
     document.getElementById('overlay-winning-screen').classList.add('d-none');
-    document.getElementById('overlay-start-game').classList.remove('d-none');  
+    resetGameFully();
 }
+
+function resetGameFully() {
+    document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('overlay-start-game').classList.remove('d-none');
+    world = null;
+    level1.enemies = [];
+    level1.coins = [];
+    level1.tabascoBottles = [];
+    enemiesSetted = false;
+    level1 = initLevel();
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    init();
+}
+
+
 
 function backToMainMenuAfterLose(){
     document.getElementById('overlay-losing-screen').classList.remove('d-flex');
@@ -66,22 +83,30 @@ function backToMainMenuAfterLose(){
 }
 
 
-function startGameAgain(){
+function startGameAgain() {
     document.getElementById('overlay-winning-screen').classList.remove('d-flex');
     document.getElementById('overlay-winning-screen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
+    setEnemiesForRetry();
+}
+
+
+function setEnemiesForRetry() {
     if (enemiesSetted) {
         return;
     }
     level1.enemies = [
         new Chicken(),
         new Chick(),
+        new Chicken(),
+        new Chick(),
         new BossChicken()
     ];
     enemiesSetted = true;
-    world.setWorld(); 
+    world.setWorld();
     world.draw();
 }
+
 
 function initLevel() {
     return new Level(
@@ -147,6 +172,21 @@ function showWinningScreen() {
     resetGame();
 }
 
+function resetGame() {
+    setTimeout(() => {
+        world = null;
+        level1.enemies = [];
+        enemiesSetted = false;
+        level1 = initLevel();
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        init();
+    }, 1500);
+}
+
+
+
 function showLosingScreen() {
     if (world && world.character && !world.character.isDead()) {
         return;
@@ -157,14 +197,8 @@ function showLosingScreen() {
 }
 
 
-function resetGame() {
-    setTimeout(() => {
-        world = null;
-        level1 = initLevel();
-        enemiesSetted = false;
-        init();
-    }, 1400);
-}
+
+
 
 function resetGameAfterLose() {
     if (world && world.character && !world.character.isDead()) {

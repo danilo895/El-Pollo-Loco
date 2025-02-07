@@ -11,10 +11,7 @@ const characdead = new Audio('audio/characdead.mp3');
 const winSound = new Audio('audio/wingame.wav');
 const losesound = new Audio('audio/udie.ogg');
 
-
-
-
-const gameSounds = [jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies,deathboss, characdead];
+const gameSounds = [jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies, deathboss, characdead];
 
 function disableGameSounds() {
     gameSounds.forEach(sound => {
@@ -22,13 +19,13 @@ function disableGameSounds() {
     });
 }
 
-disableGameSounds();
 
 function enableGameSounds() {
     gameSounds.forEach(sound => {
         sound.muted = false;
     });
 }
+
 
 function playHurtSound() {
     if (!hurtSound.muted && hurtSound.paused) {

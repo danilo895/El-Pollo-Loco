@@ -38,16 +38,8 @@
 
 
     <div class="game-cont">
-        <div class="sound-icons-container">
-            <img class="sound-icon" src="/img/12_sound/sound-active.png" alt="">
-        </div>
         <canvas id="canvas"  width="720" height="480" class="d-none"></canvas>
         <section class="nav-control-buttons">
-
-
-
-
-
             <div class="arrow-cont">
                 <img onmousedown="mobileMoveLeftStart()" onmouseup="mobileMoveLeftEnd()" 
                 onmouseleave="mobileMoveLeftEnd()" ontouchstart="mobileMoveLeftStart()" 
@@ -56,6 +48,11 @@
                 onmouseleave="mobileMoveRightEnd()" ontouchstart="mobileMoveRightStart()" 
                 ontouchend="mobileMoveRightEnd()" class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">           
             </div>
+
+            <div onclick="toggleGameSound()" id="gameSoundButton" class="sound-icons-container-game">
+                <img id="soundIcon" class="sound-icon-game" src="/img/12_sound/sound-active.png" alt="">
+            </div>
+
             <div class="jump-throw-cont">
                 <div onclick="mobileJump()" class="jump-button">
                 <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">

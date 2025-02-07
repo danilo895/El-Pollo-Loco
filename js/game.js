@@ -296,6 +296,13 @@ function mobileThrow() {
 }
 
 
+function toggleGameSound() {
+    let soundIcon = document.querySelector('#gameSoundButton img');
+    let activeSrc = "/img/12_sound/sound-active.png";
+    let inactiveSrc = "/img/12_sound/sound-inactive.png";
+    soundIcon.src = soundIcon.src.includes("sound-active.png") ? inactiveSrc : activeSrc;
+}
+
 
 
 

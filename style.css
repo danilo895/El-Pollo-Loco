@@ -276,6 +276,25 @@ cursor: pointer;
         padding: 0;
     }
 
+    .sound-icons-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.53);
+        position: absolute;
+        top: 48px;
+        right: 16px;
+        z-index: 999999999999999999999;
+    }
+
+    .sound-icon{
+        height: 30px;
+        width: 30px;
+    }
+
 
     .lose-game-content {
         position: relative;

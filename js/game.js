@@ -92,6 +92,7 @@ function resetGameLose() {
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    disableGameSounds();
     init();
 
 }
@@ -104,6 +105,7 @@ function startGameAgain() {
     document.getElementById('overlay-winning-screen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     setEnemiesForRetry();
+    enableGameSounds();
 }
 
 
@@ -184,7 +186,10 @@ function showWinningScreen() {
         document.getElementById('canvas').classList.add('d-none');
         document.getElementById('overlay-winning-screen').classList.remove('d-none');
         document.getElementById('overlay-winning-screen').classList.add('d-flex');
+        winSound.currentTime = 0;
+        winSound.play();
     }, 1400);
+    
     resetGame();
 }
 
@@ -197,6 +202,7 @@ function resetGame() {
         let canvas = document.getElementById("canvas");
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        disableGameSounds();
         init();
     }, 1500);
 }
@@ -204,6 +210,8 @@ function resetGame() {
 
 
 function showLosingScreen() {
+    losesound.currentTime = 0;
+    losesound.play();
     if (world && world.character && !world.character.isDead()) {
         return;
     }
@@ -244,6 +252,7 @@ function restartGameAfterLose() {
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
+    enableGameSounds();
 }
 
 

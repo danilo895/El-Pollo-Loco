@@ -115,7 +115,8 @@ class Character extends MovableObject{
 
                 if (this.alreadyReset) return;
                 this.alreadyReset = true;
-
+                characdead.currentTime = 0;
+                characdead.play();
                 let deathAnimation = setInterval(() => {
                     this.playAnimation(this.IMAGES_DEAD);
                 }, 100);

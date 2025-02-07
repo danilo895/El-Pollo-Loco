@@ -81,6 +81,8 @@ class BossChicken extends MovableObject {
     
 
     deadEndbossAnimation() {
+        deathboss.currentTime = 0;
+        deathboss.play();
         let deadChicken = new DrawableObject();
         deadChicken.x = this.deathXCoordinate;
         deadChicken.y = this.y;
@@ -97,9 +99,8 @@ class BossChicken extends MovableObject {
         };
         this.world.level.enemies.push(deadChicken);
         animateDeadChicken();
-        winSound.currentTime = 0;
-        winSound.play();
         showWinningScreen();
+
     }
     
     
@@ -118,9 +119,9 @@ class BossChicken extends MovableObject {
         if (this.isHurt) return;       
         this.isHurt = true;
         this.isFrozen = true;
-
-    
         let frameIndex = 0;
+        deathboss.currentTime = 0;
+        deathboss.play();
         let hurtInterval = setInterval(() => {
             this.img = this.imageCache[this.IMAGES_HURT[frameIndex]];
             frameIndex = (frameIndex + 1) % this.IMAGES_HURT.length;

@@ -59,6 +59,13 @@ function backToMainMenu(){
     resetGameFully();
 }
 
+function backToMainMenuAfterLose(){
+    document.getElementById('overlay-losing-screen').classList.remove('d-flex');
+    document.getElementById('overlay-losing-screen').classList.add('d-none');
+    document.getElementById('overlay-start-game').classList.remove('d-none');
+    resetGameFully();
+}
+
 function resetGameFully() {
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('overlay-start-game').classList.remove('d-none');
@@ -75,12 +82,21 @@ function resetGameFully() {
 }
 
 
+function resetGameLose() {
+    world = null;
+    level1.enemies = [];
+    level1.coins = [];
+    level1.tabascoBottles = [];
+    enemiesSetted = false;
+    level1 = initLevel();
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    init();
 
-function backToMainMenuAfterLose(){
-    document.getElementById('overlay-losing-screen').classList.remove('d-flex');
-    document.getElementById('overlay-losing-screen').classList.add('d-none');
-    document.getElementById('overlay-start-game').classList.remove('d-none');
 }
+
+
 
 
 function startGameAgain() {
@@ -215,10 +231,19 @@ function resetGameAfterLose() {
 
 
 function restartGameAfterLose() {
-    level1 = initLevel();
-    enemiesSetted = false; 
-    world = new World(document.getElementById("canvas"), keyboard);
-    requestAnimationFrame(() => world.draw());
+    document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('overlay-losing-screen').classList.add('d-none');
+    document.getElementById('overlay-losing-screen').classList.remove('d-flex');
+    level1.enemies = [
+        new Chicken(),
+        new Chick(),
+        new Chicken(),
+        new Chick(),
+        new BossChicken()
+    ];  
+    enemiesSetted = true;
+    world.setWorld(); 
+    world.draw();
 }
 
 

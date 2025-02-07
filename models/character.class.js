@@ -125,9 +125,8 @@ class Character extends MovableObject{
                     characterDies.play();
                     clearInterval(deathAnimation);
                     showLosingScreen();
-                    resetGameAfterLose();
+                    resetGameLose();
                 }, 2000);
-    
                 return;
             }  
             else if (this.isHurt()) {

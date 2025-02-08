@@ -581,10 +581,11 @@ cursor: pointer;
         width: 100vw;
         height: 100vh;
     }
-
-    .background-image-win{
+    .background-image-win {
         width: 100%;
         height: auto;
+        max-height: 350px;
+        object-fit: contain;
     }
 
     .win-game-content{

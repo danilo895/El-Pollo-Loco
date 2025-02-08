@@ -54,21 +54,21 @@ window.addEventListener("keyup",(e) =>{
 
 
 function backToMainMenu(){
-    document.getElementById('overlay-winning-screen').classList.remove('d-flex');
-    document.getElementById('overlay-winning-screen').classList.add('d-none');
+    document.getElementById('win-overlay').classList.remove('d-flex');
+    document.getElementById('win-overlay').classList.add('d-none');
     resetGameFully();
 }
 
 function backToMainMenuAfterLose(){
-    document.getElementById('overlay-losing-screen').classList.remove('d-flex');
-    document.getElementById('overlay-losing-screen').classList.add('d-none');
-    document.getElementById('overlay-start-game').classList.remove('d-none');
+    document.getElementById('lose-overlay').classList.remove('d-flex');
+    document.getElementById('lose-overlay').classList.add('d-none');
+    document.getElementById('start-overlay').classList.remove('d-none');
     resetGameFully();
 }
 
 function resetGameFully() {
     document.getElementById('canvas').classList.add('d-none');
-    document.getElementById('overlay-start-game').classList.remove('d-none');
+    document.getElementById('start-overlay').classList.remove('d-none');
     world = null;
     level1.enemies = [];
     level1.coins = [];
@@ -100,8 +100,8 @@ function resetGameLose() {
 
 
 function startGameAgain() {
-    document.getElementById('overlay-winning-screen').classList.remove('d-flex');
-    document.getElementById('overlay-winning-screen').classList.add('d-none');
+    document.getElementById('win-overlay').classList.remove('d-flex');
+    document.getElementById('win-overlay').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     setEnemiesForRetry();
 }
@@ -182,8 +182,8 @@ function initLevel() {
 function showWinningScreen() {
     setTimeout(() => {
         document.getElementById('canvas').classList.add('d-none');
-        document.getElementById('overlay-winning-screen').classList.remove('d-none');
-        document.getElementById('overlay-winning-screen').classList.add('d-flex');
+        document.getElementById('win-overlay').classList.remove('d-none');
+        document.getElementById('win-overlay').classList.add('d-flex');
         winSound.currentTime = 0;
         winSound.play();
     }, 1400);
@@ -214,8 +214,8 @@ function showLosingScreen() {
         return;
     }
         document.getElementById('canvas').classList.add('d-none');
-        document.getElementById('overlay-losing-screen').classList.remove('d-none');
-        document.getElementById('overlay-losing-screen').classList.add('d-flex');
+        document.getElementById('lose-overlay').classList.remove('d-none');
+        document.getElementById('lose-overlay').classList.add('d-flex');
 }
 
 
@@ -238,8 +238,8 @@ function resetGameAfterLose() {
 
 function restartGameAfterLose() {
     document.getElementById('canvas').classList.remove('d-none');
-    document.getElementById('overlay-losing-screen').classList.add('d-none');
-    document.getElementById('overlay-losing-screen').classList.remove('d-flex');
+    document.getElementById('lose-overlay').classList.add('d-none');
+    document.getElementById('lose-overlay').classList.remove('d-flex');
     level1.enemies = [
         new Chicken(),
         new Chick(),

@@ -66,7 +66,8 @@ let level1 = new Level(
 
 
 function setEnemies() {
-    document.getElementById('overlay-start-game').classList.add('d-none');
+    document.getElementById('start-overlay').classList.remove('d-flex');
+    document.getElementById('start-overlay').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
 
     if (enemiesSetted) {

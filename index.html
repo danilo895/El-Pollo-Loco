@@ -37,28 +37,57 @@
     <h1>EL POLLO LOCO</h1>
 
 
-    <div class="game-cont">
-        <canvas id="canvas"  width="720" height="480" class="d-none"></canvas>
+<div class="game-wrapper">
+        <canvas id="canvas" width="720" height="480"></canvas>
         <section class="nav-control-buttons">
             <div class="arrow-cont">
-                <img onmousedown="mobileMoveLeftStart()" onmouseup="mobileMoveLeftEnd()" 
-                onmouseleave="mobileMoveLeftEnd()" ontouchstart="mobileMoveLeftStart()" 
-                ontouchend="mobileMoveLeftEnd()" class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
-                <img onmousedown="mobileMoveRightStart()" onmouseup="mobileMoveRightEnd()" 
-                onmouseleave="mobileMoveRightEnd()" ontouchstart="mobileMoveRightStart()" 
-                ontouchend="mobileMoveRightEnd()" class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">           
+                <img class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
+                <img class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">
             </div>
-
             <div class="jump-throw-cont">
-                <div onclick="mobileJump()" class="jump-button">
-                <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">
+                <div class="jump-button">
+                    <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">
                 </div>
-                <div onclick="mobileThrow()" class="throw-button">
-                <img class="throw" src="/img/11-icons-responsive/throw.png" alt="">
+                <div class="throw-button">
+                    <img class="throw" src="/img/11-icons-responsive/throw.png" alt="">
                 </div>
             </div>
         </section>
     </div>
+    
+
+
+
+
+<div class="start-overlay d-flex" id="start-overlay">
+    <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="background-image-start">
+    <section class="navbar-buttons-start">
+        <button class="button-start" role="button">INSTRUCTIONS</button>
+        <button class="button-start-game" role="button" onclick="setEnemies()">START GAME</button>
+        <button class="button-start" role="button">IMPRINT</button>
+    </section>
+</div>
+
+<div class="lose-overlay d-none" id="lose-overlay">
+    <img src="img/9_intro_outro_screens/game_over/you lost.png" alt="" class="background-image-lose">        
+    <section class="navbar-options-lose">
+        <button onclick="restartGameAfterLose()" class="button-lose" role="button">TRY AGAIN</button>
+        <button onclick="backToMainMenuAfterLose()" class="button-lose" role="button">BACK TO MENU</button>
+    </section>
+</div>
+
+
+<div class="win-overlay d-none" id="win-overlay">
+    <img src="img/9_intro_outro_screens/win/won_2.png" alt="" class="background-image-win">        
+    <section class="navbar-options-win">
+        <button onclick="startGameAgain()" class="button-win" role="button">PLAY AGAIN</button>
+        <button onclick="backToMainMenu()" class="button-win" role="button">BACK TO MENU</button>
+    </section>
+</div>
+
+
+
+
 
 <div class="overlay-sound">
     <div class="content-nav-sound">
@@ -70,36 +99,11 @@
 
 
 
-    <div id="overlay-start-game" class="overlay-start-game">
-        <div class = "start-game-content">
-            <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="background-image-start">
-            <section class="navbar-buttons-start">
-                <button class="button-start" role="button">INSTRUCTIONS</button>
-                <button class="button-start-game" role="button" onclick="setEnemies()">START GAME</button>
-                <button class="button-start" role="button">IMPRINT</button>
-            </section>
-        </div>
-    </div>
 
-<div id="overlay-winning-screen" class="overlay-winning-screen d-none">
-    <div class="win-game-content">
-        <img src="img/9_intro_outro_screens/win/won_2.png" alt="" class="background-image-win">        
-        <section class="navbar-options-win">
-            <button onclick="startGameAgain()" class="button-win" role="button">PLAY AGAIN</button>
-            <button onclick="backToMainMenu()" class="button-win" role="button">BACK TO MENU</button>
-        </section>
-        </div>
-</div>
 
-<div id="overlay-losing-screen" class="overlay-losing-screen d-none">
-    <div class="lose-game-content">
-        <img src="img/9_intro_outro_screens/game_over/you lost.png" alt="" class="background-image-lose">        
-        <section class="navbar-options-lose">
-            <button onclick="restartGameAfterLose()" class="button-lose" role="button">TRY AGAIN</button>
-            <button onclick="backToMainMenuAfterLose()" class="button-lose" role="button">BACK TO MENU</button>
-        </section>
-        </div>
-</div>
+
+
+
 
 <div class="overlay-turn-device">
     <div class="headline-device">

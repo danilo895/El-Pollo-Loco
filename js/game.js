@@ -92,7 +92,6 @@ function resetGameLose() {
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    disableGameSounds();
     init();
 
 }
@@ -105,7 +104,6 @@ function startGameAgain() {
     document.getElementById('overlay-winning-screen').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     setEnemiesForRetry();
-    enableGameSounds();
 }
 
 
@@ -202,7 +200,7 @@ function resetGame() {
         let canvas = document.getElementById("canvas");
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        disableGameSounds();
+
         init();
     }, 1500);
 }
@@ -252,7 +250,6 @@ function restartGameAfterLose() {
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
-    enableGameSounds();
 }
 
 
@@ -298,15 +295,15 @@ function mobileThrow() {
 
 function toggleGameSound() {
     let soundIcon = document.getElementById("soundIcon");
-    const activeSrc = "img/12_sound/sound-active.png";
-    const inactiveSrc = "img/12_sound/sound-inactive.png";
-    let currentSrc = soundIcon.src.replace(location.origin + "/", "");
+    const activeSound = "img/12_sound/sound-active.png";
+    const inactiveSound = "img/12_sound/sound-inactive.png";
+    let currentSound = soundIcon.src.replace(location.origin + "/", "");
 
-    if (currentSrc === activeSrc) {
-        soundIcon.src = inactiveSrc;
+    if (currentSound === activeSound) {
+        soundIcon.src = inactiveSound;
         disableGameSounds();
     } else {
-        soundIcon.src = activeSrc;
+        soundIcon.src = activeSound;
         enableGameSounds();
     }
 }

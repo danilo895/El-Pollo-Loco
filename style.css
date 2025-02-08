@@ -26,8 +26,8 @@ canvas{
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Verhindert, dass absolute Positionierung sich am Body orientiert */
-    width: 720px;
+    position: relative; 
+    width: 690px;
 }
 
 .imprint-overlay{

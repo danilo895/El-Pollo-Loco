@@ -74,7 +74,14 @@ canvas{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: black;
+}
+
+.bg-lose{
+    background: linear-gradient(135deg, #e6b980 0%, #c77966 50%, #a24c29 100%);
+}
+
+.bg-win{
+    background: linear-gradient(135deg, #ffffff 0%, #c2ff33 50%, #00f4d8 100%);
 }
 
 .nav-control-buttons {
@@ -331,7 +338,7 @@ cursor: pointer;
 }
 
 .button-win {
-    background: linear-gradient(to bottom right, #ffc305, #2e300c);
+    background: linear-gradient(to bottom right, #05ff46, #000000);
     border: 0;
     border-radius: 12px;
     color: #FFFFFF;
@@ -358,7 +365,7 @@ cursor: pointer;
 }
     
     .button-win:not([disabled]):hover {
-    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(157, 255, 0, 0.59), .125rem .125rem 1rem rgba(7, 155, 67, 0.5);
     cursor: pointer;
 }
 
@@ -683,7 +690,7 @@ cursor: pointer;
     .background-image-win {
         width: 100%;
         height: auto;
-        max-height: 350px;
+        max-height: 400px;
         object-fit: contain;
     }
 
@@ -746,6 +753,7 @@ z-index: 999999999;
     .start-overlay {
         height: auto;
     }
+    
 
 
 }

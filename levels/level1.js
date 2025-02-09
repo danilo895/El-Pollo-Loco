@@ -46,6 +46,10 @@ let level1 = new Level(
         new Coin(),
         new Coin(),
         new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
+        new Coin(),
         new Coin()
     ],
     [
@@ -59,6 +63,8 @@ let level1 = new Level(
         new TabascoBottle(),
         new TabascoBottle(),
         new TabascoBottle(),
+        new TabascoBottle(),
+        new TabascoBottle()
     ],
 ); 
 
@@ -75,6 +81,14 @@ function setEnemies() {
     }
 
     level1.enemies = [
+        new Chicken(),
+        new Chick(),
+        new Chicken(),
+        new Chick(),
+        new Chicken(),
+        new Chick(),
+        new Chicken(),
+        new Chick(),
         new Chicken(),
         new Chick(),
         new Chicken(),

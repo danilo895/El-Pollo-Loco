@@ -41,16 +41,20 @@
         <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
         <section class="nav-control-buttons">
             <div class="arrow-cont">
-                <img class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
-                <img class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">
+                <img onmousedown="mobileMoveLeftStart()" onmouseup="mobileMoveLeftEnd()" 
+                onmouseleave="mobileMoveLeftEnd()" ontouchstart="mobileMoveLeftStart()" 
+                ontouchend="mobileMoveLeftEnd()" class="arrow" src="/img/11-icons-responsive/arrow-left-1.png" alt="">
+                <img onmousedown="mobileMoveRightStart()" onmouseup="mobileMoveRightEnd()" 
+                onmouseleave="mobileMoveRightEnd()" ontouchstart="mobileMoveRightStart()" 
+                ontouchend="mobileMoveRightEnd()" class="arrow" src="/img/11-icons-responsive/arrow-right.png" alt="">           
             </div>
             <div class="jump-throw-cont">
-                <div class="jump-button">
-                    <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">
+                <div onclick="mobileJump()" class="jump-button">
+                <img class="jump" src="/img/11-icons-responsive/jump.png" alt="">
                 </div>
-                <div class="throw-button">
-                    <img class="throw" src="/img/11-icons-responsive/throw.png" alt="">
-                </div>
+                <div onclick="mobileThrow()" class="throw-button">
+                <img class="throw" src="/img/11-icons-responsive/throw.png" alt="">
+            </div>
             </div>
         </section>
     </div>
@@ -66,7 +70,7 @@
     </section>
 </div>
 
-<div class="lose-overlay d-none" id="lose-overlay">
+<div class="lose-overlay bg-lose d-none" id="lose-overlay">
     <img src="img/9_intro_outro_screens/game_over/you lost.png" alt="" class="background-image-lose">        
     <section class="navbar-options-lose">
         <button onclick="restartGameAfterLose()" class="button-lose" role="button">TRY AGAIN</button>
@@ -75,7 +79,7 @@
 </div>
 
 
-<div class="win-overlay d-none" id="win-overlay">
+<div class="win-overlay d-none bg-win" id="win-overlay">
     <img src="img/9_intro_outro_screens/win/won_2.png" alt="" class="background-image-win">        
     <section class="navbar-options-win">
         <button onclick="startGameAgain()" class="button-win" role="button">PLAY AGAIN</button>

@@ -1,20 +1,20 @@
 class StatusBarEndboss extends DrawableObject {
     IMAGES = [
-        'img/7_statusbars/2_statusbar_endboss/orange/orange100.png', // 100%
-        'img/7_statusbars/2_statusbar_endboss/orange/orange80.png',  // 80%
-        'img/7_statusbars/2_statusbar_endboss/orange/orange60.png',  // 60%
-        'img/7_statusbars/2_statusbar_endboss/orange/orange40.png',  // 40%
-        'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',  // 20%
-        'img/7_statusbars/2_statusbar_endboss/orange/orange0.png'    // 0%
+        'img/7_statusbars/2_statusbar_endboss/orange/orange100.png', 
+        'img/7_statusbars/2_statusbar_endboss/orange/orange80.png',  
+        'img/7_statusbars/2_statusbar_endboss/orange/orange60.png',  
+        'img/7_statusbars/2_statusbar_endboss/orange/orange40.png',  
+        'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',  
+        'img/7_statusbars/2_statusbar_endboss/orange/orange0.png'    
     ];
     percentageEndboss = 100; 
 
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.x = 500;
-        this.y = 30;
-        this.width = 200;
+        this.x = 350;
+        this.y = 5;
+        this.width = 180;
         this.height = 50;
         this.img = this.imageCache[this.IMAGES[0]];
     }

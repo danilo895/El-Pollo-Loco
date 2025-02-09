@@ -30,17 +30,7 @@ canvas{
     width: 670px;
 }
 
-.imprint-overlay{
-    position: absolute;
-    width: 720px;
-    height: 480px;
-    background: rgba(248, 248, 248, 0.659);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: -1;
-    flex-direction: column;
-}
+
 
 .start-overlay{
     position: absolute;
@@ -55,14 +45,13 @@ canvas{
 .sound-overlay {
     display: flex;
     position: absolute;
-    width: 560px;
+    width: 600px;
     height: 400px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: end; 
     z-index: 9999999;
     background-color: transparent;
-    padding-top: 20px; 
     pointer-events: none;
 }
 
@@ -633,12 +622,6 @@ cursor: pointer;
         aspect-ratio: 720 / 480;
     }
 
-    .imprint-overlay{
-        width: 100%;
-        height: auto;
-
-    }
-
     .start-overlay{
         width: 100%;
         height: auto;
@@ -740,6 +723,16 @@ z-index: 999999999;
     canvas{
         height: 100vh;
         border: none;
+    }
+
+    .game-wrapper {
+        width: auto;
+    }
+
+    .sound-overlay{
+        height: 90vh;
+        width: 83%;
+        max-width: 470px;
     }
 
     .background-image-start {

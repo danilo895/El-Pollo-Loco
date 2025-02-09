@@ -308,6 +308,34 @@ function toggleGameSound() {
     }
 }
 
+function showImprint(){
+    document.getElementById('start-overlay').classList.remove('d-flex');
+    document.getElementById('start-overlay').classList.add('d-none');
+    document.getElementById('imprint-overlay').classList.remove('d-none');
+    document.getElementById('imprint-overlay').classList.add('d-flex');
+}
+
+function removeImprint(){
+    document.getElementById('imprint-overlay').classList.remove('d-flex');
+    document.getElementById('imprint-overlay').classList.add('d-none');
+    document.getElementById('start-overlay').classList.remove('d-none');
+    document.getElementById('start-overlay').classList.add('d-flex');
+}
+
+function showInstructions(){
+    document.getElementById('start-overlay').classList.remove('d-flex');
+    document.getElementById('start-overlay').classList.add('d-none');
+    document.getElementById('instructions-overlay').classList.remove('d-none');
+    document.getElementById('instructions-overlay').classList.add('d-flex');
+}
+
+function removeInstructions(){
+    document.getElementById('instructions-overlay').classList.remove('d-flex');
+    document.getElementById('instructions-overlay').classList.add('d-none');
+    document.getElementById('start-overlay').classList.remove('d-none');
+    document.getElementById('start-overlay').classList.add('d-flex');
+}
+
 
 
 

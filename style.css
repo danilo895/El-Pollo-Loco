@@ -42,6 +42,16 @@ canvas{
     flex-direction: column;
 }
 
+.imprint-overlay, .instructions-overlay{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    background: linear-gradient(135deg, #e6b980 0%, #c77966 50%, #a24c29 100%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .sound-overlay {
     display: flex;
     position: absolute;
@@ -193,11 +203,29 @@ h1 {
     border-radius: 2px;
 }
 
+.background-image-imprint, .background-image-instructions {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+    visibility: hidden;
+}
+
 
 .navbar-buttons-start{
     height: 8%;
     display: flex;
     justify-content: space-around;
+    position: absolute;
+    bottom: 2px;
+    width: 100%;
+    padding-bottom: 8px;
+}
+
+.navbar-buttons-imprint, .navbar-buttons-instructions{
+    height: 8%;
+    display: flex;
+    justify-content: center;
     position: absolute;
     bottom: 2px;
     width: 100%;
@@ -236,6 +264,38 @@ cursor: pointer;
 box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 cursor: pointer;
 }
+
+.button-imprint, .button-instructions {
+    background: linear-gradient(to bottom right, #EF4765, #5ae4ff);
+    border: 0;
+    border-radius: 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Kodchasan", serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2.5;
+    outline: transparent;
+    padding: 0 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    }
+    
+    .button-imprint:not([disabled]):focus {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    cursor: pointer;
+    }
+    
+    .button-imprint:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    cursor: pointer;
+    }
 
 .d-flex{
     display: flex;
@@ -627,6 +687,11 @@ cursor: pointer;
         height: auto;
     }
 
+    .imprint-overlay, .instructions-overlay{
+        width: 100%;
+        height: auto;
+    }
+
     .sound-overlay{
         width: 90%;
         height: 270px;
@@ -644,6 +709,12 @@ cursor: pointer;
 
 
     .background-image-start {
+        width: 100%;
+        height: auto;
+        object-position: unset;
+    }
+
+    .background-image-imprint, .background-image-instructions {
         width: 100%;
         height: auto;
         object-position: unset;
@@ -739,6 +810,10 @@ z-index: 999999999;
         height: 100vh;
     }
 
+    .background-image-imprint, .background-image-instructions {
+        height: 100vh;
+    }
+
     .background-image-lose {
         height: 100vh;
     }
@@ -748,6 +823,10 @@ z-index: 999999999;
     }
 
     .start-overlay {
+        height: auto;
+    }
+
+    .imprint-overlay, .instructions-overlay{
         height: auto;
     }
     

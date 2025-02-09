@@ -64,9 +64,23 @@
 <div class="start-overlay d-flex" id="start-overlay">
     <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="background-image-start">
     <section class="navbar-buttons-start">
-        <button class="button-start" role="button">INSTRUCTIONS</button>
+        <button class="button-start" role="button" onclick="showInstructions()">INSTRUCTIONS</button>
         <button class="button-start-game" role="button" onclick="setEnemies()">START GAME</button>
-        <button class="button-start" role="button">IMPRINT</button>
+        <button class="button-start" role="button" onclick="showImprint()">IMPRINT</button>
+    </section>
+</div>
+
+<div class="imprint-overlay d-none" id="imprint-overlay">
+    <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="background-image-imprint">
+    <section class="navbar-buttons-imprint">
+        <button class="button-imprint" role="button" onclick="removeImprint()">BACK TO MENU</button>
+    </section>
+</div>
+
+<div class="instructions-overlay d-none" id="instructions-overlay">
+    <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" class="background-image-instructions">
+    <section class="navbar-buttons-instructions">
+        <button class="button-instructions" role="button" onclick="removeInstructions()">BACK TO MENU</button>
     </section>
 </div>
 
@@ -93,17 +107,6 @@
             <img id="soundIcon" class="sound-icon-game" src="/img/12_sound/sound-active.png" alt="">
         </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 <div class="overlay-turn-device">

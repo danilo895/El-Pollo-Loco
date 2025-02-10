@@ -53,14 +53,17 @@ canvas{
     flex-direction: column;
 }
 
-.instructions-data{
+.instructions-data {
     display: flex;
     justify-content: center;
     align-items: start;
     flex-direction: column;
-
     font-family: "Pirata One", serif;
     font-weight: 500;
+    gap: 32px;
+    background-color: #08080830;
+    border-radius: 8px;
+    padding: 4px;
 }
 
 
@@ -71,14 +74,37 @@ canvas{
 }
 
 .instr-img-jump{
-    height: 24px;
-    width: 24px;
+    height: 21px;
+    width: 21px;
 }
 
+.instr-img-throw-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.53);
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
+
+.instr-img-jump-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.53);
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+}
 
 .instr-img-move{
-    height: 24px;
-    width: 24px;
+    height: 32px;
+    width: 32px;
+}
+
+.column-instructions p{
+margin: 0;
 }
 
 .instr-img-throw-out{
@@ -868,6 +894,13 @@ cursor: pointer;
     
     }
 
+
+@media (max-width: 650px){
+        .instructions-data {
+        gap: 8px;
+        }
+    }
+
 @media only screen and (max-width: 500px){
 .overlay-turn-device{
 display: flex;
@@ -934,6 +967,7 @@ z-index: 999999999;
         font-size: 32px;
     }
 }
+
 
 @media (max-height: 380px){
     .raleway-font {

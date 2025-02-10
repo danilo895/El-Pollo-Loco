@@ -30,6 +30,13 @@ canvas{
     width: 670px;
 }
 
+.column-instructions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
 .raleway-font {
     font-family: "Raleway", serif;
     font-optical-sizing: auto;
@@ -39,11 +46,56 @@ canvas{
     margin: 8px;
 }
 
-.imprint-data{
+.imprint-data {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.instructions-data{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+
+    font-family: "Pirata One", serif;
+    font-weight: 500;
+}
+
+
+
+.instr-img-throw{
+    height: 24px;
+    width: 24px;
+}
+
+.instr-img-jump{
+    height: 24px;
+    width: 24px;
+}
+
+
+.instr-img-move{
+    height: 24px;
+    width: 24px;
+}
+
+.instr-img-throw-out{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: white
+}
+
+.instr-img-throw-in{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: white
 }
 
 .imprint-content-container{

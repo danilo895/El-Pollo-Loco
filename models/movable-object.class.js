@@ -81,43 +81,55 @@ class MovableObject extends DrawableObject{
         }
     }
     
-
-    isJumpingOnEnemy(mo) {
-        let characterBottom = this.y + this.height;
-        let enemyTop = mo.y;
-        let enemyBottom = enemyTop + mo.height;
+    isJumpingOnEnemy(enemy) {
+        // Charakter-Hitbox
+        let characterTop = this.y + this.offsetY;
+        let characterBottom = this.y + this.height + this.offsetY;
+        let characterLeft = this.x + this.offsetX;
+        let characterRight = this.x + this.width + this.offsetX;
     
-        let verticalTolerance = 30;
-        let horizontalTolerance = 0;
+        // Gegner-Hitbox
+        let enemyTop = enemy.y + enemy.offsetY;
+        let enemyBottom = enemy.y + enemy.height + enemy.offsetY;
+        let enemyLeft = enemy.x + enemy.offsetX;
+        let enemyRight = enemy.x + enemy.width + enemy.offsetX;
     
+        // Toleranzen für bessere Erkennung
+        let verticalTolerance = 5;  // Falls der Charakter leicht über dem Gegner ist
+        let horizontalTolerance = 0; // Falls der Charakter den Rand des Gegners trifft
+    
+        // Horizontale Kollision (mit Toleranz)
         let horizontalCollision =
-            (this.x + this.offsetX + this.width > mo.x + mo.offsetX - horizontalTolerance) &&
-            (this.x + this.offsetX < mo.x + mo.width + mo.offsetX + horizontalTolerance); 
+            characterRight > (enemyLeft - horizontalTolerance) &&
+            characterLeft < (enemyRight + horizontalTolerance);
     
-        let verticalCollision = 
-            characterBottom >= enemyTop - verticalTolerance && 
-            characterBottom < enemyBottom; 
+        // Vertikale Kollision (Charakter muss über dem Gegner sein)
+        let verticalCollision =
+            characterBottom >= enemyTop - verticalTolerance &&
+            characterBottom < enemyBottom;
     
-        let isFalling = this.speedY < 0; 
-        if (isFalling) {
-            console.log("=== Collision Debugging (Character is Falling) ===");
-            console.log(`Character Bottom: ${characterBottom}`);
-            console.log(`Enemy Top: ${enemyTop}`);
-            console.log(`Enemy Bottom: ${enemyBottom}`);
-            console.log(`Character X: ${this.x}, Character Width: ${this.width}`);
-            console.log(`Enemy X: ${mo.x}, Enemy Width: ${mo.width}`);
-            console.log(`Horizontal Collision: ${horizontalCollision}`);
-            console.log(`Vertical Collision: ${verticalCollision}`);
-            console.log(`Is Falling: ${isFalling}`);
-        }
+        // Prüfen, ob der Charakter tatsächlich nach unten fällt
+        let isFalling = this.speedY < 0;
+    
+        // Debugging-Logs, falls Kollision nicht erkannt wird
+        console.log("=============================");
+        console.log(`Character Bottom: ${characterBottom}, Enemy Top: ${enemyTop}`);
+        console.log(`Character Left: ${characterLeft}, Character Right: ${characterRight}`);
+        console.log(`Enemy Left: ${enemyLeft}, Enemy Right: ${enemyRight}`);
+        console.log(`Horizontal Collision: ${horizontalCollision}`);
+        console.log(`Vertical Collision: ${verticalCollision}`);
+        console.log(`Is Falling: ${isFalling}`);
+    
         if (horizontalCollision && verticalCollision && isFalling) {
-            console.warn("JUMP ON ENEMY DETECTED! Pausing execution...");
-            //debugger;
+            console.warn("✅ HIT DETECTED: Character jumps on enemy!");
             return true;
         }
-        
+    
         return false;
     }
+    
+    
+    
     
     
     

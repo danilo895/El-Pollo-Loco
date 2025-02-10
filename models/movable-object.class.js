@@ -6,23 +6,25 @@ class MovableObject extends DrawableObject{
     energy = 100;
     lastHit = 0;
 
-    applyGravity(){
-        setInterval(()=>{
-            if(this.isAboveGround() || this.speedY > 0){
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            } else {
+                this.y = 250;
+                this.speedY = 0;
             }
+        }, 1000 / 25);
+    }
+    
+    
 
-        },1000/25)
+    isAboveGround() {
+        return this.y < 250;
     }
-
-    isAboveGround(){
-        if(this instanceof ThrowableObject){ 
-            return true;
-        }else{
-        return this.y < 200;
-    }
-    }
+    
+    
 
 
     isColliding(mo) {
@@ -82,51 +84,41 @@ class MovableObject extends DrawableObject{
     }
     
     isJumpingOnEnemy(enemy) {
-        // Charakter-Hitbox
-        let characterTop = this.y + this.offsetY;
         let characterBottom = this.y + this.height + this.offsetY;
         let characterLeft = this.x + this.offsetX;
-        let characterRight = this.x + this.width + this.offsetX;
+        let characterRight = this.x + this.width - this.offsetX;
     
-        // Gegner-Hitbox
+        // Gegnergrenzen (unter Berücksichtigung des Offsets)
         let enemyTop = enemy.y + enemy.offsetY;
         let enemyBottom = enemy.y + enemy.height + enemy.offsetY;
         let enemyLeft = enemy.x + enemy.offsetX;
-        let enemyRight = enemy.x + enemy.width + enemy.offsetX;
+        let enemyRight = enemy.x + enemy.width - enemy.offsetX;
     
-        // Toleranzen für bessere Erkennung
-        let verticalTolerance = 5;  // Falls der Charakter leicht über dem Gegner ist
-        let horizontalTolerance = 0; // Falls der Charakter den Rand des Gegners trifft
+        // Toleranzen für eine flexiblere Erkennung
+        let verticalTolerance = 10; // Kann angepasst werden
+        let horizontalTolerance = 5; // Damit Sprünge nicht pixelgenau sein müssen
     
-        // Horizontale Kollision (mit Toleranz)
+        // Horizontale Kollision mit Toleranz
         let horizontalCollision =
             characterRight > (enemyLeft - horizontalTolerance) &&
             characterLeft < (enemyRight + horizontalTolerance);
     
-        // Vertikale Kollision (Charakter muss über dem Gegner sein)
+        // Vertikale Kollision (der Charakter muss über dem Gegner sein)
         let verticalCollision =
-            characterBottom >= enemyTop - verticalTolerance &&
-            characterBottom < enemyBottom;
+            characterBottom > enemyTop - verticalTolerance && // Charakter darf leicht überfliegen
+            characterBottom < enemyBottom + verticalTolerance; // Charakter darf leicht "eintauchen"
     
-        // Prüfen, ob der Charakter tatsächlich nach unten fällt
+        // Prüfen, ob der Charakter nach unten fällt
         let isFalling = this.speedY < 0;
     
-        // Debugging-Logs, falls Kollision nicht erkannt wird
-        console.log("=============================");
-        console.log(`Character Bottom: ${characterBottom}, Enemy Top: ${enemyTop}`);
-        console.log(`Character Left: ${characterLeft}, Character Right: ${characterRight}`);
-        console.log(`Enemy Left: ${enemyLeft}, Enemy Right: ${enemyRight}`);
-        console.log(`Horizontal Collision: ${horizontalCollision}`);
-        console.log(`Vertical Collision: ${verticalCollision}`);
-        console.log(`Is Falling: ${isFalling}`);
-    
+        // Kollision nur, wenn alle Bedingungen erfüllt sind
         if (horizontalCollision && verticalCollision && isFalling) {
-            console.warn("✅ HIT DETECTED: Character jumps on enemy!");
             return true;
         }
     
         return false;
     }
+    
     
     
     

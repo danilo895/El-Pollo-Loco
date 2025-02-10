@@ -1,9 +1,9 @@
 class Chick extends MovableObject {
     y = 380;
-    height = 60;
-    width = 70;
+    height = 45;
+    width = 55;    
     offsetX = 5;
-    offsetY = 10;
+    offsetY = 0;
 
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',

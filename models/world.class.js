@@ -43,10 +43,10 @@ class World{
     
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.statusBarBottle.collectedBottles > 0) { // ✅ Prüft, ob Flaschen vorhanden sind
+        if (this.keyboard.D && this.statusBarBottle.collectedBottles > 0) { 
             let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this);
             this.throwableObjects.push(bottle);
-            this.statusBarBottle.count(this.statusBarBottle.collectedBottles - 1); // 🔻 Flaschenanzahl reduzieren
+            this.statusBarBottle.count(this.statusBarBottle.collectedBottles - 1);
         } 
     }
     
@@ -56,10 +56,10 @@ class World{
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(index, 1);
-                this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20); // StatusBar aktualisieren
+                this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20); 
                 
-                coinSound.currentTime = 0; // Setzt den Sound zurück, falls er schon läuft
-                coinSound.play().catch(error => console.log("⚠ Sound konnte nicht abgespielt werden:", error));
+                coinSound.currentTime = 0;
+                coinSound.play()
             }
         });
     }

@@ -30,6 +30,33 @@ canvas{
     width: 670px;
 }
 
+.raleway-font {
+    font-family: "Raleway", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 14px;
+    color: hsla(0, 0%, 13%, 1);
+    margin: 8px;
+}
+
+.imprint-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imprint-content-container{
+        display: flex;
+        position: absolute;
+        top: 2px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 32px;
+        align-items: center;
+    }
+
+
 
 
 .start-overlay{
@@ -101,6 +128,13 @@ h1 {
     font-size: 86px;
     color: #ffffff73;
     -webkit-text-stroke: 0.2px hsla(242, 88.4%, 66.3%, 0.5);
+    margin: 0;
+}
+
+h2{
+    font-family: "Pirata One", serif;
+    color: black;
+    font-size: 36px;
     margin: 0;
 }
 
@@ -209,6 +243,7 @@ h1 {
     object-fit: cover;
     border-radius: 2px;
     visibility: hidden;
+    position: relative;
 }
 
 
@@ -772,7 +807,14 @@ cursor: pointer;
 
 }
 
-
+@media (max-width: 670px){
+    .raleway-font{
+        font-size: 12px;
+        margin: 3px;
+    }
+    
+    
+    }
 
 @media only screen and (max-width: 500px){
 .overlay-turn-device{
@@ -838,5 +880,16 @@ z-index: 999999999;
 @media (max-width: 425px){
     .turn-device-font {
         font-size: 32px;
+    }
+}
+
+@media (max-height: 380px){
+    .raleway-font {
+        font-size: 12px;
+        margin: 6px;
+    }
+
+    .imprint-content-container {
+        gap: 8px;
     }
 }

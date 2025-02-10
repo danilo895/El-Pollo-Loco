@@ -84,40 +84,20 @@ class MovableObject extends DrawableObject{
     }
     
     isJumpingOnEnemy(enemy) {
+        let characterTop = this.y + this.offsetY;
         let characterBottom = this.y + this.height + this.offsetY;
         let characterLeft = this.x + this.offsetX;
         let characterRight = this.x + this.width - this.offsetX;
-    
-        // Gegnergrenzen (unter Berücksichtigung des Offsets)
         let enemyTop = enemy.y + enemy.offsetY;
         let enemyBottom = enemy.y + enemy.height + enemy.offsetY;
         let enemyLeft = enemy.x + enemy.offsetX;
         let enemyRight = enemy.x + enemy.width - enemy.offsetX;
-    
-        // Toleranzen für eine flexiblere Erkennung
-        let verticalTolerance = 10; // Kann angepasst werden
-        let horizontalTolerance = 5; // Damit Sprünge nicht pixelgenau sein müssen
-    
-        // Horizontale Kollision mit Toleranz
-        let horizontalCollision =
-            characterRight > (enemyLeft - horizontalTolerance) &&
-            characterLeft < (enemyRight + horizontalTolerance);
-    
-        // Vertikale Kollision (der Charakter muss über dem Gegner sein)
-        let verticalCollision =
-            characterBottom > enemyTop - verticalTolerance && // Charakter darf leicht überfliegen
-            characterBottom < enemyBottom + verticalTolerance; // Charakter darf leicht "eintauchen"
-    
-        // Prüfen, ob der Charakter nach unten fällt
+        let horizontalCollision = characterRight >= enemyLeft && characterLeft < enemyRight;
+        let verticalCollision = characterBottom >= enemyTop && characterTop < enemyBottom;
         let isFalling = this.speedY < 0;
-    
-        // Kollision nur, wenn alle Bedingungen erfüllt sind
-        if (horizontalCollision && verticalCollision && isFalling) {
-            return true;
-        }
-    
-        return false;
+        return horizontalCollision && verticalCollision && isFalling;
     }
+    
     
     
     

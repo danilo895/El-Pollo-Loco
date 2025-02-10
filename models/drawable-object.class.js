@@ -33,7 +33,7 @@ drawFrame(ctx) {
     ) {
         ctx.beginPath();
         ctx.lineWidth = '2';
-        ctx.strokeStyle = 'red';
+        ctx.strokeStyle = 'transparent';
 
         let adjustedX = this.x + (this.offsetX || 0);
         let adjustedY = this.y + (this.offsetY || 0);

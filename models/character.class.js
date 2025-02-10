@@ -130,7 +130,7 @@ class Character extends MovableObject{
                 }, 2000);
                 return;
             }  
-            else if (this.isHurt()) {
+            else if (this.isHurt() && !this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_HURT);
             } 
             else if (this.isAboveGround()) {

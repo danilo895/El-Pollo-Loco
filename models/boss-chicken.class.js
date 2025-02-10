@@ -115,7 +115,6 @@ class BossChicken extends MovableObject {
     }
     
     playHurtAnimation() {
-
         if (this.isHurt) return;       
         this.isHurt = true;
         this.isFrozen = true;

@@ -1,5 +1,5 @@
 class ThrowableObject extends MovableObject {
-    rotationAngle = 0; // 🌀 Startwinkel für die Drehung
+    rotationAngle = 0;
 
     constructor(x, y, world) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');

@@ -24,6 +24,10 @@ window.addEventListener('load', () => {
     }
 });
 
+gameSounds.forEach(sound => {
+    sound.muted = true;
+});
+
 function disableGameSounds() {
     gameSounds.forEach(sound => {
         sound.muted = true;

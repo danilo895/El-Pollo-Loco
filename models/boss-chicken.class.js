@@ -74,8 +74,7 @@ class BossChicken extends MovableObject {
         this.isFrozen = true; 
         this.img = null;
         this.imageCache = null;
-        clearInterval(this.returnInterval);
-        clearInterval(this.walkingAnimation);
+        stopAllIntervalsExceptEndbossDeath();
         this.deadEndbossAnimation();
     }
     

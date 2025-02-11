@@ -328,6 +328,16 @@ function stopAllIntervals() {
     }
 }
 
+function stopAllIntervalsExceptEndbossDeath(deathInterval) {
+    let highestId = setInterval(() => {}, 1000);
+    for (let i = 0; i <= highestId; i++) {
+        if (i !== deathInterval) {
+            clearInterval(i);
+        }
+    }
+}
+
+
 
 
 

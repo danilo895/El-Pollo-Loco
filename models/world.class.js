@@ -56,8 +56,7 @@ class World{
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.level.coins.splice(index, 1);
-                this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20); 
-                
+                this.statusBarCoin.setPercentage(this.statusBarCoin.percentageCoin + 20);              
                 coinSound.currentTime = 0;
                 coinSound.play()
             }

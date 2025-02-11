@@ -321,6 +321,14 @@ function removeInstructions(){
     document.getElementById('start-overlay').classList.add('d-flex');
 }
 
+function stopAllIntervals() {
+    let highestId = setInterval(() => {}, 1000);
+    for (let i = 0; i <= highestId; i++) {
+        clearInterval(i);
+    }
+}
+
+
 
 
 

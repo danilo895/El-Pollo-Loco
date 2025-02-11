@@ -6,6 +6,7 @@ class World{
     keyboard;
     camera_x = 0;
     lastHit=0;
+    hitCooldown = 500;
     statusBar = new StatusBar();
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
@@ -34,13 +35,19 @@ class World{
     
 
     run() {
+        // Standard-Checks alle 200ms
         setInterval(() => {
-            this.checkCollisions();
             this.checkCoinCollision();
             this.checkBottleCollision();
             this.checkThrowObjects();
         }, 200);
+    
+        // Kollisionsprüfung öfter ausführen (z.B. alle 50ms)
+        setInterval(() => {
+            this.checkCollisions();
+        }, 50);
     }
+    
     
 
     checkThrowObjects() {
@@ -81,19 +88,24 @@ class World{
     
 
 
-checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-        if (!this.character.isAboveGround()) { 
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (!this.character.isAboveGround()) { 
+                if (this.character.isColliding(enemy)) {
+                    let currentTime = new Date().getTime();
+                    
+                    if (currentTime - this.lastHit > this.hitCooldown) { 
+                        this.character.hit();
+                        this.statusBar.setPercentage(this.character.energy);
+                        this.lastHit = currentTime;
+                    }
+                }
+            } 
+            else if (this.character.isJumpingOnEnemy(enemy) && !(enemy instanceof BossChicken)) { 
+                enemy.replaceWithDeadEnemy();
             }
-        } 
-        else if (this.character.isJumpingOnEnemy(enemy) && !(enemy instanceof BossChicken)) { 
-            enemy.replaceWithDeadEnemy();
-        }
-    });
-}
+        });
+    }
 
 
     draw(){

@@ -84,16 +84,37 @@ class MovableObject extends DrawableObject{
     }
     
     isJumpingOnEnemy(enemy) {
-        let horizontalTolerance = 30;
-        let verticalTolerance = 30;
-        let isColliding = 
-            (this.x + this.offsetX + (this.width - 2 * Math.abs(this.offsetX)) > enemy.x + enemy.offsetX - horizontalTolerance) &&
-            (this.y + this.offsetY + (this.height - 2 * Math.abs(this.offsetY)) > enemy.y + enemy.offsetY - verticalTolerance) &&
-            (this.x + this.offsetX < enemy.x + enemy.offsetX + (enemy.width - 2 * Math.abs(enemy.offsetX)) + horizontalTolerance) &&
-            (this.y + this.offsetY < enemy.y + enemy.offsetY + (enemy.height - 2 * Math.abs(enemy.offsetY)) + verticalTolerance);
+        let { bottomMiddleX, bottomLeftX, bottomRightX, bottomY } = this.getCollisionPoints();
+        let horizontalTolerance = 5;
+        let verticalTolerance = 5;
+        let isColliding =
+            (
+                (bottomMiddleX > enemy.x + enemy.offsetX - horizontalTolerance &&
+                bottomMiddleX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance) ||
+                (bottomLeftX > enemy.x + enemy.offsetX - horizontalTolerance &&
+                bottomLeftX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance) ||
+                (bottomRightX > enemy.x + enemy.offsetX - horizontalTolerance &&
+                bottomRightX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance)
+            ) &&
+            (bottomY > enemy.y + enemy.offsetY - verticalTolerance) &&
+            (bottomY < enemy.y + enemy.offsetY + enemy.height);
         let isFalling = this.speedY < 0;
         return isColliding && isFalling;
     }
+    
+    getCollisionPoints() {
+        let horizontalTolerance = 5;
+        return {
+            bottomMiddleX: this.x + this.width / 2,
+            bottomLeftX: this.x + horizontalTolerance, 
+            bottomRightX: this.x + this.width - horizontalTolerance,
+            bottomY: this.y + this.height
+        };
+    }
+    
+    
+    
+    
     
     
     

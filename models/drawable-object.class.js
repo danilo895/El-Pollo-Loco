@@ -49,7 +49,7 @@ drawFrame(ctx) {
     
     ctx.beginPath();
     ctx.lineWidth = '1';
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'transparent';
     ctx.rect(x, y, width, height);
     ctx.stroke();
 }

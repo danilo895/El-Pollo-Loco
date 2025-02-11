@@ -41,7 +41,7 @@ class MovableObject extends DrawableObject{
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
-            playHurtSound(); // Statt direkt `hurtSound.play();`
+            playHurtSound();
         }
     }
     
@@ -84,19 +84,18 @@ class MovableObject extends DrawableObject{
     }
     
     isJumpingOnEnemy(enemy) {
-        let characterTop = this.y + this.offsetY;
-        let characterBottom = this.y + this.height + this.offsetY;
-        let characterLeft = this.x + this.offsetX;
-        let characterRight = this.x + this.width - this.offsetX;
-        let enemyTop = enemy.y + enemy.offsetY;
-        let enemyBottom = enemy.y + enemy.height + enemy.offsetY;
-        let enemyLeft = enemy.x + enemy.offsetX;
-        let enemyRight = enemy.x + enemy.width - enemy.offsetX;
-        let horizontalCollision = characterRight >= enemyLeft && characterLeft < enemyRight;
-        let verticalCollision = characterBottom >= enemyTop && characterTop < enemyBottom;
+        let horizontalTolerance = 30;
+        let verticalTolerance = 30;
+        let isColliding = 
+            (this.x + this.offsetX + (this.width - 2 * Math.abs(this.offsetX)) > enemy.x + enemy.offsetX - horizontalTolerance) &&
+            (this.y + this.offsetY + (this.height - 2 * Math.abs(this.offsetY)) > enemy.y + enemy.offsetY - verticalTolerance) &&
+            (this.x + this.offsetX < enemy.x + enemy.offsetX + (enemy.width - 2 * Math.abs(enemy.offsetX)) + horizontalTolerance) &&
+            (this.y + this.offsetY < enemy.y + enemy.offsetY + (enemy.height - 2 * Math.abs(enemy.offsetY)) + verticalTolerance);
         let isFalling = this.speedY < 0;
-        return horizontalCollision && verticalCollision && isFalling;
+        return isColliding && isFalling;
     }
+    
+    
     
     
     

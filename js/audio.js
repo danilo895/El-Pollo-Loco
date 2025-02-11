@@ -11,7 +11,9 @@ const characdead = new Audio('audio/characdead.mp3');
 const winSound = new Audio('audio/wingame.wav');
 const losesound = new Audio('audio/udie.ogg');
 
-const gameSounds = [winSound, losesound, jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies, deathboss, characdead];
+const bgSound = new Audio('audio/bg-music.mp3');
+
+const gameSounds = [bgSound, winSound, losesound, jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies, deathboss, characdead];
 
 function disableGameSounds() {
     gameSounds.forEach(sound => {

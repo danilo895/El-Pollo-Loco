@@ -32,8 +32,8 @@ drawFrame(ctx) {
         this instanceof TabascoBottle
     ) {
         ctx.beginPath();
-        ctx.lineWidth = '2';
-        ctx.strokeStyle = 'black';
+        ctx.lineWidth = '1';
+        ctx.strokeStyle = 'transparent';
 
         let adjustedX = this.x + (this.offsetX || 0);
         let adjustedY = this.y + (this.offsetY || 0);

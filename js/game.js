@@ -293,21 +293,6 @@ function mobileThrow() {
 }
 
 
-function toggleGameSound() {
-    let soundIcon = document.getElementById("soundIcon");
-    const activeSound = "img/12_sound/sound-active.png";
-    const inactiveSound = "img/12_sound/sound-inactive.png";
-    let currentSound = soundIcon.src.replace(location.origin + "/", "");
-
-    if (currentSound === activeSound) {
-        soundIcon.src = inactiveSound;
-        disableGameSounds();
-    } else {
-        soundIcon.src = activeSound;
-        enableGameSounds();
-    }
-}
-
 function showImprint(){
     document.getElementById('start-overlay').classList.remove('d-flex');
     document.getElementById('start-overlay').classList.add('d-none');

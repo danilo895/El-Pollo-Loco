@@ -12,21 +12,49 @@ const winSound = new Audio('audio/wingame.wav');
 const losesound = new Audio('audio/udie.ogg');
 
 const bgSound = new Audio('audio/bg-music.mp3');
+bgSound.volume = 0.2;
+bgSound.loop = true;
 
 const gameSounds = [bgSound, winSound, losesound, jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies, deathboss, characdead];
+
+window.addEventListener('load', () => {
+    let soundIcon = document.getElementById("soundIcon");
+    if (soundIcon.src.includes("sound-active.png")) {
+        bgSound.play();
+    }
+});
 
 function disableGameSounds() {
     gameSounds.forEach(sound => {
         sound.muted = true;
     });
+    bgSound.pause();
 }
-
 
 function enableGameSounds() {
     gameSounds.forEach(sound => {
         sound.muted = false;
     });
+    if (bgSound.paused) {
+        bgSound.play();
+    }
 }
+
+function toggleGameSound() {
+    let soundIcon = document.getElementById("soundIcon");
+    const activeSound = "img/12_sound/sound-active.png";
+    const inactiveSound = "img/12_sound/sound-inactive.png";
+    let currentSound = soundIcon.src.replace(location.origin + "/", "");
+
+    if (currentSound === activeSound) {
+        soundIcon.src = inactiveSound;
+        disableGameSounds();
+    } else {
+        soundIcon.src = activeSound;
+        enableGameSounds();
+    }
+}
+
 
 
 function playHurtSound() {
@@ -35,3 +63,4 @@ function playHurtSound() {
         hurtSound.play();
     }
 }
+

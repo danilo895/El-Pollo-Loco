@@ -85,14 +85,9 @@ function setEnemies() {
         new Chick(),
         new Chicken(),
         new Chick(),
+        new Chicken(),  
         new Chicken(),
-        new Chick(),
         new Chicken(),
-        new Chick(),
-        new Chicken(),
-        new Chick(),
-        new Chicken(),
-        new Chick(),
         new BossChicken()
     ];
     
@@ -117,14 +112,9 @@ function setEnemiesAfterLose() {
         new Chick(),
         new Chicken(),
         new Chick(),
+        new Chicken(),  
         new Chicken(),
-        new Chick(),
         new Chicken(),
-        new Chick(),
-        new Chicken(),
-        new Chick(),
-        new Chicken(),
-        new Chick(),
         new BossChicken()
     ];
     enemiesSetted = true;

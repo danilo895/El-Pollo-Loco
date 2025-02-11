@@ -12,33 +12,46 @@ class ThrowableObject extends MovableObject {
         this.startRotation();
         this.trackPosition();
     }
-
     throw() {
-        this.speedY = 30; 
-        this.applyGravity();
-        
+        this.speedY = 25;
+        this.applyGravityBottle(); 
+    
         let direction = this.world.character.otherDirection ? -1 : 1;
     
         throwSound.currentTime = 0;
-        throwSound.play()
+        throwSound.play();
     
         this.throwInterval = setInterval(() => {
-            this.x += 10 * direction;
-            if (this.y > 500 || this.x < 0) {
+            this.x += 12 * direction;
+            if (this.y > 720 || this.x < 0) {
                 this.removeBottle();
             }
         }, 25);
     }
     
-
+    applyGravityBottle() {
+        this.acceleration = 2; 
+        let gravityInterval = setInterval(() => {
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+            if (this.speedY < 0) {
+                this.speedY -= this.acceleration;
+            }
+            if (this.y > 720) {
+                clearInterval(gravityInterval);
+                this.removeBottle();
+            }
+        }, 1000 / 25);
+    }
+    
 
     startRotation() {
         this.rotationInterval = setInterval(() => {
-            this.rotationAngle += 10;
+            this.rotationAngle += 15;
             if (this.rotationAngle >= 360) {
                 this.rotationAngle = 0; 
             }
-        }, 50);
+        }, 40);
     }
 
     stopRotation() {

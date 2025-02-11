@@ -82,6 +82,16 @@ class MovableObject extends DrawableObject{
             jumpSound.play();
         }
     }
+
+    getCollisionPoints() {
+        let horizontalTolerance = 5;
+        return {
+            bottomMiddleX: this.x + this.width / 2,
+            bottomLeftX: this.x + horizontalTolerance, 
+            bottomRightX: this.x + this.width - horizontalTolerance,
+            bottomY: this.y + this.height
+        };
+    }
     
     isJumpingOnEnemy(enemy) {
         let { bottomMiddleX, bottomLeftX, bottomRightX, bottomY } = this.getCollisionPoints();
@@ -102,15 +112,7 @@ class MovableObject extends DrawableObject{
         return isColliding && isFalling;
     }
     
-    getCollisionPoints() {
-        let horizontalTolerance = 5;
-        return {
-            bottomMiddleX: this.x + this.width / 2,
-            bottomLeftX: this.x + horizontalTolerance, 
-            bottomRightX: this.x + this.width - horizontalTolerance,
-            bottomY: this.y + this.height
-        };
-    }
+
     
     
     

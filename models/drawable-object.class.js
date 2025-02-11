@@ -20,7 +20,6 @@ draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 }
 
-
 shouldDrawFrame() {
     return this instanceof Character || 
         this instanceof Chicken || 
@@ -44,18 +43,13 @@ getAdjustedFrame() {
 
 drawFrame(ctx) {
     if (!this.shouldDrawFrame()) return;
-
     let { x, y, width, height } = this.getAdjustedFrame();
-    
     ctx.beginPath();
     ctx.lineWidth = '1';
     ctx.strokeStyle = 'transparent';
     ctx.rect(x, y, width, height);
     ctx.stroke();
 }
-
-
-
 
 loadImages(arr){
     arr.forEach((path) => {

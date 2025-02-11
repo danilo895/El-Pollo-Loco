@@ -1,3 +1,7 @@
+/**
+ * Represents a normal chicken enemy in the game.
+ * Inherits from MovableObject and moves automatically to the left.
+ */
 class Chicken extends MovableObject {
     y = 370;
     height = 65; 
@@ -11,6 +15,9 @@ class Chicken extends MovableObject {
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
+    /**
+     * Creates a new Chicken instance with a random X position and speed.
+     */
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -18,11 +25,19 @@ class Chicken extends MovableObject {
         this.speed = 0.1 + Math.random() * 0.8;
         this.animate();
     }
+
+    /**
+     * Sets the reference to the game world.
+     * @param {Object} world - The game world object.
+     */
     setWorld(world) {
         this.world = world;
     }
     
-
+    /**
+     * Starts movement and animation for the chicken.
+     * Moves left continuously and plays walking animation.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -33,6 +48,10 @@ class Chicken extends MovableObject {
         }, 200);
     }
 
+    /**
+     * Replaces the chicken with a dead chicken when destroyed.
+     * Plays a destruction sound and removes the chicken from the game.
+     */
     replaceWithDeadEnemy() {
         let deadImagePath = this instanceof Chick
             ? 'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
@@ -49,6 +68,10 @@ class Chicken extends MovableObject {
         }
     }
 
+    /**
+     * Handles the impact when the chicken is hit by a bottle.
+     * Stops movement and removes the chicken after a short delay.
+     */
     handleBottleHit() {
         let deadImagePath = this instanceof Chick
             ? 'img/3_enemies_chicken/chicken_small/2_dead/dead.png'

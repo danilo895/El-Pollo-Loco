@@ -1,3 +1,7 @@
+/**
+ * Represents the main character of the game.
+ * Inherits from MovableObject and includes animations, movement, and physics.
+ */
 class Character extends MovableObject{
     height = 180;
     width = 90;
@@ -69,7 +73,9 @@ class Character extends MovableObject{
     ]
 
     world;
-
+    /**
+     * Creates a new Character instance and initializes animations and movement.
+     */
     constructor(){
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_WALKING);
@@ -82,15 +88,25 @@ class Character extends MovableObject{
     this.animate()
     }
 
+    /**
+     * Checks if the character is dead.
+     * @returns {boolean} True if energy is 0 or below, otherwise false.
+     */
     isDead() {
         return this.energy <= 0;
     }
     
+    /**
+     * Starts the animation and movement handlers.
+     */
     animate() {
         this.setupMovementHandler();
         this.setupAnimationHandler();
     }
 
+    /**
+     * Sets up the movement handling interval.
+     */
     setupMovementHandler() {
         setInterval(() => {
             this.handleMovement();
@@ -98,6 +114,9 @@ class Character extends MovableObject{
         }, 1000 / 60);
     }
 
+    /**
+     * Handles character movement based on keyboard input.
+     */
     handleMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -115,20 +134,32 @@ class Character extends MovableObject{
         }
     }
 
+    /**
+     * Updates the camera position based on character movement.
+     */
     updateCamera() {
         this.world.camera_x = -this.x + 100;
     }
 
+    /**
+     * Updates the last key press time for idle animations.
+     */
     updateLastKeyPressTime() {
         this.lastKeyPressTime = Date.now();
     }
 
+    /**
+     * Sets up the animation handling interval.
+     */
     setupAnimationHandler() {
         setInterval(() => {
             this.handleAnimation();
         }, 50);
     }
 
+    /**
+     * Controls the character's animations based on state.
+     */
     handleAnimation() {
         if (this.isDead()) {
             this.handleDeath();
@@ -143,6 +174,9 @@ class Character extends MovableObject{
         }
     }
 
+    /**
+     * Handles the character's death animation and game reset.
+     */
     handleDeath() {
         if (this.alreadyReset) return;
         this.alreadyReset = true;
@@ -152,6 +186,9 @@ class Character extends MovableObject{
         this.playDeathAnimation();
     }
 
+    /**
+     * Plays the character's death animation and triggers game over.
+     */
     playDeathAnimation() {
         let deathAnimation = setInterval(() => {
             this.playAnimation(this.IMAGES_DEAD);
@@ -165,6 +202,9 @@ class Character extends MovableObject{
         }, 2000);
     }
 
+    /**
+     * Determines whether the character should be idle, sleeping, or walking.
+     */
     handleIdleOrWalking() {
         let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -176,8 +216,11 @@ class Character extends MovableObject{
         }
     }
 
-    
-
+    /**
+     * Plays animations at a controlled speed.
+     * @param {string[]} images - The animation array to play.
+     * @param {number} interval - The animation speed in milliseconds.
+     */
     setSpeedInAnimation(images, interval) {
         if (!this.lastAnimationTime || Date.now() - this.lastAnimationTime >= interval) {
             this.lastAnimationTime = Date.now();

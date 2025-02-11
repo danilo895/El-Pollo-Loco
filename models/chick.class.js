@@ -1,3 +1,7 @@
+/**
+ * Represents a small chick enemy in the game.
+ * Inherits from MovableObject and moves automatically to the left.
+ */
 class Chick extends MovableObject {
     y = 380;
     height = 45;
@@ -11,6 +15,9 @@ class Chick extends MovableObject {
         'img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
+    /**
+     * Creates a new Chick instance with a random X position and speed.
+     */
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -19,10 +26,18 @@ class Chick extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Sets the reference to the game world.
+     * @param {Object} world - The game world object.
+     */
     setWorld(world) {
         this.world = world;
     }
 
+    /**
+     * Starts movement and animation for the chick.
+     * Moves left continuously and plays walking animation.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -33,6 +48,10 @@ class Chick extends MovableObject {
         }, 200);
     }
 
+    /**
+     * Replaces the alive chick with a dead chick when destroyed.
+     * Plays a destruction sound and removes the chick from the game.
+     */
     replaceWithDeadEnemy() {
         destroyChickenSound.currentTime = 0;
         destroyChickenSound.play();
@@ -46,7 +65,10 @@ class Chick extends MovableObject {
         }
     }
 
-
+    /**
+     * Handles the impact when the chick is hit by a bottle.
+     * Stops movement and removes the chick after a short delay.
+     */
     handleBottleHit() {
         let deadImagePath = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
         this.loadImage(deadImagePath);

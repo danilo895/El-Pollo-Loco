@@ -1,3 +1,7 @@
+/**
+ * Represents the game world, managing the character, enemies, objects, and interactions.
+ * Handles rendering, collision detection, and game logic execution.
+ */
 class World{
     character = new Character();
     level;
@@ -13,6 +17,11 @@ class World{
     statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
 
+    /**
+     * Creates a new World instance and initializes game logic.
+     * @param {HTMLCanvasElement} canvas - The game canvas.
+     * @param {Keyboard} keyboard - The keyboard input handler.
+     */
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -23,6 +32,9 @@ class World{
         this.run();
     }
 
+    /**
+     * Sets the world reference for the character and enemies.
+     */
     setWorld() {
         this.character.world = this;
         this.level.enemies.forEach(enemy => {
@@ -32,24 +44,25 @@ class World{
         });
     }
     
-    
-
+    /**
+     * Runs the main game loop with collision detection and object interactions.
+     */
     run() {
-        // Standard-Checks alle 200ms
         setInterval(() => {
             this.checkCoinCollision();
             this.checkBottleCollision();
             this.checkThrowObjects();
         }, 200);
     
-        // Kollisionsprüfung öfter ausführen (z.B. alle 50ms)
         setInterval(() => {
             this.checkCollisions();
         }, 50);
     }
     
     
-
+    /**
+     * Checks if the player has thrown a Tabasco bottle and adds it to the world.
+     */
     checkThrowObjects() {
         if (this.keyboard.D && this.statusBarBottle.collectedBottles > 0) { 
             let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this);
@@ -59,7 +72,10 @@ class World{
     }
     
     
-
+    /**
+     * Checks if the character has collected a coin.
+     * If so, removes it from the world and updates the status bar.
+     */
     checkCoinCollision() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -70,10 +86,11 @@ class World{
             }
         });
     }
-    
 
-
-
+    /**
+     * Checks if the character has collected a Tabasco bottle.
+     * If so, removes it from the world and updates the status bar.
+     */
     checkBottleCollision() {
         this.level.tabascoBottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -86,8 +103,10 @@ class World{
         });
     }
     
-
-
+    /**
+     * Checks for collisions between the character and enemies.
+     * Handles damage, jumping on enemies, and enemy elimination.
+     */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (!this.character.isAboveGround()) { 
@@ -107,48 +126,47 @@ class World{
         });
     }
 
-
+    /**
+     * Draws all game elements onto the canvas.
+     */
     draw(){
         if (!world) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarEndboss);
-        
+        this.addToMap(this.statusBarEndboss);        
         this.ctx.translate(this.camera_x, 0);
-
-
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.tabascoBottles);
-
-
-        
         this.ctx.translate(-this.camera_x, 0);
-
-
         let self = this;
         requestAnimationFrame(function(){
             self.draw()
         });
     }
 
+    /**
+     * Adds an array of objects to the game map.
+     * @param {DrawableObject[]} objects - The objects to be added.
+     */
     addObjectsToMap(objects){
         objects.forEach(o =>{
             this.addToMap(o);
         });
     }
 
+    /**
+     * Adds a single object to the game map, considering direction.
+     * @param {DrawableObject} mo - The object to be added.
+     */
     addToMap(mo){
         if(mo.otherDirection){
             this.flipImage(mo);
@@ -162,6 +180,10 @@ class World{
         }
     }
 
+    /**
+     * Flips an object horizontally for correct rendering when facing left.
+     * @param {DrawableObject} mo - The object to flip.
+     */
     flipImage(mo){
         this.ctx.save();
         this.ctx.translate(mo.width,0);
@@ -169,6 +191,10 @@ class World{
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Restores the object's position after flipping.
+     * @param {DrawableObject} mo - The object to restore.
+     */
     flipImageBack(mo){
         mo.x = mo.x * -1;
         this.ctx.restore();

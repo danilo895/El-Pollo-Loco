@@ -1,6 +1,15 @@
+/**
+ * Represents a throwable Tabasco bottle in the game.
+ * Inherits from MovableObject and includes physics, rotation, and collision detection.
+ */
 class ThrowableObject extends MovableObject {
     rotationAngle = 0;
-
+    /**
+     * Creates a new ThrowableObject instance.
+     * @param {number} x - The initial X position of the bottle.
+     * @param {number} y - The initial Y position of the bottle.
+     * @param {Object} world - The game world reference.
+     */
     constructor(x, y, world) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.x = x;
@@ -12,6 +21,10 @@ class ThrowableObject extends MovableObject {
         this.startRotation();
         this.trackPosition();
     }
+
+    /**
+     * Initiates the throwing motion of the bottle, applying horizontal movement.
+     */
     throw() {
         this.speedY = 25;
         this.applyGravityBottle(); 
@@ -29,6 +42,9 @@ class ThrowableObject extends MovableObject {
         }, 25);
     }
     
+    /**
+     * Applies gravity to the thrown bottle, making it follow a parabolic trajectory.
+     */
     applyGravityBottle() {
         this.acceleration = 2; 
         let gravityInterval = setInterval(() => {
@@ -44,7 +60,9 @@ class ThrowableObject extends MovableObject {
         }, 1000 / 25);
     }
     
-
+    /**
+     * Starts the rotation animation for the bottle.
+     */
     startRotation() {
         this.rotationInterval = setInterval(() => {
             this.rotationAngle += 15;
@@ -54,14 +72,23 @@ class ThrowableObject extends MovableObject {
         }, 40);
     }
 
+    /**
+     * Stops the rotation of the bottle.
+     */
     stopRotation() {
         clearInterval(this.rotationInterval);
     }
 
+    /**
+     * Tracks the bottle's position and checks for collisions continuously.
+     */
     trackPosition() {
         requestAnimationFrame(() => this.checkCollisions());
     }
     
+    /**
+     * Checks for collisions between the thrown bottle and enemies.
+     */
     checkCollisions() {
         if (this.isRemoved) return;
         if (!this.isGameValid()) return;
@@ -76,7 +103,10 @@ class ThrowableObject extends MovableObject {
         requestAnimationFrame(() => this.checkCollisions());
     }
     
-    
+    /**
+     * Validates if the game world and enemies are available before checking collisions.
+     * @returns {boolean} True if the game world is valid, otherwise false.
+     */
     isGameValid() {
         if (!this.world || !this.world.level || this.world.level.enemies.length === 0) {
             return false;
@@ -84,14 +114,22 @@ class ThrowableObject extends MovableObject {
         return true;
     }
     
-
+    /**
+     * Determines if a collision with a specific enemy should be ignored.
+     * @param {Object} enemy - The enemy object to check.
+     * @returns {boolean} True if the collision should be ignored, otherwise false.
+     */
     shouldIgnoreCollision(enemy) {
         if (enemy instanceof BossChicken && enemy.isDead) {
             return true;
         }
         return false;
     }
-    
+
+    /**
+     * Handles collision logic when the bottle hits an enemy.
+     * @param {Object} enemy - The enemy object that was hit.
+     */
     handleCollision(enemy) {
         if (!(enemy instanceof Chick || enemy instanceof Chicken || enemy instanceof BossChicken)) {
             return;
@@ -110,9 +148,11 @@ class ThrowableObject extends MovableObject {
         }
     }
     
-    
-    
-
+    /**
+     * Handles the bottle collision with the boss enemy.
+     * Reduces the boss's health and triggers animations or removal.
+     * @param {Object} enemy - The boss enemy object.
+     */
     handleBossCollision(enemy) { 
         this.world.statusBarEndboss.reduceHealth(20);
         if (this.world.statusBarEndboss.percentageEndboss <= 0 && !enemy.isDead) {
@@ -128,6 +168,11 @@ class ThrowableObject extends MovableObject {
         }
     }
     
+        /**
+     * Handles the bottle collision with regular enemies (Chickens & Chicks).
+     * Removes the enemy from the game.
+     * @param {Object} enemy - The enemy object.
+     */
     handleRegularEnemyCollision(enemy) {
         this.stopRotation();
         
@@ -137,16 +182,19 @@ class ThrowableObject extends MovableObject {
         }
     }
     
-    
-    
-
+    /**
+     * Checks if the charac has gone out of bounds and removes it if necessary.
+     */
     checkOutOfBounds() {
         if (this.y > 500 || this.x < 0) {
             this.removeBottle();
         }
     }
 
-
+    /**
+     * Draws the bottle on the canvas, applying rotation.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     draw(ctx) {
         ctx.save();
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
@@ -156,6 +204,9 @@ class ThrowableObject extends MovableObject {
         ctx.restore();
     }
 
+    /**
+     * Removes the bottle from the game and clears associated intervals.
+     */
     removeBottle() {
         clearInterval(this.throwInterval);
         clearInterval(this.rotationInterval);
@@ -167,18 +218,22 @@ class ThrowableObject extends MovableObject {
     }
     
 
+    /**
+     * Checks if the bottle is colliding with an enemy.
+     * @param {Object} enemy - The enemy object to check.
+     * @returns {boolean} True if the bottle collides with the enemy, otherwise false.
+     */
+    isCollidingWithEnemy(enemy) {
+        let bottleCenterX = this.x + this.width / 2;
+        let bottleCenterY = this.y + this.height / 2;
 
-isCollidingWithEnemy(enemy) {
-    let bottleCenterX = this.x + this.width / 2;
-    let bottleCenterY = this.y + this.height / 2;
+        let enemyCenterX = enemy.x + enemy.width / 2;
+        let enemyCenterY = enemy.y + enemy.height / 2;
 
-    let enemyCenterX = enemy.x + enemy.width / 2;
-    let enemyCenterY = enemy.y + enemy.height / 2;
-
-    let dx = Math.abs(bottleCenterX - enemyCenterX);
-    let dy = Math.abs(bottleCenterY - enemyCenterY);
-    let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
+        let dx = Math.abs(bottleCenterX - enemyCenterX);
+        let dy = Math.abs(bottleCenterY - enemyCenterY);
+        let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
                     (dy < (this.height / 2 + enemy.height / 2));
-    return collision;
-}
+        return collision;
+    }
 }

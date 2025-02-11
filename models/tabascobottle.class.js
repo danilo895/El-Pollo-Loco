@@ -21,7 +21,7 @@ animate() {
     setInterval(() => {
         this.currentImage = (this.currentImage + 1) % this.IMAGES_TABASCOBOTTLE.length; 
         this.loadImage(this.IMAGES_TABASCOBOTTLE[this.currentImage]);
-    }, 300); 
+    }, 500); 
 }
 
 }

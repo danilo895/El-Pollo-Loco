@@ -8,7 +8,17 @@ function init() {
     canvas = document.getElementById('canvas');
     level1 = createLevel();
     world = new World(canvas, keyboard, level1);
+    
+    setTimeout(() => {
+        enableStartButton();  // Button aktivieren
+    }, 500);
 }
+
+
+function enableStartButton() {
+    document.getElementById("start-game-button").disabled = false;
+}
+
 
 
 
@@ -70,6 +80,7 @@ function backToMainMenuAfterLose(){
 }
 
 function resetGameFully() {
+    document.getElementById("start-game-button").disabled = true;
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('start-overlay').classList.remove('d-none');
     world = null;
@@ -83,6 +94,7 @@ function resetGameFully() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     init();
 }
+
 
 
 function resetGameLose() {
@@ -174,6 +186,7 @@ function resetGameAfterLose() {
     if (world && world.character && !world.character.isDead()) {
         return;
     }
+    document.getElementById("start-game-button").disabled = true;
     world = null;
     level1 = createLevel();
     enemiesSetted = false;
@@ -182,6 +195,7 @@ function resetGameAfterLose() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     restartGameAfterLose();
 }
+
 
 
 function restartGameAfterLose() {

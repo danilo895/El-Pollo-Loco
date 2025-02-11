@@ -87,68 +87,95 @@ class Character extends MovableObject{
     }
     
     animate() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-                this.lastKeyPressTime = Date.now();
-            }
-    
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-                this.lastKeyPressTime = Date.now();
-            }
-    
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-                this.lastKeyPressTime = Date.now();
-            }
-    
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60);
-    
-        setInterval(() => {
-            let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
-    
-            if (this.isDead()) {
+        this.setupMovementHandler();
+        this.setupAnimationHandler();
+    }
 
-                if (this.alreadyReset) return;
-                this.alreadyReset = true;
-                characdead.currentTime = 0;
-                characdead.play();
-                stopAllIntervals();
-                let deathAnimation = setInterval(() => {
-                    this.playAnimation(this.IMAGES_DEAD);
-                }, 100);
-    
-                setTimeout(() => {
-                    characterDies.currentTime = 0;
-                    characterDies.play();
-                    clearInterval(deathAnimation);
-                    showLosingScreen();
-                    resetGameLose();
-                }, 2000);
-                return;
-            }  
-            else if (this.isHurt() && !this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } 
-            else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-            } 
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-            else if (timeSinceLastKeyPress >= 10000) { 
-                this.setSpeedInAnimation(this.IMAGES_SLEEPING, 250);
-            } 
-            else {  
-                this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
-            }
-    
+    setupMovementHandler() {
+        setInterval(() => {
+            this.handleMovement();
+            this.updateCamera();
+        }, 1000 / 60);
+    }
+
+    handleMovement() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+            this.updateLastKeyPressTime();
+        }
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+            this.updateLastKeyPressTime();
+        }
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+            this.updateLastKeyPressTime();
+        }
+    }
+
+    updateCamera() {
+        this.world.camera_x = -this.x + 100;
+    }
+
+    updateLastKeyPressTime() {
+        this.lastKeyPressTime = Date.now();
+    }
+
+    setupAnimationHandler() {
+        setInterval(() => {
+            this.handleAnimation();
         }, 50);
     }
+
+    handleAnimation() {
+        if (this.isDead()) {
+            this.handleDeath();
+            return;
+        }
+        if (this.isHurt() && !this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+        } else {
+            this.handleIdleOrWalking();
+        }
+    }
+
+    handleDeath() {
+        if (this.alreadyReset) return;
+        this.alreadyReset = true;
+        characdead.currentTime = 0;
+        characdead.play();
+        stopAllIntervals();
+        this.playDeathAnimation();
+    }
+
+    playDeathAnimation() {
+        let deathAnimation = setInterval(() => {
+            this.playAnimation(this.IMAGES_DEAD);
+        }, 100);
+        setTimeout(() => {
+            characterDies.currentTime = 0;
+            characterDies.play();
+            clearInterval(deathAnimation);
+            showLosingScreen();
+            resetGameLose();
+        }, 2000);
+    }
+
+    handleIdleOrWalking() {
+        let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+        } else if (timeSinceLastKeyPress >= 10000) {
+            this.setSpeedInAnimation(this.IMAGES_SLEEPING, 250);
+        } else {
+            this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
+        }
+    }
+
     
 
     setSpeedInAnimation(images, interval) {

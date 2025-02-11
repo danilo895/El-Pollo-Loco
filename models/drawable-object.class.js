@@ -1,3 +1,7 @@
+/**
+ * Represents a drawable object in the game.
+ * Provides methods for image loading, rendering, and frame adjustments.
+ */
 class DrawableObject{
     img;
     imageCache = {};
@@ -7,12 +11,19 @@ class DrawableObject{
     height = 150;
     width = 120;
 
-
+/**
+* Loads an image for the object.
+* @param {string} path - The path to the image.
+*/
 loadImage(path){
     this.img = new Image();
     this.img.src = path;
 }
 
+/**
+* Draws the object on the canvas.
+* @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+*/
 draw(ctx) {
     if (!this.img || !this.imageCache) {
         return;
@@ -20,6 +31,10 @@ draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 }
 
+/**
+* Determines if the object should have a visible frame for debugging.
+* @returns {boolean} True if the object should have a frame, otherwise false.
+*/
 shouldDrawFrame() {
     return this instanceof Character || 
         this instanceof Chicken || 
@@ -30,6 +45,10 @@ shouldDrawFrame() {
         this instanceof TabascoBottle;
 }
 
+/**
+* Gets the adjusted frame dimensions, considering offsets.
+* @returns {Object} An object containing x, y, width, and height.
+*/
 getAdjustedFrame() {
     let offsetX = this.offsetX || 0;
     let offsetY = this.offsetY || 0;
@@ -41,6 +60,10 @@ getAdjustedFrame() {
     };
 }
 
+/**
+* Draws a frame around the object if applicable (used for debugging).
+* @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+*/
 drawFrame(ctx) {
     if (!this.shouldDrawFrame()) return;
     let { x, y, width, height } = this.getAdjustedFrame();
@@ -51,6 +74,10 @@ drawFrame(ctx) {
     ctx.stroke();
 }
 
+/**
+* Loads multiple images into the image cache.
+* @param {string[]} arr - An array of image paths to load.
+*/
 loadImages(arr){
     arr.forEach((path) => {
     let img = new Image();

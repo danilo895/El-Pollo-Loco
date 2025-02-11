@@ -1,3 +1,7 @@
+/**
+ * Represents the status bar for collected coins in the game.
+ * Inherits from DrawableObject and updates dynamically based on the collected coin percentage.
+ */
 class StatusBarCoin extends DrawableObject{
     IMAGES = [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
@@ -9,7 +13,9 @@ class StatusBarCoin extends DrawableObject{
     ];
     percentageCoin = 0;
 
-
+/**
+* Creates a new StatusBarCoin instance and initializes its position and image.
+*/
 constructor(){
     super();
     this.loadImages(this.IMAGES);
@@ -20,13 +26,21 @@ constructor(){
     this.setPercentage(0);
 }
 
+
+/**
+* Updates the status bar based on the collected coin percentage.
+* @param {number} percentageCoin - The current percentage of collected coins.
+*/
 setPercentage(percentageCoin) {
     this.percentageCoin = percentageCoin;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
 }
 
-
+/**
+* Updates the status bar based on the collected coin percentage.
+* @param {number} percentageCoin - The current percentage of collected coins.
+*/
 resolveImageIndex(){
     if(this.percentageCoin == 100){
         return 5;

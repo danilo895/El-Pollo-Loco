@@ -1,3 +1,8 @@
+/**
+ * Represents the status bar for collected bottles in the game.
+ * Inherits from DrawableObject and updates dynamically based on collected bottles.
+ */
+
 class StatusBarBottle extends DrawableObject{
     IMAGES = [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/0.png',
@@ -9,6 +14,9 @@ class StatusBarBottle extends DrawableObject{
     ];
     collectedBottles = 0;
 
+    /**
+     * Creates a new StatusBarBottle instance and initializes its position and image.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
@@ -19,13 +27,21 @@ class StatusBarBottle extends DrawableObject{
         this.img = this.imageCache[this.IMAGES[0]];
         this.count(this.collectedBottles);
     }
-    
+
+    /**
+     * Updates the status bar based on the number of collected bottles.
+     * @param {number} collectedBottles - The current number of collected bottles.
+     */    
     count(collectedBottles) {
         this.collectedBottles = collectedBottles;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
 }
 
+    /**
+     * Determines the correct image index based on the number of collected bottles.
+     * @returns {number} The index of the appropriate status bar image.
+     */
     resolveImageIndex() {
         if (this.collectedBottles > 9) {
             return 5;

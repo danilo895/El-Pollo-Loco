@@ -1,3 +1,7 @@
+/**
+ * Represents a level in the game.
+ * Contains all game elements such as enemies, clouds, background objects, coins, and Tabasco bottles.
+ */
 class Level{
     enemies;
     clouds;
@@ -13,6 +17,5 @@ class Level{
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;
         this.tabascoBottles = tabascoBottles;
-
     }
 }

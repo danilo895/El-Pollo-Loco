@@ -94,37 +94,50 @@ function backToMainMenuAfterLose(){
  * Resets the game completely and returns to the start screen.
  */
 function resetGameFully() {
+    stopAllIntervals();
+    if (world && world.animationFrameId) {
+        cancelAnimationFrame(world.animationFrameId);
+    }
+    cancelAnimationFrame(world.animationFrameId);
     document.getElementById("start-game-button").disabled = true;
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('start-overlay').classList.remove('d-none');
-    world = null;
+
     level1.enemies = [];
     level1.coins = [];
     level1.tabascoBottles = [];
+    throwableObjects = [];
     enemiesSetted = false;
     level1 = createLevel();
+
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    init();
+    setTimeout(() => {
+        world = null;
+        init();
+    }, 100);
 }
+
 
 /**
  * Resets the game after losing and prepares for a restart.
  */
 function resetGameLose() {
+    stopAllIntervals();
     world = null;
     level1.enemies = [];
     level1.coins = [];
     level1.tabascoBottles = [];
+    throwableObjects = []; 
     enemiesSetted = false;
     level1 = createLevel();
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     init();
-
 }
+
 
 /**
  * Starts a new game after winning.
@@ -143,6 +156,7 @@ function setEnemiesForRetry() {
     if (enemiesSetted) {
         return;
     }
+    level1.enemies = [];
     level1.enemies = [
         new Chicken(),
         new Chick(),
@@ -304,6 +318,7 @@ function removeInstructions(){
     document.getElementById('start-overlay').classList.remove('d-none');
     document.getElementById('start-overlay').classList.add('d-flex');
 }
+
 
 function stopAllIntervals() {
     let highestId = setInterval(() => {}, 1000);

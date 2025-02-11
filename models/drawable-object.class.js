@@ -21,29 +21,39 @@ draw(ctx) {
 }
 
 
-drawFrame(ctx) {
-    if (
-        this instanceof Character || 
+shouldDrawFrame() {
+    return this instanceof Character || 
         this instanceof Chicken || 
         this instanceof Chick || 
         this instanceof BossChicken || 
         this instanceof ThrowableObject || 
         this instanceof Coin || 
-        this instanceof TabascoBottle
-    ) {
-        ctx.beginPath();
-        ctx.lineWidth = '1';
-        ctx.strokeStyle = 'transparent';
-
-        let adjustedX = this.x + (this.offsetX || 0);
-        let adjustedY = this.y + (this.offsetY || 0);
-        let adjustedWidth = this.width - 2 * (this.offsetX || 0);
-        let adjustedHeight = this.height - 2 * (this.offsetY || 0);
-
-        ctx.rect(adjustedX, adjustedY, adjustedWidth, adjustedHeight);
-        ctx.stroke();
-    }
+        this instanceof TabascoBottle;
 }
+
+getAdjustedFrame() {
+    let offsetX = this.offsetX || 0;
+    let offsetY = this.offsetY || 0;
+    return {
+        x: this.x + offsetX,
+        y: this.y + offsetY,
+        width: this.width - 2 * offsetX,
+        height: this.height - 2 * offsetY
+    };
+}
+
+drawFrame(ctx) {
+    if (!this.shouldDrawFrame()) return;
+
+    let { x, y, width, height } = this.getAdjustedFrame();
+    
+    ctx.beginPath();
+    ctx.lineWidth = '1';
+    ctx.strokeStyle = 'red';
+    ctx.rect(x, y, width, height);
+    ctx.stroke();
+}
+
 
 
 

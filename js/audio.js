@@ -48,9 +48,10 @@ function toggleGameSound() {
     let soundIcon = document.getElementById("soundIcon");
     const activeSound = "img/12_sound/sound-active.png";
     const inactiveSound = "img/12_sound/sound-inactive.png";
-    let currentSound = soundIcon.src.replace(location.origin + "/", "");
 
-    if (currentSound === activeSound) {
+    let currentSound = soundIcon.src;
+
+    if (currentSound.endsWith("sound-active.png")) {
         soundIcon.src = inactiveSound;
         disableGameSounds();
     } else {
@@ -58,6 +59,7 @@ function toggleGameSound() {
         enableGameSounds();
     }
 }
+
 
 
 

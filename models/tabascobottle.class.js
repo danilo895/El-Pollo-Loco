@@ -13,7 +13,7 @@ currentImage = 0;
 
 constructor(){
     super().loadImage('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
-    this.x = 150 + Math.random() * (1600 - 100); 
+    this.x = 300 + Math.random() * (1600 - 100); 
     this.animate();
 }
 

@@ -4,24 +4,28 @@ let moveLeftInterval, moveRightInterval;
 let keyboard = new Keyboard();
 let enemiesSetted = false;
 
+/**
+ * Initializes the game, sets up the canvas, and starts the world.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     level1 = createLevel();
     world = new World(canvas, keyboard, level1);
     
     setTimeout(() => {
-        enableStartButton();  // Button aktivieren
+        enableStartButton();
     }, 500);
 }
-
-
+/**
+ * Enables the start game button after a delay. Game has to be loaded before game can start.
+ */
 function enableStartButton() {
     document.getElementById("start-game-button").disabled = false;
 }
 
-
-
-
+/**
+ * Listens for keydown events and updates the keyboard state.
+ */
 window.addEventListener("keydown",(e) =>{
     if(e.keyCode == 39){
         keyboard.RIGHT = true;
@@ -43,7 +47,9 @@ window.addEventListener("keydown",(e) =>{
     }
 });
 
-
+/**
+ * Listens for keyup events and updates the keyboard state.
+ */
 window.addEventListener("keyup",(e) =>{
     if(e.keyCode == 39){
         keyboard.RIGHT = false;
@@ -65,13 +71,18 @@ window.addEventListener("keyup",(e) =>{
     }
 });
 
-
+/**
+ * Returns to the main menu after a win.
+ */
 function backToMainMenu(){
     document.getElementById('win-overlay').classList.remove('d-flex');
     document.getElementById('win-overlay').classList.add('d-none');
     resetGameFully();
 }
 
+/**
+ * Returns to the main menu after losing.
+ */
 function backToMainMenuAfterLose(){
     document.getElementById('lose-overlay').classList.remove('d-flex');
     document.getElementById('lose-overlay').classList.add('d-none');
@@ -79,6 +90,9 @@ function backToMainMenuAfterLose(){
     resetGameFully();
 }
 
+/**
+ * Resets the game completely and returns to the start screen.
+ */
 function resetGameFully() {
     document.getElementById("start-game-button").disabled = true;
     document.getElementById('canvas').classList.add('d-none');
@@ -95,8 +109,9 @@ function resetGameFully() {
     init();
 }
 
-
-
+/**
+ * Resets the game after losing and prepares for a restart.
+ */
 function resetGameLose() {
     world = null;
     level1.enemies = [];
@@ -111,9 +126,9 @@ function resetGameLose() {
 
 }
 
-
-
-
+/**
+ * Starts a new game after winning.
+ */
 function startGameAgain() {
     document.getElementById('win-overlay').classList.remove('d-flex');
     document.getElementById('win-overlay').classList.add('d-none');
@@ -121,7 +136,9 @@ function startGameAgain() {
     setEnemiesForRetry();
 }
 
-
+/**
+ * Re-adds enemies to the game after restarting.
+ */
 function setEnemiesForRetry() {
     if (enemiesSetted) {
         return;
@@ -138,7 +155,9 @@ function setEnemiesForRetry() {
     world.draw();
 }
 
-
+/**
+ * Displays the winning screen after a short delay.
+ */
 function showWinningScreen() {
     setTimeout(() => {
         document.getElementById('canvas').classList.add('d-none');
@@ -151,6 +170,9 @@ function showWinningScreen() {
     resetGame();
 }
 
+/**
+ * Resets the game after winning.
+ */
 function resetGame() {
     setTimeout(() => {
         world = null;

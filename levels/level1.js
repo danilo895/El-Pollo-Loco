@@ -1,3 +1,7 @@
+/**
+ * Creates and returns a new level with background objects, clouds, coins, and Tabasco bottles.
+ * @returns {Level} A new Level instance.
+ */
 function createLevel() {
     return new Level(
         [],
@@ -58,19 +62,17 @@ function createLevel() {
     );
 }
 
-
-
-
-
+/**
+ * Sets up the enemies in the level and starts the game.
+ * Ensures that enemies are only set once.
+ */
 function setEnemies() {
     document.getElementById('start-overlay').classList.remove('d-flex');
     document.getElementById('start-overlay').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
-
     if (enemiesSetted) {
         return;
     }
-
     level1.enemies = [
         new Chicken(),
         new Chick(),
@@ -81,16 +83,15 @@ function setEnemies() {
         new Chicken(),
         new BossChicken()
     ];
-    
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
-
-
 }
 
-
-
+/**
+ * Resets and sets enemies after losing the game.
+ * Ensures that enemies are only reset if not already set.
+ */
 function setEnemiesAfterLose() {
     document.getElementById('overlay-losing-screen').classList.remove('d-flex');
     document.getElementById('overlay-losing-screen').classList.add('d-none');
@@ -111,5 +112,4 @@ function setEnemiesAfterLose() {
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
-
 }

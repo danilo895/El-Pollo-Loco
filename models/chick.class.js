@@ -14,7 +14,7 @@ class Chick extends MovableObject {
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
-        this.x = 500 + Math.random() * 2100;
+        this.x = 500 + Math.random() * 1900;
         this.speed = 0.2 + Math.random() * 0.2;
         this.animate();
     }
@@ -51,7 +51,6 @@ class Chick extends MovableObject {
         let deadImagePath = 'img/3_enemies_chicken/chicken_small/2_dead/dead.png';
         this.loadImage(deadImagePath);
         this.speed = 0;
-
         setTimeout(() => {
             let index = this.world.level.enemies.indexOf(this);
             if (index !== -1) {

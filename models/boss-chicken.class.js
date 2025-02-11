@@ -88,12 +88,12 @@ class BossChicken extends MovableObject {
         deadChicken.y = this.y;
         deadChicken.width = this.width;
         deadChicken.height = this.height;
-        let frameIndex = 0;
+        let imgIndex = 0;
         const animateDeadChicken = () => {
-            if (frameIndex < this.IMAGES_DEAD.length) {
+            if (imgIndex < this.IMAGES_DEAD.length) {
                 deadChicken.img = new Image();
-                deadChicken.img.src = this.IMAGES_DEAD[frameIndex];
-                frameIndex++;
+                deadChicken.img.src = this.IMAGES_DEAD[imgIndex];
+                imgIndex++;
                 setTimeout(animateDeadChicken, 300);
             }
         };
@@ -118,12 +118,12 @@ class BossChicken extends MovableObject {
         if (this.isHurt) return;       
         this.isHurt = true;
         this.isFrozen = true;
-        let frameIndex = 0;
+        let imgIndex = 0;
         deathboss.currentTime = 0;
         deathboss.play();
         let hurtInterval = setInterval(() => {
-            this.img = this.imageCache[this.IMAGES_HURT[frameIndex]];
-            frameIndex = (frameIndex + 1) % this.IMAGES_HURT.length;
+            this.img = this.imageCache[this.IMAGES_HURT[imgIndex]];
+            imgIndex = (imgIndex + 1) % this.IMAGES_HURT.length;
         }, 100);  
     
         setTimeout(() => {
@@ -271,14 +271,14 @@ class BossChicken extends MovableObject {
     
     startWalkingBack() {
         let reversedImages = [...this.IMAGES_WALKING].reverse();
-        let frameIndex = 0;   
+        let imgIndex = 0;   
         this.walkingAnimation = setInterval(() => {
             if (this.stopMovement()) {
                 this.stopWalking();
                 return;
             }
-            this.img = this.imageCache[reversedImages[frameIndex]];
-            frameIndex = (frameIndex + 1) % reversedImages.length;
+            this.img = this.imageCache[reversedImages[imgIndex]];
+            imgIndex = (imgIndex + 1) % reversedImages.length;
         }, 300);
 
     }

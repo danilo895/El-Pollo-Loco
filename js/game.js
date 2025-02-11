@@ -2,11 +2,14 @@ let canvas;
 let world;
 let moveLeftInterval, moveRightInterval;
 let keyboard = new Keyboard();
+let enemiesSetted = false;
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    level1 = createLevel();
+    world = new World(canvas, keyboard, level1);
 }
+
 
 
 window.addEventListener("keydown",(e) =>{
@@ -74,7 +77,7 @@ function resetGameFully() {
     level1.coins = [];
     level1.tabascoBottles = [];
     enemiesSetted = false;
-    level1 = initLevel();
+    level1 = createLevel();
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -88,7 +91,7 @@ function resetGameLose() {
     level1.coins = [];
     level1.tabascoBottles = [];
     enemiesSetted = false;
-    level1 = initLevel();
+    level1 = createLevel();
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -124,61 +127,6 @@ function setEnemiesForRetry() {
 }
 
 
-function initLevel() {
-    return new Level(
-        [
-        ],
-        [
-            new Cloud()
-        ],
-        [
-            new BackgroundObject('img/5_background/layers/air.png', -719),
-            new BackgroundObject('img/5_background/layers/3_third_layer/2.png', -719),
-            new BackgroundObject('img/5_background/layers/2_second_layer/2.png', -719),
-            new BackgroundObject('img/5_background/layers/1_first_layer/2.png', -719),
-    
-            new BackgroundObject('img/5_background/layers/air.png', 0),
-            new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
-            new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
-            new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
-    
-            new BackgroundObject('img/5_background/layers/air.png', 719),
-            new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719),
-            new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719),
-            new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719),
-    
-            new BackgroundObject('img/5_background/layers/air.png', 719*2),
-            new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 719*2),
-            new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 719*2),
-            new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 719*2),
-    
-            new BackgroundObject('img/5_background/layers/air.png', 719*3),
-            new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719*3),
-            new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719*3),
-            new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719*3),
-        ],
-        [
-            new Coin(),
-            new Coin(),
-            new Coin(),
-            new Coin(),
-            new Coin(),
-            new Coin(),
-            new Coin()
-        ],
-        [
-            new TabascoBottle(),
-            new TabascoBottle(),
-            new TabascoBottle(),
-            new TabascoBottle(),
-            new TabascoBottle(),
-            new TabascoBottle(),
-            new TabascoBottle(),
-        ],
-    ); 
-}
-
-
 function showWinningScreen() {
     setTimeout(() => {
         document.getElementById('canvas').classList.add('d-none');
@@ -196,7 +144,7 @@ function resetGame() {
         world = null;
         level1.enemies = [];
         enemiesSetted = false;
-        level1 = initLevel();
+        level1 = createLevel();
         let canvas = document.getElementById("canvas");
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -227,7 +175,7 @@ function resetGameAfterLose() {
         return;
     }
     world = null;
-    level1 = initLevel();
+    level1 = createLevel();
     enemiesSetted = false;
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");

@@ -198,7 +198,7 @@ class BossChicken extends MovableObject {
     animateAttack(callback) {
         if (this.isDead) return;
         let originalSpeed = this.speed;
-        this.speed = 12;
+        this.speed = 9;
         let attackInterval = setInterval(() => {
             if (this.isDead) {
                 clearInterval(attackInterval);

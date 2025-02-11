@@ -169,7 +169,7 @@ class Character extends MovableObject{
         let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
-        } else if (timeSinceLastKeyPress >= 10000) {
+        } else if (timeSinceLastKeyPress >= 5000) {
             this.setSpeedInAnimation(this.IMAGES_SLEEPING, 250);
         } else {
             this.setSpeedInAnimation(this.IMAGES_STANDING, 200);

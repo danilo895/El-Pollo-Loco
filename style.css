@@ -392,10 +392,10 @@ cursor: pointer;
 }
 
 .button-imprint, .button-instructions {
-    background: linear-gradient(to bottom right, #EF4765, #5ae4ff);
+    background: linear-gradient(to bottom right, #000000, #b36146);
     border: 0;
     border-radius: 12px;
-    color: #FFFFFF;
+    color: #d3d0c9;
     cursor: pointer;
     display: inline-block;
     font-family: "Kodchasan", serif;
@@ -405,12 +405,12 @@ cursor: pointer;
     padding: 0 1rem;
     text-align: center;
     text-decoration: none;
-    transition: box-shadow .2s ease-in-out;
+    transition: box-shadow .2sease-in-out;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
     white-space: nowrap;
-    }
+}
     
     .button-imprint:not([disabled]):focus {
     box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);

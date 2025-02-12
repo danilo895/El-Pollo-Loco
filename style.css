@@ -46,6 +46,15 @@ canvas{
     margin: 8px;
 }
 
+.raleway-font-imprint {
+    font-family: "Raleway", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 16px;
+    color: hsla(0, 0%, 13%, 1);
+    margin: 3px;
+}
+
 .imprint-data {
     display: flex;
     justify-content: center;
@@ -361,7 +370,6 @@ display: inline-block;
 font-family: "Kodchasan", serif;
 font-size: 16px;
 font-weight: 500;
-line-height: 2.5;
 outline: transparent;
 padding: 0 1rem;
 text-align: center;
@@ -393,7 +401,6 @@ cursor: pointer;
     font-family: "Kodchasan", serif;
     font-size: 16px;
     font-weight: 500;
-    line-height: 2.5;
     outline: transparent;
     padding: 0 1rem;
     text-align: center;
@@ -514,7 +521,6 @@ cursor: pointer;
     font-family: "Kodchasan", serif;
     font-size: 16px;
     font-weight: 500;
-    line-height: 2.5;
     outline: transparent;
     padding: 0 1rem;
     text-align: center;
@@ -591,7 +597,6 @@ cursor: pointer;
         font-family: "Kodchasan", serif;
         font-size: 16px;
         font-weight: 500;
-        line-height: 2.5;
         outline: transparent;
         padding: 0 1rem;
         text-align: center;
@@ -895,8 +900,15 @@ cursor: pointer;
         font-size: 12px;
         margin: 3px;
     }
+
+    .raleway-font-imprint{
+        font-size: 16px;
+        margin: 3px;
+    }
     
-    
+    .imprint-content-container {
+        gap: 8px;
+    }
     }
 
 
@@ -980,6 +992,10 @@ z-index: 999999999;
         margin: 6px;
     }
 
+    .raleway-font-imprint {
+        font-size: 16px;
+        margin: 6px;
+    }
     .imprint-content-container {
         gap: 8px;
     }

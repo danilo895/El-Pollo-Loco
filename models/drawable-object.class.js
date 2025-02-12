@@ -86,5 +86,4 @@ loadImages(arr){
 });
 }
 
-
 }

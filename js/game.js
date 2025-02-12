@@ -250,6 +250,11 @@ function restartGameAfterLose() {
     world.draw();
 }
 
+document.addEventListener("contextmenu", function (event) {
+    if (event.target.closest(".nav-control-buttons")) {
+        event.preventDefault();
+    }
+});
 
 
 function mobileMoveLeftStart() {

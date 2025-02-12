@@ -91,32 +91,59 @@ function backToMainMenuAfterLose(){
 }
 
 /**
- * Resets the game completely and returns to the start screen.
+ * Fully resets the game, stopping all intervals, clearing UI, resetting the level, and reinitializing the game.
  */
 function resetGameFully() {
     stopAllIntervals();
-    if (world && world.animationFrameId) {
-        cancelAnimationFrame(world.animationFrameId);
-    }
-    cancelAnimationFrame(world.animationFrameId);
-    document.getElementById("start-game-button").disabled = true;
-    document.getElementById('canvas').classList.add('d-none');
-    document.getElementById('start-overlay').classList.remove('d-none');
-    level1.enemies = [];
-    level1.coins = [];
-    level1.tabascoBottles = [];
-    throwableObjects = [];
-    enemiesSetted = false;
-    level1 = createLevel();
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    cancelWorldAnimationFrame();
+    resetUI();
+    resetLevel();
+    clearCanvas();
     setTimeout(() => {
         world = null;
         init();
     }, 100);
 }
 
+/**
+ * Cancels the animation frame for the world if it exists.
+ */
+function cancelWorldAnimationFrame() {
+    if (world && world.animationFrameId) {
+        cancelAnimationFrame(world.animationFrameId);
+    }
+    cancelAnimationFrame(world.animationFrameId);
+}
+
+/**
+ * Resets the UI elements by hiding the canvas and showing the start overlay.
+ */
+function resetUI() {
+    document.getElementById("start-game-button").disabled = true;
+    document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('start-overlay').classList.remove('d-none');
+}
+
+/**
+ * Resets the level by clearing enemies, coins, and other game objects, then recreating the level.
+ */
+function resetLevel() {
+    level1.enemies = [];
+    level1.coins = [];
+    level1.tabascoBottles = [];
+    throwableObjects = [];
+    enemiesSetted = false;
+    level1 = createLevel();
+}
+
+/**
+ * Clears the canvas to remove any rendered elements.
+ */
+function clearCanvas() {
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 /**
  * Resets the game after losing and prepares for a restart.
@@ -135,9 +162,6 @@ function resetGameLose() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     init();
 }
-
-
-
 
 /**
  * Starts a new game after winning.
@@ -374,10 +398,6 @@ function stopAllIntervalsExceptEndbossDeath(deathInterval) {
         }
     }
 }
-
-
-
-
 
 
 

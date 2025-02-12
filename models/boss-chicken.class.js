@@ -73,7 +73,6 @@ class BossChicken extends MovableObject {
         this.checkForAttackTrigger(); 
     }
 
-
     /**
      * Marks the boss as dead, stops movement, and starts the death animation.
      */
@@ -87,6 +86,63 @@ class BossChicken extends MovableObject {
         this.deadEndbossAnimation();
     }
     
+    /**
+     * Moves the boss to the left unless it is frozen or dead.
+     */    
+    moveLeft() {
+        if (this.isFrozen || this.isDead) return;
+        this.x -= this.speed;
+    }
+
+    /**
+     * Moves the boss to the right unless it is frozen or dead.
+     */    
+    moveRight() {
+        if (this.isFrozen || this.isDead) return;
+        this.x += this.speed;
+    }
+
+    /**
+     * Triggers the hurt animation for the character.
+     * Prevents multiple triggers while already in the hurt state.
+     */
+    playHurtAnimation() {
+        if (this.isHurt) return;
+        this.isHurt = true;
+        this.isFrozen = true;
+        deathboss.currentTime = 0;
+        deathboss.play();
+
+        let hurtInterval = this.startHurtAnimation();
+        
+        setTimeout(() => {
+            this.stopHurtAnimation(hurtInterval);
+        }, 1000);
+    }
+
+    /**
+     * Starts the hurt animation by cycling through hurt images.
+     * @returns {number} The interval ID for the animation loop.
+     */
+    startHurtAnimation() {
+        let imgIndex = 0;
+        return setInterval(() => {
+            this.img = this.imageCache[this.IMAGES_HURT[imgIndex]];
+            imgIndex = (imgIndex + 1) % this.IMAGES_HURT.length;
+        }, 100);
+    }
+
+    /**
+     * Stops the hurt animation and resets the character's state.
+     * @param {number} hurtInterval - The interval ID to be cleared.
+     */
+    stopHurtAnimation(hurtInterval) {
+        clearInterval(hurtInterval);
+        this.isHurt = false;
+        this.isFrozen = false;
+        this.playAnimation(this.IMAGES_WALKING);
+    }
+
     /**
      * Plays the boss's death animation.
      */
@@ -110,49 +166,8 @@ class BossChicken extends MovableObject {
         this.world.level.enemies.push(deadChicken);
         animateDeadChicken();
         showWinningScreen();
-
-    }
-    
-    /**
-     * Moves the boss to the left unless it is frozen or dead.
-     */    
-    moveLeft() {
-        if (this.isFrozen || this.isDead) return;
-        this.x -= this.speed;
     }
 
-    /**
-     * Moves the boss to the right unless it is frozen or dead.
-     */    
-    moveRight() {
-        if (this.isFrozen || this.isDead) return;
-        this.x += this.speed;
-    }
-
-    /**
-     * Plays the hurt animation and temporarily freezes the boss-chicken.
-     */
-    playHurtAnimation() {
-        if (this.isHurt) return;       
-        this.isHurt = true;
-        this.isFrozen = true;
-        let imgIndex = 0;
-        deathboss.currentTime = 0;
-        deathboss.play();
-        let hurtInterval = setInterval(() => {
-            this.img = this.imageCache[this.IMAGES_HURT[imgIndex]];
-            imgIndex = (imgIndex + 1) % this.IMAGES_HURT.length;
-        }, 100);      
-        setTimeout(() => {
-            clearInterval(hurtInterval);
-            this.isHurt = false;
-            this.isFrozen = false;
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 1000); 
-    }
-    
-    
-    
     /**
      * Sets the game world reference for the boss.
      * @param {Object} world - The game world.
@@ -185,30 +200,34 @@ class BossChicken extends MovableObject {
     }
 
     /**
-     * Starts the boss chickenss attack cycle.
-     */    
+     * Starts the boss chicken's attack cycle.
+     * Ensures the attack pattern repeats unless the boss is dead.
+     */
     startAttackCycle() {
-        if (this.isDead) {
-            return;
-        }   
-        let startX = 2400; 
-        let minX = 2000; 
-        const attackLoop = () => {
-            if (this.isDead) {
-                return;
-            }
-            if (this.x > minX) { 
-                this.animateAttack(() => {
-                    this.moveBackToStart(attackLoop);
-                });
-            } else {
-                this.returnToStartPosition(startX);
-            }
-        };
-        attackLoop();
+        if (this.isDead) return;
+
+        let startX = 2400;
+        let minX = 2000;
+        this.executeAttackCycle(startX, minX);
     }
-    
-    
+
+    /**
+     * Executes a single attack cycle.
+     * @param {number} startX - The starting X position.
+     * @param {number} minX - The minimum X position before resetting.
+     */
+    executeAttackCycle(startX, minX) {
+        if (this.isDead) return;
+
+        if (this.x > minX) {
+            this.animateAttack(() => {
+                this.moveBackToStart(() => this.executeAttackCycle(startX, minX));
+            });
+        } else {
+            this.returnToStartPosition(startX);
+        }
+    }
+
     /**
      * Moves the boss back to its starting position.
      * @param {number} startX - The starting X position.
@@ -227,8 +246,6 @@ class BossChicken extends MovableObject {
             }
         }, 1000 / 60);
     }
-    
-    
 
 /**
  * Starts the attack animation and movement.
@@ -300,6 +317,11 @@ moveBackToStart(callback) {
  * @param {Function} callback - Function to execute after reaching the position.
  */
 startReturning(targetX, callback) {
+    // Falls schon ein Rückkehr-Intervall läuft, beende es
+    if (this.returnInterval) {
+        clearInterval(this.returnInterval);
+    }
+
     this.returnInterval = setInterval(() => {
         if (this.stopMovement()) return;
         if (this.x < targetX) {
@@ -310,6 +332,7 @@ startReturning(targetX, callback) {
         }
     }, 1000 / 60);
 }
+
 
 /**
  * Determines whether the boss should continue returning or attack again.
@@ -338,9 +361,16 @@ stopMovement() {
 /**
  * Stops the boss's returning movement.
  */
+/**
+ * Stops the boss's returning movement.
+ */
 stopReturningMovement() {
-    clearInterval(this.returnInterval);
+    if (this.returnInterval) {
+        clearInterval(this.returnInterval);
+        this.returnInterval = null; // Setzt die Variable zurück
+    }
 }
+
 
 /**
 * Starts the walking-back animation by playing the reversed walking images.
@@ -366,7 +396,4 @@ stopWalking() {
     clearInterval(this.walkingAnimation);
 }
 
-    
-    
-    
 }

@@ -141,10 +141,8 @@ class ThrowableObject extends MovableObject {
         if (!(enemy instanceof Chick || enemy instanceof Chicken || enemy instanceof BossChicken)) {
             return;
         }
-    
         if (!enemy.hasBeenHit) {
             enemy.hasBeenHit = true;
-    
             if (enemy instanceof BossChicken) {
                 this.handleBossCollision(enemy);
             } else {

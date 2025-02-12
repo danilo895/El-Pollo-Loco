@@ -16,6 +16,8 @@ body {
 
 
 canvas{
+    border-radius: 6px;
+    border: 2px solid white;
     display: block;
     background-color: black;
     border-radius: 6px;
@@ -150,13 +152,14 @@ margin: 0;
     position: absolute;
     width: 720px;
     height: 480px;
-
+    border-radius: 6px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.imprint-overlay, .instructions-overlay{
+.imprint-overlay, .instructions-overlay {
+    border-radius: 6px;
     position: absolute;
     width: 720px;
     height: 480px;
@@ -181,6 +184,7 @@ margin: 0;
 
 
 .lose-overlay, .win-overlay{
+    border-radius: 6px;
     position: absolute;
     width: 720px;
     height: 480px;
@@ -194,7 +198,7 @@ margin: 0;
 }
 
 .bg-win{
-    background: linear-gradient(135deg, #ffffff 0%, #c2ff33 50%, #00f4d8 100%);
+    background: linear-gradient(135deg, #C38FBF 0%, #DE9090 50%, #F4D773 100%);
 }
 
 .nav-control-buttons {
@@ -512,7 +516,7 @@ cursor: pointer;
 }
 
 .button-win {
-    background: linear-gradient(to bottom right, #05ff46, #000000);
+    background: linear-gradient(to bottom right, #C38FBF, #DE9090);
     border: 0;
     border-radius: 12px;
     color: #FFFFFF;
@@ -521,6 +525,7 @@ cursor: pointer;
     font-family: "Kodchasan", serif;
     font-size: 16px;
     font-weight: 500;
+    border: 0.5px solid #ffffff61;
     outline: transparent;
     padding: 0 1rem;
     text-align: center;
@@ -533,12 +538,12 @@ cursor: pointer;
     }
     
     .button-win:not([disabled]):focus {
-    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    box-shadow: 0 0 .25rem #DE9090, -.125rem -.125rem 1rem #C38FBF, .125rem .125rem 1rem #F4D773;
     cursor: pointer;    
 }
     
     .button-win:not([disabled]):hover {
-    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(157, 255, 0, 0.59), .125rem .125rem 1rem rgba(7, 155, 67, 0.5);
+    box-shadow: 0 0 .25rem #DE9090, -.125rem -.125rem 1rem #C38FBF, .125rem .125rem 1rem #F4D773;
     cursor: pointer;
 }
 

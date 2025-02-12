@@ -186,8 +186,9 @@ function showWinningScreen() {
     resetGame();
 }
 
-
-
+/**
+ * Displays the losing screen and plays the losing sound.
+ */
 function showLosingScreen() {
     losesound.currentTime = 0;
     losesound.play();
@@ -199,6 +200,9 @@ function showLosingScreen() {
         document.getElementById('lose-overlay').classList.add('d-flex');
 }
 
+/**
+ * Restarts the game after losing by resetting the UI and enemies.
+ */
 function restartGameAfterLose() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('lose-overlay').classList.add('d-none');
@@ -215,13 +219,22 @@ function restartGameAfterLose() {
     world.draw();
 }
 
+/**
+ * Prevents the default context menu from appearing when right-clicking on elements
+ * with the class "nav-control-buttons".
+ *
+ * @param {Event} event - The context menu event.
+ */
 document.addEventListener("contextmenu", function (event) {
     if (event.target.closest(".nav-control-buttons")) {
         event.preventDefault();
     }
 });
 
-
+/**
+ * Starts moving left in mobile controls by setting the LEFT key to true
+ * and keeping it active through an interval.
+ */
 function mobileMoveLeftStart() {
     keyboard.LEFT = true;
     moveLeftInterval = setInterval(() => {
@@ -229,11 +242,19 @@ function mobileMoveLeftStart() {
     }, 100);
 }
 
+/**
+ * Stops moving left in mobile controls by setting the LEFT key to false
+ * and clearing the movement interval.
+ */
 function mobileMoveLeftEnd() {
     keyboard.LEFT = false;
     clearInterval(moveLeftInterval);
 }
 
+/**
+ * Starts moving right in mobile controls by setting the RIGHT key to true
+ * and keeping it active through an interval.
+ */
 function mobileMoveRightStart() {
     keyboard.RIGHT = true;
     moveRightInterval = setInterval(() => {
@@ -241,17 +262,30 @@ function mobileMoveRightStart() {
     }, 100);
 }
 
+/**
+ * Stops moving right in mobile controls by setting the RIGHT key to false
+ * and clearing the movement interval.
+ */
 function mobileMoveRightEnd() {
     keyboard.RIGHT = false;
     clearInterval(moveRightInterval);
 }
 
+/**
+ * Simulates a jump action in mobile controls by setting the SPACE key to true
+ * and automatically resetting it after 200 milliseconds.
+ */
 function mobileJump() {
     keyboard.SPACE = true;
     setTimeout(() => {
         keyboard.SPACE = false;
     }, 200);
 }
+
+/**
+ * Simulates a throw action in mobile controls by setting the D key to true
+ * and automatically resetting it after 200 milliseconds.
+ */
 
 function mobileThrow() {
     keyboard.D = true;
@@ -260,7 +294,9 @@ function mobileThrow() {
     }, 200);
 }
 
-
+/**
+ * Overlay changing
+ */
 function showImprint(){
     document.getElementById('start-overlay').classList.remove('d-flex');
     document.getElementById('start-overlay').classList.add('d-none');
@@ -268,6 +304,9 @@ function showImprint(){
     document.getElementById('imprint-overlay').classList.add('d-flex');
 }
 
+/**
+ * Overlay changing
+ */
 function removeImprint(){
     document.getElementById('imprint-overlay').classList.remove('d-flex');
     document.getElementById('imprint-overlay').classList.add('d-none');
@@ -275,6 +314,9 @@ function removeImprint(){
     document.getElementById('start-overlay').classList.add('d-flex');
 }
 
+/**
+ * Overlay changing
+ */
 function showInstructions(){
     document.getElementById('start-overlay').classList.remove('d-flex');
     document.getElementById('start-overlay').classList.add('d-none');
@@ -282,6 +324,9 @@ function showInstructions(){
     document.getElementById('instructions-overlay').classList.add('d-flex');
 }
 
+/**
+ * Overlay changing
+ */
 function removeInstructions(){
     document.getElementById('instructions-overlay').classList.remove('d-flex');
     document.getElementById('instructions-overlay').classList.add('d-none');
@@ -308,6 +353,9 @@ function resetGame() {
     }, 1500);
 }
 
+/**
+ * Stops all active intervals by iterating through all possible interval IDs and clearing them.
+ */
 function stopAllIntervals() {
     let highestId = setInterval(() => {}, 1000);
     for (let i = 0; i <= highestId; i++) {
@@ -315,6 +363,11 @@ function stopAllIntervals() {
     }
 }
 
+/**
+ * Stops all active intervals except for the specified deathInterval.
+ * 
+ * @param {number} deathInterval - The ID of the interval that should not be cleared.
+ */
 function stopAllIntervalsExceptEndbossDeath(deathInterval) {
     let highestId = setInterval(() => {}, 1000);
     for (let i = 0; i <= highestId; i++) {

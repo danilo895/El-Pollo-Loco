@@ -112,7 +112,6 @@ class World{
             if (!this.character.isAboveGround()) { 
                 if (this.character.isColliding(enemy)) {
                     let currentTime = new Date().getTime();
-                    
                     if (currentTime - this.lastHit > this.hitCooldown) { 
                         this.character.hit();
                         this.statusBar.setPercentage(this.character.energy);
@@ -132,17 +131,13 @@ class World{
     draw() {
         if (!world) return;
         this.clearCanvas();
-        
         this.ctx.translate(this.camera_x, 0);
         this.drawBackground(); // Hintergrund zeichnen
         this.ctx.translate(-this.camera_x, 0);
-    
         this.ctx.translate(this.camera_x, 0);
         this.drawGameObjects(); // Spielfiguren & Objekte zeichnen
         this.ctx.translate(-this.camera_x, 0);
-    
         this.drawUI();
-    
         this.requestNextFrame();
     }
     

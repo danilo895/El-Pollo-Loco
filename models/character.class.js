@@ -150,6 +150,7 @@ class Character extends MovableObject {
         }
     }
 
+
     /**
      * Makes the character jump if the space key is pressed
      * and the character is on the ground.
@@ -157,9 +158,12 @@ class Character extends MovableObject {
     handleJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+            this.currentImage = 0;
             this.updateLastKeyPressTime();
         }
     }
+    
+
 
     /**
      * Wakes up the character if the "D" key is pressed

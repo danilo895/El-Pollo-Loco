@@ -123,28 +123,40 @@ class MovableObject extends DrawableObject{
         };
     }
     
-    /**
-     * Checks if the object is jumping on an enemy.
-     * @param {MovableObject} enemy - The enemy object. (Chicken or Chick)
-     * @returns {boolean} True if jumping on the enemy, otherwise false.
-     */
-    isJumpingOnEnemy(enemy) {
-        let { bottomMiddleX, bottomLeftX, bottomRightX, bottomY } = this.getCollisionPoints();
-        let horizontalTolerance = 5;
-        let verticalTolerance = 5;
-        let isColliding =
-            (
-                (bottomMiddleX > enemy.x + enemy.offsetX - horizontalTolerance &&
-                bottomMiddleX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance) ||
-                (bottomLeftX > enemy.x + enemy.offsetX - horizontalTolerance &&
-                bottomLeftX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance) ||
-                (bottomRightX > enemy.x + enemy.offsetX - horizontalTolerance &&
-                bottomRightX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance)
-            ) &&
-            (bottomY > enemy.y + enemy.offsetY - verticalTolerance) &&
-            (bottomY < enemy.y + enemy.offsetY + enemy.height);
-        let isFalling = this.speedY < 0;
-        return isColliding && isFalling;
-    }
+/**
+ * Checks if the object is jumping on an enemy.
+ * @param {MovableObject} enemy - The enemy object. (Chicken or Chick)
+ * @returns {boolean} True if jumping on the enemy, otherwise false.
+ */
+isJumpingOnEnemy(enemy) {
+    let { bottomY } = this.getCollisionPoints();
+    let verticalTolerance = 5;
+    let isColliding = this.isCollidingCrashPoints(enemy);
+    let isFalling = this.speedY < 0;
+
+    return isColliding && isFalling && 
+        (bottomY > enemy.y + enemy.offsetY - verticalTolerance) &&
+        (bottomY < enemy.y + enemy.offsetY + enemy.height);
+}
+
+/**
+ * Checks if the collision points of the object are within the enemy's hitbox.
+ * @param {MovableObject} enemy - The enemy object.
+ * @returns {boolean} True if there is a collision, otherwise false.
+ */
+isCollidingCrashPoints(enemy) {
+    let { bottomMiddleX, bottomLeftX, bottomRightX } = this.getCollisionPoints();
+    let horizontalTolerance = 5;
+
+    return (
+        (bottomMiddleX > enemy.x + enemy.offsetX - horizontalTolerance &&
+        bottomMiddleX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance) ||
+        (bottomLeftX > enemy.x + enemy.offsetX - horizontalTolerance &&
+        bottomLeftX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance) ||
+        (bottomRightX > enemy.x + enemy.offsetX - horizontalTolerance &&
+        bottomRightX < enemy.x + enemy.offsetX + enemy.width + horizontalTolerance)
+    );
+}
+
     
 }

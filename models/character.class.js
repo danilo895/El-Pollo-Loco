@@ -73,6 +73,7 @@ class Character extends MovableObject {
     ]
 
     world;
+    
     /**
      * Creates a new Character instance and initializes animations and movement.
      */
@@ -150,7 +151,6 @@ class Character extends MovableObject {
         }
     }
 
-
     /**
      * Makes the character jump if the space key is pressed
      * and the character is on the ground.
@@ -162,8 +162,6 @@ class Character extends MovableObject {
             this.updateLastKeyPressTime();
         }
     }
-    
-
 
     /**
      * Wakes up the character if the "D" key is pressed
@@ -271,7 +269,6 @@ class Character extends MovableObject {
             this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
         }
     }
-
 
     /**
      * Plays animations at a controlled speed.

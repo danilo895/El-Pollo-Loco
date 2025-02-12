@@ -13,13 +13,14 @@ const deathboss = new Audio('audio/deathboss.wav');
 const characdead = new Audio('audio/characdead.mp3');
 const winSound = new Audio('audio/wingame.wav');
 const losesound = new Audio('audio/udie.ogg');
+const sleeping = new Audio('audio/sleeping.mp3');
 const bgSound = new Audio('audio/bg-music.mp3');
 
 // Background music
 bgSound.volume = 0.2;
 bgSound.loop = true;
 // Array of all game sounds
-const gameSounds = [bgSound, winSound, losesound, jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies, deathboss, characdead];
+const gameSounds = [bgSound, sleeping, winSound, losesound, jumpSound, coinSound, bottleCollectSound, throwSound, destroyChickenSound, hurtSound, characterDies, deathboss, characdead];
 
 /**
  * Initializes sound settings based on localStorage.
@@ -28,14 +29,33 @@ const gameSounds = [bgSound, winSound, losesound, jumpSound, coinSound, bottleCo
 window.addEventListener('load', () => {
     let soundIcon = document.getElementById("soundIcon");
     let soundEnabled = localStorage.getItem("soundEnabled") === "true";
+    
     if (soundEnabled) {
         soundIcon.src = "img/12_sound/sound-active.png";
-        enableGameSounds();
+        enableGameSoundsWithClick();
     } else {
         soundIcon.src = "img/12_sound/sound-inactive.png";
         disableGameSounds();
     }
 });
+
+/**
+ * Starts the background sound only after a user interaction  
+ * to bypass autoplay restrictions.  
+ * The interaction must be a click event -> For Example a button click (start game) or a click on the screen.
+ */
+function enableGameSoundsWithClick() {
+    gameSounds.forEach(sound => sound.muted = false);
+    if (bgSound.paused) {
+        const playBgMusic = () => {
+            bgSound.play().catch(error => console.warn("Audio play blocked:", error));
+            document.removeEventListener("click", playBgMusic);
+            document.removeEventListener("keydown", playBgMusic);
+        };
+        document.addEventListener("click", playBgMusic);
+        document.addEventListener("keydown", playBgMusic);
+    }
+}
 
 // Ensure all sounds are muted by default
 gameSounds.forEach(sound => {

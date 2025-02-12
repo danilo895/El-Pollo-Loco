@@ -132,7 +132,14 @@ class Character extends MovableObject{
             this.jump();
             this.updateLastKeyPressTime();
         }
+        if (this.world.keyboard.D) {
+            if (this.currentImageSet === this.IMAGES_SLEEPING) {
+                this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
+            }
+            this.updateLastKeyPressTime();
+        }
     }
+    
 
     /**
      * Updates the camera position based on character movement.
@@ -207,14 +214,18 @@ class Character extends MovableObject{
      */
     handleIdleOrWalking() {
         let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
+    
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
+        } else if (this.world.keyboard.D && this.currentImageSet === this.IMAGES_SLEEPING) { 
+            this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
         } else if (timeSinceLastKeyPress >= 5000) {
             this.setSpeedInAnimation(this.IMAGES_SLEEPING, 250);
         } else {
             this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
         }
     }
+    
 
     /**
      * Plays animations at a controlled speed.

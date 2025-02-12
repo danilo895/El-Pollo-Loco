@@ -2,7 +2,7 @@
  * Represents the main character of the game.
  * Inherits from MovableObject and includes animations, movement, and physics.
  */
-class Character extends MovableObject{
+class Character extends MovableObject {
     height = 180;
     width = 90;
     y = 250;
@@ -41,10 +41,10 @@ class Character extends MovableObject{
     ];
 
     IMAGES_HURT = [
-    'img/2_character_pepe/4_hurt/H-41.png',
-    'img/2_character_pepe/4_hurt/H-42.png',
-    'img/2_character_pepe/4_hurt/H-43.png',
-];
+        'img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png',
+    ];
 
     IMAGES_SLEEPING = [
         'img/2_character_pepe/1_idle/long_idle/I-11.png',
@@ -59,7 +59,7 @@ class Character extends MovableObject{
         'img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
-    IMAGES_STANDING =[
+    IMAGES_STANDING = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
         'img/2_character_pepe/1_idle/idle/I-2.png',
         'img/2_character_pepe/1_idle/idle/I-3.png',
@@ -76,16 +76,18 @@ class Character extends MovableObject{
     /**
      * Creates a new Character instance and initializes animations and movement.
      */
-    constructor(){
-    super().loadImage('img/2_character_pepe/2_walk/W-21.png');
-    this.loadImages(this.IMAGES_WALKING);
-    this.loadImages(this.IMAGES_JUMPING);
-    this.loadImages(this.IMAGES_DEAD);
-    this.loadImages(this.IMAGES_HURT);
-    this.loadImages(this.IMAGES_STANDING);
-    this.loadImages(this.IMAGES_SLEEPING);
-    this.applyGravity();
-    this.animate()
+    constructor() {
+        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_STANDING);
+        this.loadImages(this.IMAGES_SLEEPING);
+        this.applyGravity();
+        this.animate();
+        this.setupAnimationHandler();
+        this.setupJumpAnimationHandler();
     }
 
     /**
@@ -95,7 +97,7 @@ class Character extends MovableObject{
     isDead() {
         return this.energy <= 0;
     }
-    
+
     /**
      * Starts the animation and movement handlers.
      */
@@ -196,6 +198,17 @@ class Character extends MovableObject{
     }
 
     /**
+     * Sets up a separate animation handling interval specifically for the jumping animation.
+     */
+    setupJumpAnimationHandler() {
+        setInterval(() => {
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            }
+        }, 120);
+    }
+
+    /**
      * Controls the character's animations based on state.
      */
     handleAnimation() {
@@ -205,9 +218,7 @@ class Character extends MovableObject{
         }
         if (this.isHurt() && !this.isAboveGround()) {
             this.playAnimation(this.IMAGES_HURT);
-        } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
-        } else {
+        } else if (!this.isAboveGround()) { 
             this.handleIdleOrWalking();
         }
     }
@@ -245,10 +256,10 @@ class Character extends MovableObject{
      */
     handleIdleOrWalking() {
         let timeSinceLastKeyPress = Date.now() - this.lastKeyPressTime;
-    
+
         if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
-        } else if (this.world.keyboard.D && this.currentImageSet === this.IMAGES_SLEEPING) { 
+        } else if (this.world.keyboard.D && this.currentImageSet === this.IMAGES_SLEEPING) {
             this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
         } else if (timeSinceLastKeyPress >= 5000) {
             this.setSpeedInAnimation(this.IMAGES_SLEEPING, 250);
@@ -256,7 +267,7 @@ class Character extends MovableObject{
             this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
         }
     }
-    
+
 
     /**
      * Plays animations at a controlled speed.

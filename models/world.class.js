@@ -141,14 +141,23 @@ class World{
         this.requestNextFrame();
     }
     
+    /**
+     * Clears the canvas by removing all drawn elements.
+     */
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
     
+    /**
+     * Draws the background elements of the level.
+     */
     drawBackground() {
         this.addObjectsToMap(this.level.backgroundObjects);
     }
     
+    /**
+     * Draws the user interface (UI) elements on the screen.
+     */
     drawUI() {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
@@ -156,6 +165,9 @@ class World{
         this.addToMap(this.statusBarEndboss);
     }
     
+    /**
+     * Draws all game objects, including the character, clouds, enemies, and collectibles.
+     */
     drawGameObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
@@ -165,12 +177,16 @@ class World{
         this.addObjectsToMap(this.level.tabascoBottles);
     }
     
+    /**
+     * Requests the next animation frame and calls the draw function.
+     */
     requestNextFrame() {
         let self = this;
         requestAnimationFrame(function() {
             self.draw();
         });
     }
+
     
     /**
      * Adds an array of objects to the game map.

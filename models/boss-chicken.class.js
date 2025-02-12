@@ -218,7 +218,6 @@ class BossChicken extends MovableObject {
      */
     executeAttackCycle(startX, minX) {
         if (this.isDead) return;
-
         if (this.x > minX) {
             this.animateAttack(() => {
                 this.moveBackToStart(() => this.executeAttackCycle(startX, minX));
@@ -267,10 +266,12 @@ animateAttack(callback) {
  * @returns {number} The interval ID for movement control.
  */
 startAttackMovement() {
-    return setInterval(() => {
+    if (this.attackInterval) clearInterval(this.attackInterval);
+    this.attackInterval = setInterval(() => {
         if (this.isDead) return clearInterval(this.attackInterval);
         this.moveLeft();
     }, 1000 / 60);
+    return this.attackInterval;
 }
 
 /**
@@ -278,10 +279,14 @@ startAttackMovement() {
  * @returns {number} The interval ID for animation control.
  */
 startAttackAnimation() {
-    return setInterval(() => {
+    if (this.animationInterval) clearInterval(this.animationInterval);
+    
+    this.animationInterval = setInterval(() => {
         if (this.isDead) return clearInterval(this.animationInterval);
         this.playAnimation(this.IMAGES_ATTACKING);
     }, 200);
+
+    return this.animationInterval;
 }
 
 /**
@@ -297,7 +302,7 @@ stopAttackAfterDelay(attackInterval, animationInterval, originalSpeed, callback)
         clearInterval(animationInterval);
         this.speed = originalSpeed;
         if (!this.isDead && callback) callback();
-    }, 800);
+    }, 900);
 }
 
 /**
@@ -317,10 +322,7 @@ moveBackToStart(callback) {
  * @param {Function} callback - Function to execute after reaching the position.
  */
 startReturning(targetX, callback) {
-    // Falls schon ein Rückkehr-Intervall läuft, beende es
-    if (this.returnInterval) {
-        clearInterval(this.returnInterval);
-    }
+    if (this.returnInterval) clearInterval(this.returnInterval);
 
     this.returnInterval = setInterval(() => {
         if (this.stopMovement()) return;
@@ -332,7 +334,6 @@ startReturning(targetX, callback) {
         }
     }, 1000 / 60);
 }
-
 
 /**
  * Determines whether the boss should continue returning or attack again.
@@ -353,6 +354,7 @@ decideReturn(callback) {
 stopMovement() {
     if (this.isDead) {
         this.stopReturningMovement();
+        this.stopWalking();
         return true;
     }
     return false;
@@ -371,12 +373,11 @@ stopReturningMovement() {
     }
 }
 
-
 /**
-* Starts the walking-back animation by playing the reversed walking images.
-* The animation loops through the reversed images every 300ms.
-*/
+ * Starts the walking-back animation by playing the reversed walking images.
+ */
 startWalkingBack() {
+    if (this.walkingAnimation) clearInterval(this.walkingAnimation);
     let reversedImages = [...this.IMAGES_WALKING].reverse();
     let imgIndex = 0;   
     this.walkingAnimation = setInterval(() => {
@@ -389,11 +390,11 @@ startWalkingBack() {
     }, 300);
 }
 
-/**
-* Stops the walking animation by clearing the interval.
-*/
 stopWalking() {
-    clearInterval(this.walkingAnimation);
+    if (this.walkingAnimation) {
+        clearInterval(this.walkingAnimation);
+        this.walkingAnimation = null;
+    }
 }
 
 }

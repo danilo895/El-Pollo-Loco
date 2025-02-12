@@ -36,7 +36,7 @@ class TabascoBottle extends DrawableObject {
             this.loadedImages[index].src = src;
         });
     }
-    
+
     /**
      * Animates the Tabasco bottle by switching between preloaded images.
      */
@@ -46,4 +46,5 @@ class TabascoBottle extends DrawableObject {
             this.img = this.loadedImages[this.currentImage];
         }, 500);
     }
+    
 }

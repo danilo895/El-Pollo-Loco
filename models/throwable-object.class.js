@@ -297,4 +297,5 @@ class ThrowableObject extends MovableObject {
                         (dy < (this.height / 2 + enemy.height / 2));
         return collision;
     }
+    
 }

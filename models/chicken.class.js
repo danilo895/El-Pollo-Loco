@@ -42,7 +42,6 @@ class Chicken extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
-
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALKING);
         }, 200);
@@ -61,7 +60,6 @@ class Chicken extends MovableObject {
         this.world.level.enemies.push(deadEnemy);
         destroyChickenSound.currentTime = 0;
         destroyChickenSound.play();
-    
         let index = this.world.level.enemies.indexOf(this);
         if (index !== -1) {
             this.world.level.enemies.splice(index, 1);
@@ -85,7 +83,5 @@ class Chicken extends MovableObject {
             }
         }, 500);
     }
-    
-    
     
 }

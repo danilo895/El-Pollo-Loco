@@ -6,7 +6,6 @@ class MovableObject extends DrawableObject{
     energy = 100;
     lastHit = 0;
 
-
     /**
      * Applies gravity to make the object fall until it reaches the ground.
      */
@@ -22,7 +21,6 @@ class MovableObject extends DrawableObject{
         }, 1000 / 25);
     }
     
-    
     /**
      * Checks if the object is above the ground.
      * @returns {boolean} True if above ground, otherwise false.
@@ -30,7 +28,6 @@ class MovableObject extends DrawableObject{
     isAboveGround() {
         return this.y < 250;
     }
-    
     
     /**
      * Checks if this object collides with another.
@@ -86,7 +83,6 @@ class MovableObject extends DrawableObject{
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-    
     
     /**
      * Moves the object to the right.
@@ -150,25 +146,5 @@ class MovableObject extends DrawableObject{
         let isFalling = this.speedY < 0;
         return isColliding && isFalling;
     }
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }

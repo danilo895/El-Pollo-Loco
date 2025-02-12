@@ -49,4 +49,5 @@ class Coin extends DrawableObject {
             this.height = this.currentImage === 1 ? 96 : 93;
         }, 500);
     }
+    
 }

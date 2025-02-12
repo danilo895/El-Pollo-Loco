@@ -172,7 +172,6 @@ class World{
         });
     }
     
-
     /**
      * Adds an array of objects to the game map.
      * @param {DrawableObject[]} objects - The objects to be added.
@@ -218,5 +217,4 @@ class World{
         this.ctx.restore();
     }
 
-    
 }

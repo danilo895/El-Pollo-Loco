@@ -25,4 +25,5 @@ class DeadEnemy extends DrawableObject {
             }
         }, 2000);
     }
+    
 }

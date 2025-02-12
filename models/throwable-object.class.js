@@ -4,6 +4,14 @@
  */
 class ThrowableObject extends MovableObject {
     rotationAngle = 0;
+    IMAGES_BOTTLESPLASH = [
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+    ];
     /**
      * Creates a new ThrowableObject instance.
      * @param {number} x - The initial X position of the bottle.
@@ -12,6 +20,7 @@ class ThrowableObject extends MovableObject {
      */
     constructor(x, y, world) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
+        this.loadImages(this.IMAGES_BOTTLESPLASH);
         this.x = x;
         this.y = y;
         this.height = 90;

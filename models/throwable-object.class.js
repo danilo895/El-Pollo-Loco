@@ -152,22 +152,32 @@ class ThrowableObject extends MovableObject {
             } else {
                 this.handleRegularEnemyCollision(enemy);
             }
-            this.playSplashAnimation(this.x, this.y);
+            this.playSplashAnimation(enemy);
     
             this.removeBottle();
         }
     }
+    
 
-    /**
+/**
  * Plays the bottle splash animation at a specific position.
  * @param {number} x - X coordinate where the splash should occur.
  * @param {number} y - Y coordinate where the splash should occur.
  */
-playSplashAnimation(x, y) {
-    let splash = new DrawableObject(); // Erstelle eine temporäre Animation
-    splash.x = x;
-    splash.y = y;
-    splash.width = 48; // Größe der Splash-Animation
+/**
+ * Plays the bottle splash animation at the correct collision position.
+ * @param {Object} enemy - The enemy where the splash should occur.
+ */
+playSplashAnimation(enemy) {
+    let splash = new DrawableObject();
+    let splashX = (this.x + this.width / 2 < enemy.x + enemy.width / 2) 
+                ? enemy.x - this.width / 2  
+                : enemy.x + enemy.width - this.width / 2;  
+
+    let splashY = enemy.y + enemy.height / 2 - this.height / 4; 
+    splash.x = splashX;
+    splash.y = splashY;
+    splash.width = 48; 
     splash.height = 48;
     let imgIndex = 0;
 
@@ -180,8 +190,10 @@ playSplashAnimation(x, y) {
             this.world.level.enemies.splice(this.world.level.enemies.indexOf(splash), 1);
         }
     }, 100);
+
     this.world.level.enemies.push(splash);
 }
+
 
     
     

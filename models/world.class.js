@@ -141,7 +141,6 @@ class World{
         this.requestNextFrame();
     }
     
-
     clearCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
@@ -194,8 +193,6 @@ class World{
         }
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
-
         if(mo.otherDirection){
         this.flipImageBack(mo);
         }

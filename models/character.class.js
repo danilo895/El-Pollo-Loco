@@ -115,23 +115,55 @@ class Character extends MovableObject{
     }
 
     /**
-     * Handles character movement based on keyboard input.
+     * Handles all movement-related inputs for the character.
      */
     handleMovement() {
+        this.handleRightMovement();
+        this.handleLeftMovement();
+        this.handleJump();
+        this.handleWakeUp();
+    }
+
+    /**
+     * Moves the character to the right if the right key is pressed
+     * and the character is within the level bounds.
+     */
+    handleRightMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
             this.updateLastKeyPressTime();
         }
+    }
+
+    /**
+     * Moves the character to the left if the left key is pressed
+     * and the character is within the level bounds.
+     */
+    handleLeftMovement() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
             this.updateLastKeyPressTime();
         }
+    }
+
+    /**
+     * Makes the character jump if the space key is pressed
+     * and the character is on the ground.
+     */
+    handleJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
             this.updateLastKeyPressTime();
         }
+    }
+
+    /**
+     * Wakes up the character if the "D" key is pressed
+     * and the character is in the sleeping state.
+     */
+    handleWakeUp() {
         if (this.world.keyboard.D) {
             if (this.currentImageSet === this.IMAGES_SLEEPING) {
                 this.setSpeedInAnimation(this.IMAGES_STANDING, 200);
@@ -139,7 +171,6 @@ class Character extends MovableObject{
             this.updateLastKeyPressTime();
         }
     }
-    
 
     /**
      * Updates the camera position based on character movement.
@@ -238,8 +269,5 @@ class Character extends MovableObject{
             this.playAnimation(images);
         }
     }
-    
-    
-
 
 }

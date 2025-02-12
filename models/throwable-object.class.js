@@ -278,7 +278,6 @@ class ThrowableObject extends MovableObject {
         }
     }
     
-
     /**
      * Checks if the bottle is colliding with an enemy.
      * @param {Object} enemy - The enemy object to check.

@@ -158,29 +158,37 @@ class ThrowableObject extends MovableObject {
         }
     }
     
-
 /**
- * Plays the bottle splash animation at a specific position.
- * @param {number} x - X coordinate where the splash should occur.
- * @param {number} y - Y coordinate where the splash should occur.
- */
-/**
- * Plays the bottle splash animation at the correct collision position.
- * @param {Object} enemy - The enemy where the splash should occur.
+ * Triggers a splash animation when hitting an enemy.
+ * @param {Object} enemy - The enemy object where the splash occurs.
  */
 playSplashAnimation(enemy) {
-    let splash = new DrawableObject();
-    let splashX = (this.x + this.width / 2 < enemy.x + enemy.width / 2) 
-                ? enemy.x - this.width / 2  
-                : enemy.x + enemy.width - this.width / 2;  
+    let splash = this.createSplashObject(enemy);
+    this.animateSplash(splash);
+    this.world.level.enemies.push(splash);
+}
 
-    let splashY = enemy.y + enemy.height / 2 - this.height / 4; 
+/**
+ * Creates and returns a splash object with calculated coordinates.
+ * @param {Object} enemy - The enemy object used for positioning.
+ * @returns {Object} splash - The created splash object.
+ */
+createSplashObject(enemy) {
+    let splash = new DrawableObject();
+    let { splashX, splashY } = this.calculateSplashCoordinates(enemy);
     splash.x = splashX;
     splash.y = splashY;
-    splash.width = 48; 
+    splash.width = 48;
     splash.height = 48;
-    let imgIndex = 0;
+    return splash;
+}
 
+/**
+ * Animates the splash effect by cycling through images.
+ * @param {Object} splash - The splash object to animate.
+ */
+animateSplash(splash) {
+    let imgIndex = 0;
     let splashInterval = setInterval(() => {
         if (imgIndex < this.IMAGES_BOTTLESPLASH.length) {
             splash.img = this.imageCache[this.IMAGES_BOTTLESPLASH[imgIndex]];
@@ -190,12 +198,23 @@ playSplashAnimation(enemy) {
             this.world.level.enemies.splice(this.world.level.enemies.indexOf(splash), 1);
         }
     }, 100);
+}
 
-    this.world.level.enemies.push(splash);
+/**
+ * Calculates the coordinates for the splash effect based on the enemy's position.
+ * @param {Object} enemy - The enemy object used for coordinate calculation.
+ * @returns {Object} - The calculated splash coordinates (splashX, splashY).
+ */
+calculateSplashCoordinates(enemy) {
+    let additionalOffsetX = (enemy instanceof BossChicken) ? enemy.offsetX : 0; // Offset für BossChicken
+    let splashX = (this.x + this.width / 2 < enemy.x + enemy.width / 2) 
+                ? enemy.x - this.width / 2 + additionalOffsetX  // Offset hinzufügen, falls Boss
+                : enemy.x + enemy.width - this.width / 2 + additionalOffsetX;
+    let splashY = enemy.y + enemy.height / 2 - this.height / 4; 
+    return { splashX, splashY };
 }
 
 
-    
     
     /**
      * Handles the bottle collision with the boss enemy.
@@ -217,7 +236,7 @@ playSplashAnimation(enemy) {
         }
     }
     
-        /**
+    /**
      * Handles the bottle collision with regular enemies (Chickens & Chicks).
      * Removes the enemy from the game.
      * @param {Object} enemy - The enemy object.
@@ -275,14 +294,15 @@ playSplashAnimation(enemy) {
     isCollidingWithEnemy(enemy) {
         let bottleCenterX = this.x + this.width / 2;
         let bottleCenterY = this.y + this.height / 2;
-
         let enemyCenterX = enemy.x + enemy.width / 2;
         let enemyCenterY = enemy.y + enemy.height / 2;
-
+        if (enemy instanceof BossChicken) {
+            enemyCenterX += enemy.offsetX;
+        }
         let dx = Math.abs(bottleCenterX - enemyCenterX);
         let dy = Math.abs(bottleCenterY - enemyCenterY);
         let collision = (dx < (this.width / 2 + enemy.width / 2)) &&
-                    (dy < (this.height / 2 + enemy.height / 2));
+                        (dy < (this.height / 2 + enemy.height / 2));
         return collision;
     }
 }

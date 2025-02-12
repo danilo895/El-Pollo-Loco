@@ -6,7 +6,7 @@ class BossChicken extends MovableObject {
     y = 75;
     height = 400;
     width = 250;
-    offsetX = 0;
+    offsetX = 30;
     offsetY = 0;
     waitingAnimationInterval = null;
     attackStarted = false; 

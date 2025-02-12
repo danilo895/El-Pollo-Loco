@@ -37,9 +37,7 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 25;
         this.applyGravityBottle(); 
-    
         let direction = this.world.character.otherDirection ? -1 : 1;
-    
         throwSound.currentTime = 0;
         throwSound.play();
     
@@ -226,7 +224,6 @@ class ThrowableObject extends MovableObject {
         } else {
             enemy.playHurtAnimation();
         }
-    
         if (!enemy.isDead) {
             setTimeout(() => {
                 enemy.hasBeenHit = false;

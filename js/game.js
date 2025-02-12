@@ -102,14 +102,12 @@ function resetGameFully() {
     document.getElementById("start-game-button").disabled = true;
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('start-overlay').classList.remove('d-none');
-
     level1.enemies = [];
     level1.coins = [];
     level1.tabascoBottles = [];
     throwableObjects = [];
     enemiesSetted = false;
     level1 = createLevel();
-
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);

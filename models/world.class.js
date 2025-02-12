@@ -129,29 +129,55 @@ class World{
     /**
      * Draws all game elements onto the canvas.
      */
-    draw(){
+    draw() {
         if (!world) return;
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.clearCanvas();
+        
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
+        this.drawBackground(); // Hintergrund zeichnen
         this.ctx.translate(-this.camera_x, 0);
+    
+        this.ctx.translate(this.camera_x, 0);
+        this.drawGameObjects(); // Spielfiguren & Objekte zeichnen
+        this.ctx.translate(-this.camera_x, 0);
+    
+        this.drawUI();
+    
+        this.requestNextFrame();
+    }
+    
+
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    drawBackground() {
+        this.addObjectsToMap(this.level.backgroundObjects);
+    }
+    
+    drawUI() {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarEndboss);        
-        this.ctx.translate(this.camera_x, 0);
+        this.addToMap(this.statusBarEndboss);
+    }
+    
+    drawGameObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.tabascoBottles);
-        this.ctx.translate(-this.camera_x, 0);
+    }
+    
+    requestNextFrame() {
         let self = this;
-        requestAnimationFrame(function(){
-            self.draw()
+        requestAnimationFrame(function() {
+            self.draw();
         });
     }
+    
 
     /**
      * Adds an array of objects to the game map.

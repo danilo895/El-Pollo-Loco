@@ -3,7 +3,7 @@
  * Inherits from MovableObject and has multiple animations and attack behaviors.
  */
 class BossChicken extends MovableObject {
-    y = 100;
+    y = 75;
     height = 400;
     width = 250;
     offsetX = 0;
@@ -191,8 +191,8 @@ class BossChicken extends MovableObject {
         if (this.isDead) {
             return;
         }   
-        let startX = 2500; 
-        let minX = 1000; 
+        let startX = 2400; 
+        let minX = 2000; 
         const attackLoop = () => {
             if (this.isDead) {
                 return;
@@ -215,15 +215,19 @@ class BossChicken extends MovableObject {
      */
     returnToStartPosition(startX) {
         if (this.isDead) return;
+        let originalSpeed = this.speed;
+        this.speed = 7; 
         let returnInterval = setInterval(() => {
-            if (this.x < startX) {
+            if (this.x < startX) { 
                 this.moveRight();
             } else {
                 clearInterval(returnInterval);
+                this.speed = originalSpeed;
                 this.startAttackCycle();
             }
         }, 1000 / 60);
     }
+    
     
 
 /**

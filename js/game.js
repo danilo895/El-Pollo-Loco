@@ -139,6 +139,8 @@ function resetGameLose() {
 }
 
 
+
+
 /**
  * Starts a new game after winning.
  */
@@ -184,23 +186,6 @@ function showWinningScreen() {
     resetGame();
 }
 
-/**
- * Resets the game after winning.
- */
-function resetGame() {
-    setTimeout(() => {
-        world = null;
-        level1.enemies = [];
-        enemiesSetted = false;
-        level1 = createLevel();
-        let canvas = document.getElementById("canvas");
-        let ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        init();
-    }, 1500);
-}
-
 
 
 function showLosingScreen() {
@@ -214,26 +199,6 @@ function showLosingScreen() {
         document.getElementById('lose-overlay').classList.add('d-flex');
 }
 
-
-
-
-
-function resetGameAfterLose() {
-    if (world && world.character && !world.character.isDead()) {
-        return;
-    }
-    document.getElementById("start-game-button").disabled = true;
-    world = null;
-    level1 = createLevel();
-    enemiesSetted = false;
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    restartGameAfterLose();
-}
-
-
-
 function restartGameAfterLose() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('lose-overlay').classList.add('d-none');
@@ -244,7 +209,7 @@ function restartGameAfterLose() {
         new Chicken(),
         new Chick(),
         new BossChicken()
-    ];  
+    ];
     enemiesSetted = true;
     world.setWorld(); 
     world.draw();
@@ -324,6 +289,24 @@ function removeInstructions(){
     document.getElementById('start-overlay').classList.add('d-flex');
 }
 
+/**
+ * Resets the game after winning.
+ */
+function resetGame() {
+    setTimeout(() => {
+        world = null;
+        level1.enemies = [];
+        level1.coins = [];
+        level1.tabascoBottles = [];
+        enemiesSetted = false;
+        level1 = createLevel();
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stopAllIntervals();
+        init();
+    }, 1500);
+}
 
 function stopAllIntervals() {
     let highestId = setInterval(() => {}, 1000);

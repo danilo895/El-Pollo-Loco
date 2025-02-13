@@ -330,7 +330,7 @@ document.addEventListener("touchend", (event) => {
 });
 
 document.addEventListener("touchstart", function (event) {
-    if (event.target.tagName === "IMG" && !event.target.closest(".arrow, .jump-button, .throw-button")) {
+    if (event.target.tagName === "IMG" && !event.target.closest(".jump-button, .throw-button")) {
         event.preventDefault();
     }
 }, { passive: false });

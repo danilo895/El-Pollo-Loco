@@ -631,8 +631,10 @@ cursor: pointer;
 
 
         .arrow{
-            height: 60px;
-            width: 60px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-color: rgb(221 221 221 / 17%);
         }
 
         .arrow:hover{
@@ -721,7 +723,7 @@ cursor: pointer;
             gap: 24px;
             position: absolute;
             left: 24px;
-            bottom: 0;
+            bottom: 4px;
         }
     
         .jump-throw-cont{

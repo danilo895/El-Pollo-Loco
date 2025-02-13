@@ -241,17 +241,7 @@ function restartGameAfterLose() {
     world.draw();
 }
 
-/**
- * Prevents the default context menu from appearing when right-clicking on elements
- * with the class "nav-control-buttons".
- *
- * @param {Event} event - The context menu event.
- */
-document.addEventListener("contextmenu", function (event) {
-    if (event.target.closest(".nav-control-buttons")) {
-        event.preventDefault();
-    }
-});
+
 
 /**
  * START moving left when the button is pressed.
@@ -329,12 +319,24 @@ document.addEventListener("touchend", (event) => {
     }
 });
 
-document.addEventListener("touchstart", function (event) {
-    if (event.target.tagName === "IMG" && !event.target.closest(".jump-button, .throw-button")) {
+
+document.addEventListener("contextmenu", function (event) {
+    if (event.target.closest(".nav-control-buttons, .arrow, .jump-button, .throw-button")) {
         event.preventDefault();
+    }
+});
+
+document.addEventListener("touchstart", function (event) {
+    if (event.target.closest(".arrow")) {
+        event.preventDefault(); // Nur für Move-Buttons (Links/Rechts) blockieren
     }
 }, { passive: false });
 
+document.addEventListener("touchend", function (event) {
+    if (event.target.closest(".arrow")) {
+        event.preventDefault();
+    }
+});
 
 
 /**

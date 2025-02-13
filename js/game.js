@@ -254,48 +254,49 @@ document.addEventListener("contextmenu", function (event) {
 });
 
 /**
- * Starts moving left in mobile controls by setting the LEFT key to true
- * and keeping it active through an interval.
+ * START moving left when the button is pressed.
  */
 function mobileMoveLeftStart() {
     keyboard.LEFT = true;
-    moveLeftInterval = setInterval(() => {
-        keyboard.LEFT = true;
-    }, 100);
+    if (!moveLeftInterval) {
+        moveLeftInterval = setInterval(() => {
+            keyboard.LEFT = true;
+        }, 100);
+    }
 }
 
 /**
- * Stops moving left in mobile controls by setting the LEFT key to false
- * and clearing the movement interval.
+ * STOP moving left when the button is released.
  */
 function mobileMoveLeftEnd() {
     keyboard.LEFT = false;
     clearInterval(moveLeftInterval);
+    moveLeftInterval = null;
 }
 
 /**
- * Starts moving right in mobile controls by setting the RIGHT key to true
- * and keeping it active through an interval.
+ * START moving right when the button is pressed.
  */
 function mobileMoveRightStart() {
     keyboard.RIGHT = true;
-    moveRightInterval = setInterval(() => {
-        keyboard.RIGHT = true;
-    }, 100);
+    if (!moveRightInterval) {
+        moveRightInterval = setInterval(() => {
+            keyboard.RIGHT = true;
+        }, 100);
+    }
 }
 
 /**
- * Stops moving right in mobile controls by setting the RIGHT key to false
- * and clearing the movement interval.
+ * STOP moving right when the button is released.
  */
 function mobileMoveRightEnd() {
     keyboard.RIGHT = false;
     clearInterval(moveRightInterval);
+    moveRightInterval = null;
 }
 
 /**
- * Simulates a jump action in mobile controls by setting the SPACE key to true
- * and automatically resetting it after 200 milliseconds.
+ * Jump action (only triggered once on tap).
  */
 function mobileJump() {
     keyboard.SPACE = true;
@@ -305,16 +306,36 @@ function mobileJump() {
 }
 
 /**
- * Simulates a throw action in mobile controls by setting the D key to true
- * and automatically resetting it after 200 milliseconds.
+ * Throw action (only triggered once on tap).
  */
-
 function mobileThrow() {
     keyboard.D = true;
     setTimeout(() => {
         keyboard.D = false;
     }, 200);
 }
+
+/**
+ * Global iOS fix - Only applies to movement buttons, not jump/throw.
+ */
+document.addEventListener("touchend", (event) => {
+    if (event.target.closest(".arrow")) {
+        keyboard.LEFT = false;
+        keyboard.RIGHT = false;
+        clearInterval(moveLeftInterval);
+        clearInterval(moveRightInterval);
+        moveLeftInterval = null;
+        moveRightInterval = null;
+    }
+});
+
+document.addEventListener("touchstart", function (event) {
+    if (event.target.tagName === "IMG" && !event.target.closest(".arrow, .jump-button, .throw-button")) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+
 
 /**
  * Overlay changing
